@@ -1,0 +1,72 @@
+/* layouts.css
+   Layout-specific typography and spacing overrides.
+   Source: Agent 2 (all official themes follow this pattern)
+*/
+
+.slidev-layout {
+  font-family: var(--aurora-font-sans);
+}
+
+.slidev-layout h1 {
+  font-size: var(--aurora-text-4xl);
+  font-weight: var(--aurora-font-bold);
+  line-height: var(--aurora-leading-tight);
+  letter-spacing: var(--aurora-tracking-tight);
+  margin-bottom: var(--aurora-space-4);
+}
+
+.slidev-layout h2 {
+  font-size: var(--aurora-text-3xl);
+  font-weight: var(--aurora-font-semibold);
+  line-height: var(--aurora-leading-tight);
+  margin-bottom: var(--aurora-space-3);
+}
+
+.slidev-layout h3 {
+  font-size: var(--aurora-text-2xl);
+  font-weight: var(--aurora-font-semibold);
+  margin-bottom: var(--aurora-space-2);
+}
+
+.slidev-layout p {
+  font-size: var(--aurora-text-lg);
+  line-height: var(--aurora-leading-relaxed);
+  color: var(--scheme-text-secondary, var(--aurora-slate-600));
+}
+
+.slidev-layout ul,
+.slidev-layout ol {
+  font-size: var(--aurora-text-lg);
+  line-height: var(--aurora-leading-relaxed);
+  padding-left: var(--aurora-space-6);
+}
+
+.slidev-layout li {
+  margin-bottom: var(--aurora-space-2);
+}
+
+.slidev-layout code {
+  font-family: var(--aurora-font-mono);
+  font-size: 0.875em;
+  background: var(--scheme-bg-code, var(--aurora-cream-200));
+  padding: 0.125em 0.375em;
+  border-radius: var(--aurora-radius-sm);
+}
+
+.slidev-layout blockquote {
+  border-left: 4px solid var(--scheme-accent, var(--aurora-lavender-400));
+  padding-left: var(--aurora-space-4);
+  font-style: italic;
+  color: var(--scheme-text-secondary, var(--aurora-slate-600));
+}
+
+.slidev-layout a {
+  color: var(--scheme-accent, var(--aurora-lavender-400));
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--aurora-duration-fast) var(--aurora-ease-out);
+}
+
+.slidev-layout a:hover {
+  border-bottom-color: currentColor;
+}

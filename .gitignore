@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.slidev/
+*.local
+
+# Source material (cloned repos for study, not committed)
+sources/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build artifacts
+*.pdf

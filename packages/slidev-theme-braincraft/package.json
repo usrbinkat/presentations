@@ -1,0 +1,32 @@
+{
+  "name": "slidev-theme-braincraft",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "keywords": [
+    "slidev-theme",
+    "slidev"
+  ],
+  "engines": {
+    "slidev": ">=52.0.0"
+  },
+  "slidev": {
+    "colorSchema": "both",
+    "highlighter": "shiki",
+    "defaults": {
+      "fonts": {
+        "sans": "Inter",
+        "mono": "Space Mono",
+        "weights": "300,400,500,600,700"
+      },
+      "transition": "slide-left"
+    }
+  },
+  "dependencies": {
+    "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@slidev/client": "catalog:",
+    "@slidev/types": "catalog:"
+  }
+}

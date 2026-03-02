@@ -1,0 +1,15 @@
+# slidev-workspace.yml
+# Config for slidev-workspace (leochiu-a/slidev-workspace)
+slidesDir:
+  - ./decks
+outputDir: ./dist
+baseUrl: /
+exclude:
+  - node_modules
+  - .git
+  - sources
+hero:
+  title: Braincraft Presentations
+  description: Engineering presentations powered by Slidev
+sidebar:
+  title: Decks

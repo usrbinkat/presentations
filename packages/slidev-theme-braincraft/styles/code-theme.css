@@ -1,0 +1,20 @@
+/* code-theme.css
+   Code syntax highlighting overrides for Aurora palette.
+   Bridges Slidev's --slidev-code-* vars to Aurora tokens.
+   Source: Agent 2 (all official themes bridge --prism-* or --shiki-* vars)
+*/
+
+:root {
+  --slidev-code-background: var(--aurora-cream-200);
+  --slidev-code-foreground: var(--aurora-slate-800);
+  --slidev-code-font-family: var(--aurora-font-mono);
+  --slidev-code-font-size: 0.875rem;
+  --slidev-code-line-height: 1.6;
+  --slidev-code-padding: var(--aurora-space-4);
+  --slidev-code-radius: var(--aurora-radius-lg);
+}
+
+html.dark {
+  --slidev-code-background: var(--aurora-slate-800);
+  --slidev-code-foreground: var(--aurora-cream-100);
+}

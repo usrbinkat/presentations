@@ -1,0 +1,205 @@
+name: Build and Deploy Presentations
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'presentations/decks/**'
+      - 'presentations/packages/**'
+      - 'presentations/shared/**'
+      - 'presentations/pnpm-workspace.yaml'
+      - 'presentations/package.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: presentations
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      decks: ${{ steps.set-matrix.outputs.decks }}
+      has_decks: ${{ steps.set-matrix.outputs.has_decks }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect changed decks
+        id: set-matrix
+        run: |
+          # Get all deck directories
+          ALL_DECKS=$(ls -d decks/*/ 2>/dev/null | xargs -I{} basename {} | jq -R -s -c 'split("\n") | map(select(length > 0))')
+
+          # Check if packages/ or shared/ changed (rebuild all)
+          INFRA_CHANGED=$(git diff --name-only HEAD~1 -- packages/ shared/ pnpm-workspace.yaml package.json 2>/dev/null || true)
+
+          if [ -n "$INFRA_CHANGED" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Infrastructure changed or manual trigger — rebuilding all decks"
+            DECKS="$ALL_DECKS"
+          else
+            # Only rebuild changed decks
+            CHANGED_DECKS=$(git diff --name-only HEAD~1 -- decks/ 2>/dev/null | cut -d'/' -f2 | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')
+            DECKS="$CHANGED_DECKS"
+          fi
+
+          echo "decks=$DECKS" >> "$GITHUB_OUTPUT"
+
+          if [ "$DECKS" = "[]" ] || [ -z "$DECKS" ]; then
+            echo "has_decks=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_decks=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          echo "Decks to build: $DECKS"
+
+  build:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has_decks == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        deck: ${{ fromJson(needs.detect-changes.outputs.decks) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'pnpm'
+          cache-dependency-path: presentations/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Install emoji font
+        run: sudo apt-get install -y fonts-noto-color-emoji
+
+      - name: Build SPA
+        run: |
+          cd decks/${{ matrix.deck }}
+          pnpm exec slidev build slides.md \
+            --base /${{ github.event.repository.name }}/${{ matrix.deck }}/ \
+            --out ../../dist/${{ matrix.deck }}
+
+      - name: Export PDF
+        continue-on-error: true
+        run: |
+          cd decks/${{ matrix.deck }}
+          pnpm exec slidev export slides.md \
+            --output ../../dist/${{ matrix.deck }}/${{ matrix.deck }}.pdf \
+            --timeout 60000
+
+      - name: Upload deck artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deck-${{ matrix.deck }}
+          path: presentations/dist/${{ matrix.deck }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all deck artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: presentations/dist
+          pattern: deck-*
+          merge-multiple: false
+
+      - name: Organize artifacts
+        run: |
+          # download-artifact creates deck-<name>/ subdirs; flatten to <name>/
+          cd dist
+          for dir in deck-*/; do
+            deck_name="${dir#deck-}"
+            deck_name="${deck_name%/}"
+            mv "$dir" "$deck_name" 2>/dev/null || true
+          done
+
+      - name: Generate landing page
+        run: |
+          cat > dist/index.html << 'HTMLEOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Braincraft Presentations</title>
+            <style>
+              *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+              body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 3rem 1rem; }
+              h1 { font-size: 2rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+              .subtitle { color: #94a3b8; margin-bottom: 2rem; }
+              .decks { display: grid; gap: 1rem; width: 100%; max-width: 640px; }
+              .deck { background: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; padding: 1.25rem 1.5rem; }
+              .deck h2 { font-size: 1.125rem; margin-bottom: 0.5rem; }
+              .deck a { color: #818cf8; text-decoration: none; margin-right: 1rem; }
+              .deck a:hover { text-decoration: underline; }
+            </style>
+          </head>
+          <body>
+            <h1>Braincraft Presentations</h1>
+            <p class="subtitle">Slide decks built with Slidev</p>
+            <div class="decks" id="decks"></div>
+            <script>
+          HTMLEOF
+
+          # Build deck list from dist directories
+          echo '    const decks = [' >> dist/index.html
+          for dir in dist/*/; do
+            [ -d "$dir" ] || continue
+            name=$(basename "$dir")
+            has_pdf="false"
+            [ -f "$dir/${name}.pdf" ] && has_pdf="true"
+            echo "      { name: \"${name}\", hasPdf: ${has_pdf} }," >> dist/index.html
+          done
+          cat >> dist/index.html << 'HTMLEOF'
+            ];
+            const container = document.getElementById('decks');
+            decks.forEach(d => {
+              const div = document.createElement('div');
+              div.className = 'deck';
+              const base = location.pathname.replace(/\/+$/, '');
+              let links = `<a href="${base}/${d.name}/">View Slides</a>`;
+              if (d.hasPdf) links += `<a href="${base}/${d.name}/${d.name}.pdf">Download PDF</a>`;
+              div.innerHTML = `<h2>${d.name}</h2><div>${links}</div>`;
+              container.appendChild(div);
+            });
+            </script>
+          </body>
+          </html>
+          HTMLEOF
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: presentations/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

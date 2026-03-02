@@ -1,0 +1,113 @@
+/* color-schemes.css
+   Class-based color schemes following Neversink's pattern (Agent 2).
+   Applied via frontmatter: color: lavender
+   Layout template: <div :class="'aurora-' + (props.color || 'cream') + '-scheme'">
+*/
+
+/* Default scheme — cream on white */
+.aurora-cream-scheme {
+  --scheme-bg: var(--aurora-cream-100);
+  --scheme-bg-code: var(--aurora-cream-200);
+  --scheme-text: var(--aurora-slate-800);
+  --scheme-text-secondary: var(--aurora-slate-600);
+  --scheme-heading: var(--aurora-slate-900);
+  --scheme-border: var(--aurora-cream-400);
+  --scheme-accent: var(--aurora-lavender-400);
+  --scheme-highlight: var(--aurora-lavender-300);
+  background-color: var(--scheme-bg);
+  color: var(--scheme-text);
+}
+
+/* Slate scheme — dark background */
+.aurora-slate-scheme {
+  --scheme-bg: var(--aurora-slate-800);
+  --scheme-bg-code: var(--aurora-slate-700);
+  --scheme-text: var(--aurora-cream-100);
+  --scheme-text-secondary: var(--aurora-cream-300);
+  --scheme-heading: white;
+  --scheme-border: var(--aurora-slate-600);
+  --scheme-accent: var(--aurora-lavender-300);
+  --scheme-highlight: var(--aurora-lavender-400);
+  background-color: var(--scheme-bg);
+  color: var(--scheme-text);
+}
+
+/* Lavender scheme */
+.aurora-lavender-scheme {
+  --scheme-bg: oklch(95% 0.04 300);
+  --scheme-bg-code: oklch(92% 0.06 300);
+  --scheme-text: var(--aurora-slate-800);
+  --scheme-text-secondary: var(--aurora-slate-600);
+  --scheme-heading: var(--aurora-lavender-500);
+  --scheme-border: var(--aurora-lavender-300);
+  --scheme-accent: var(--aurora-lavender-500);
+  --scheme-highlight: var(--aurora-lavender-300);
+  background-color: var(--scheme-bg);
+  color: var(--scheme-text);
+}
+
+/* Mint scheme */
+.aurora-mint-scheme {
+  --scheme-bg: oklch(95% 0.04 160);
+  --scheme-bg-code: oklch(92% 0.06 160);
+  --scheme-text: var(--aurora-slate-800);
+  --scheme-text-secondary: var(--aurora-slate-600);
+  --scheme-heading: var(--aurora-mint-500);
+  --scheme-border: var(--aurora-mint-300);
+  --scheme-accent: var(--aurora-mint-500);
+  --scheme-highlight: var(--aurora-mint-300);
+  background-color: var(--scheme-bg);
+  color: var(--scheme-text);
+}
+
+/* Peach scheme */
+.aurora-peach-scheme {
+  --scheme-bg: oklch(95% 0.04 60);
+  --scheme-bg-code: oklch(92% 0.06 60);
+  --scheme-text: var(--aurora-slate-800);
+  --scheme-text-secondary: var(--aurora-slate-600);
+  --scheme-heading: var(--aurora-peach-500);
+  --scheme-border: var(--aurora-peach-300);
+  --scheme-accent: var(--aurora-peach-500);
+  --scheme-highlight: var(--aurora-peach-300);
+  background-color: var(--scheme-bg);
+  color: var(--scheme-text);
+}
+
+/* Sky scheme */
+.aurora-sky-scheme {
+  --scheme-bg: oklch(95% 0.04 220);
+  --scheme-bg-code: oklch(92% 0.06 220);
+  --scheme-text: var(--aurora-slate-800);
+  --scheme-text-secondary: var(--aurora-slate-600);
+  --scheme-heading: var(--aurora-sky-500);
+  --scheme-border: var(--aurora-sky-300);
+  --scheme-accent: var(--aurora-sky-500);
+  --scheme-highlight: var(--aurora-sky-300);
+  background-color: var(--scheme-bg);
+  color: var(--scheme-text);
+}
+
+/* Scheme typography integration */
+[class*="aurora-"][class*="-scheme"] h1,
+[class*="aurora-"][class*="-scheme"] h2,
+[class*="aurora-"][class*="-scheme"] h3 {
+  color: var(--scheme-heading);
+}
+
+[class*="aurora-"][class*="-scheme"] p {
+  color: var(--scheme-text-secondary);
+}
+
+[class*="aurora-"][class*="-scheme"] code {
+  background: var(--scheme-bg-code);
+}
+
+[class*="aurora-"][class*="-scheme"] a {
+  color: var(--scheme-accent);
+}
+
+/* Heading text balance (from Agent 3: Dracula finding) */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}

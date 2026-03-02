@@ -1,0 +1,14 @@
+{
+  "name": "@braincraft/deck-workspace-convention",
+  "private": true,
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "catalog:",
+    "slidev-theme-braincraft": "workspace:*",
+    "slidev-addon-braincraft": "workspace:*"
+  }
+}

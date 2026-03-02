@@ -1,0 +1,23 @@
+{
+  "name": "braincraft-presentations",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev-workspace dev",
+    "build": "slidev-workspace build",
+    "lint": "eslint .",
+    "format": "prettier --write '**/*.{md,vue,ts,css,json,yaml}' --plugin prettier-plugin-slidev"
+  },
+  "devDependencies": {
+    "@slidev/cli": "catalog:",
+    "@slidev/client": "catalog:",
+    "@slidev/types": "catalog:",
+    "slidev-workspace": "^0.9.3",
+    "typescript": "catalog:",
+    "eslint": "catalog:",
+    "@antfu/eslint-config": "catalog:",
+    "prettier": "catalog:",
+    "prettier-plugin-slidev": "catalog:",
+    "unocss": "catalog:"
+  }
+}
