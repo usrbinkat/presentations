@@ -14,7 +14,8 @@
     "!**/*.test.*"
   ],
   "dependencies": {
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "qrcode": "catalog:"
   },
   "devDependencies": {
     "@slidev/client": "catalog:",

@@ -4,6 +4,31 @@
 //   - handleBackground/resolveAssetUrl: Agent 1 (client/layoutHelper.ts), Agent 2 (all official themes)
 //   - 12-col grid helpers: Agent 2 (Neversink layoutHelper.ts)
 
+/**
+ * Layout Slot Naming Convention
+ *
+ * All layouts MUST use these standardized slot names:
+ * - `default` — primary content area (every layout)
+ * - `title` — heading/title zone (layouts with dedicated title area)
+ * - `subtitle` — secondary heading (cover, intro)
+ * - `left` / `right` — column content (two-cols, two-cols-title, side-title, comparison)
+ * - `footer` — bottom zone (rarely used, prefer Footnote component)
+ * - `media` — image/video/diagram area (image, image-text, figure, video)
+ * - `caption` — description for media content (figure, image-caption)
+ * - `meta` — metadata zone (date, tags, category — cover, end)
+ *
+ * Layout Props Convention (for ontology scale):
+ * - `color` — scheme color (lavender|mint|peach|sky), consumed by useSchemeClass()
+ * - `background` — CSS color, gradient, or image URL, consumed by handleBackground()
+ * - `class` — additional CSS classes to merge onto root element
+ *
+ * All layouts MUST:
+ * - Call useSchemeClass(props.color) and bind result to root element
+ * - Set height: 100% on root element
+ * - Use Aurora spacing tokens (never hardcoded rem/px for padding/margin)
+ * - Use logical properties (inline-start/end, block-start/end)
+ */
+
 import type { CSSProperties } from 'vue'
 
 export function resolveAssetUrl(url: string): string {
@@ -25,7 +50,11 @@ export function handleBackground(
     || background.startsWith('hsl')
     || background.startsWith('var(')
 
-  if (isColor) {
+  const isGradient = background.startsWith('linear-gradient')
+    || background.startsWith('radial-gradient')
+    || background.startsWith('conic-gradient')
+
+  if (isColor || isGradient) {
     return { background }
   }
 
@@ -41,57 +70,30 @@ export function handleBackground(
 }
 
 /**
- * 12-column grid helpers (from Neversink, Agent 2).
- * Maps semantic column names to CSS grid-column spans.
+ * Compute the Aurora color scheme class name.
+ * Used by every layout to map the `color` prop to a CSS class.
  */
-type ColumnSize =
-  | 'is-full' | 'is-half'
-  | 'is-one-third' | 'is-two-thirds'
-  | 'is-one-quarter' | 'is-three-quarters'
-  | 'is-one-sixth' | 'is-five-sixths'
-
-const COLUMN_MAP: Record<ColumnSize, number> = {
-  'is-full': 12,
-  'is-half': 6,
-  'is-one-third': 4,
-  'is-two-thirds': 8,
-  'is-one-quarter': 3,
-  'is-three-quarters': 9,
-  'is-one-sixth': 2,
-  'is-five-sixths': 10,
-}
-
-export function computeColumnSpan(size: string): number {
-  if (size in COLUMN_MAP)
-    return COLUMN_MAP[size as ColumnSize]
-  // Try numeric (1-12)
-  const n = Number.parseInt(size, 10)
-  if (n >= 1 && n <= 12)
-    return n
-  return 6 // default half
+export function useSchemeClass(color?: string, fallback = 'cream'): string {
+  return `aurora-${color || fallback}-scheme`
 }
 
 /**
- * 2-letter alignment codes to CSS class mapping (Neversink pattern, Agent 2).
- * First letter: l=left, c=center, r=right
- * Second letter: t=top, m=middle, b=bottom
+ * Shared composable for all layout components.
+ * Provides scheme class, background style, and common props processing.
+ * Every layout should call this in <script setup>.
+ *
+ * Existing layouts that only need useSchemeClass() don't need to migrate —
+ * this is a convenience wrapper for new layouts and future refactors.
  */
-type AlignCode = 'lt' | 'lm' | 'lb' | 'ct' | 'cm' | 'cb' | 'rt' | 'rm' | 'rb'
+export function useLayoutProps(
+  props: { color?: string, background?: string, class?: string },
+  options: { defaultScheme?: string } = {},
+) {
+  const schemeClass = useSchemeClass(props.color, options.defaultScheme)
+  const backgroundStyle = props.background ? handleBackground(props.background) : undefined
 
-const ALIGN_MAP: Record<AlignCode, string> = {
-  lt: 'items-start justify-start',
-  lm: 'items-start justify-center',
-  lb: 'items-start justify-end',
-  ct: 'items-center justify-start',
-  cm: 'items-center justify-center',
-  cb: 'items-center justify-end',
-  rt: 'items-end justify-start',
-  rm: 'items-end justify-center',
-  rb: 'items-end justify-end',
-}
-
-export function computeAlignment(code?: string): string {
-  if (!code)
-    return ''
-  return ALIGN_MAP[code as AlignCode] || ''
+  return {
+    schemeClass,
+    backgroundStyle,
+  }
 }

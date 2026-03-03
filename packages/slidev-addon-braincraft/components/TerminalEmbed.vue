@@ -10,35 +10,41 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = withDefaults(defineProps<{
+const { src, fallbackImage = '', height = '400px' } = defineProps<{
   src: string
   fallbackImage?: string
   height?: string
-}>(), {
-  fallbackImage: '',
-  height: '400px',
-})
+}>()
 
 const isPrint = computed(() => {
-  if (typeof window === 'undefined') return true
+  if (typeof window === 'undefined')
+    return true
+  // Slidev export uses Playwright, not print media — check for export mode
+  if ((window as any).__slidev_export)
+    return true
   return window.matchMedia?.('print')?.matches ?? false
 })
 </script>
 
 <template>
-  <div class="terminal-embed" :style="{ height: props.height }">
-    <template v-if="isPrint && props.fallbackImage">
-      <img :src="props.fallbackImage" alt="Terminal screenshot" class="terminal-fallback-img" />
+  <div class="terminal-embed" :style="{ height }">
+    <template v-if="isPrint && fallbackImage">
+      <img :src="fallbackImage" alt="Terminal screenshot" class="terminal-fallback-img">
     </template>
     <template v-else-if="isPrint">
       <div class="terminal-fallback">
-        <div class="terminal-fallback-icon">&#9608;&#9608;&#9608;</div>
-        <div class="terminal-fallback-url">{{ props.src }}</div>
+        <div class="terminal-fallback-icon">
+          &#9608;&#9608;&#9608;
+        </div>
+        <div class="terminal-fallback-url">
+          {{ src }}
+        </div>
       </div>
     </template>
     <template v-else>
       <iframe
-        :src="props.src"
+        :src="src"
+        :title="`Terminal: ${src}`"
         class="terminal-iframe"
         frameborder="0"
         allow="clipboard-read; clipboard-write"
@@ -49,7 +55,7 @@ const isPrint = computed(() => {
 
 <style scoped>
 .terminal-embed {
-  border: 2px solid var(--aurora-cream-400);
+  border: 2px solid var(--scheme-border, var(--aurora-cream-400));
   border-radius: var(--aurora-radius-lg);
   overflow: hidden;
   background: var(--aurora-slate-900);
@@ -82,20 +88,16 @@ const isPrint = computed(() => {
 .terminal-fallback-icon {
   font-family: var(--aurora-font-mono);
   font-size: var(--aurora-text-2xl);
-  color: var(--aurora-mint-400);
+  color: var(--scheme-accent, var(--aurora-mint-400));
   opacity: 0.6;
 }
 
 .terminal-fallback-url {
   font-family: var(--aurora-font-mono);
   font-size: var(--aurora-text-xs);
-  color: var(--aurora-slate-400);
+  color: var(--scheme-text-secondary, var(--aurora-slate-400));
   word-break: break-all;
   text-align: center;
   padding: 0 var(--aurora-space-4);
-}
-
-html.dark .terminal-embed {
-  border-color: var(--aurora-slate-700);
 }
 </style>

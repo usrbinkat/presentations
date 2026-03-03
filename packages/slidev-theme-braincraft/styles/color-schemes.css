@@ -8,13 +8,17 @@
 .aurora-cream-scheme {
   --scheme-bg: var(--aurora-cream-100);
   --scheme-bg-code: var(--aurora-cream-200);
-  --scheme-text: var(--aurora-slate-800);
-  --scheme-text-secondary: var(--aurora-slate-600);
-  --scheme-heading: var(--aurora-slate-900);
+  --scheme-text: var(--aurora-slate-600);
+  --scheme-text-secondary: var(--aurora-slate-500);
   --scheme-border: var(--aurora-cream-400);
+  --scheme-heading: var(--aurora-slate-700);
   --scheme-accent: var(--aurora-lavender-400);
   --scheme-highlight: var(--aurora-lavender-300);
-  background-color: var(--scheme-bg);
+  --scheme-shadow: var(--aurora-shadow-sm);
+  background:
+    radial-gradient(ellipse at 30% 40%, oklch(35% 0.02 300 / 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 70%, oklch(35% 0.02 160 / 0.04) 0%, transparent 50%),
+    var(--scheme-bg);
   color: var(--scheme-text);
 }
 
@@ -28,7 +32,11 @@
   --scheme-border: var(--aurora-slate-600);
   --scheme-accent: var(--aurora-lavender-300);
   --scheme-highlight: var(--aurora-lavender-400);
-  background-color: var(--scheme-bg);
+  --scheme-shadow: var(--aurora-shadow-sm);
+  background:
+    radial-gradient(ellipse at 20% 30%, oklch(90% 0.03 85 / 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, oklch(90% 0.02 300 / 0.04) 0%, transparent 50%),
+    var(--scheme-bg);
   color: var(--scheme-text);
 }
 
@@ -36,13 +44,17 @@
 .aurora-lavender-scheme {
   --scheme-bg: oklch(95% 0.04 300);
   --scheme-bg-code: oklch(92% 0.06 300);
-  --scheme-text: var(--aurora-slate-800);
-  --scheme-text-secondary: var(--aurora-slate-600);
-  --scheme-heading: var(--aurora-lavender-500);
+  --scheme-text: var(--aurora-slate-600);
+  --scheme-text-secondary: var(--aurora-slate-500);
+  --scheme-heading: var(--aurora-slate-700);
   --scheme-border: var(--aurora-lavender-300);
-  --scheme-accent: var(--aurora-lavender-500);
+  --scheme-accent: var(--aurora-lavender-400);
   --scheme-highlight: var(--aurora-lavender-300);
-  background-color: var(--scheme-bg);
+  --scheme-shadow: var(--aurora-shadow-lavender);
+  background:
+    radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 300 / 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 160 / 0.03) 0%, transparent 50%),
+    var(--scheme-bg);
   color: var(--scheme-text);
 }
 
@@ -50,13 +62,17 @@
 .aurora-mint-scheme {
   --scheme-bg: oklch(95% 0.04 160);
   --scheme-bg-code: oklch(92% 0.06 160);
-  --scheme-text: var(--aurora-slate-800);
-  --scheme-text-secondary: var(--aurora-slate-600);
-  --scheme-heading: var(--aurora-mint-500);
+  --scheme-text: var(--aurora-slate-600);
+  --scheme-text-secondary: var(--aurora-slate-500);
+  --scheme-heading: var(--aurora-slate-700);
   --scheme-border: var(--aurora-mint-300);
-  --scheme-accent: var(--aurora-mint-500);
+  --scheme-accent: var(--aurora-mint-400);
   --scheme-highlight: var(--aurora-mint-300);
-  background-color: var(--scheme-bg);
+  --scheme-shadow: var(--aurora-shadow-mint);
+  background:
+    radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 160 / 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 300 / 0.03) 0%, transparent 50%),
+    var(--scheme-bg);
   color: var(--scheme-text);
 }
 
@@ -64,13 +80,17 @@
 .aurora-peach-scheme {
   --scheme-bg: oklch(95% 0.04 60);
   --scheme-bg-code: oklch(92% 0.06 60);
-  --scheme-text: var(--aurora-slate-800);
-  --scheme-text-secondary: var(--aurora-slate-600);
-  --scheme-heading: var(--aurora-peach-500);
+  --scheme-text: var(--aurora-slate-600);
+  --scheme-text-secondary: var(--aurora-slate-500);
+  --scheme-heading: var(--aurora-slate-700);
   --scheme-border: var(--aurora-peach-300);
-  --scheme-accent: var(--aurora-peach-500);
+  --scheme-accent: var(--aurora-peach-400);
   --scheme-highlight: var(--aurora-peach-300);
-  background-color: var(--scheme-bg);
+  --scheme-shadow: var(--aurora-shadow-peach);
+  background:
+    radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 60 / 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 300 / 0.03) 0%, transparent 50%),
+    var(--scheme-bg);
   color: var(--scheme-text);
 }
 
@@ -78,36 +98,157 @@
 .aurora-sky-scheme {
   --scheme-bg: oklch(95% 0.04 220);
   --scheme-bg-code: oklch(92% 0.06 220);
-  --scheme-text: var(--aurora-slate-800);
-  --scheme-text-secondary: var(--aurora-slate-600);
-  --scheme-heading: var(--aurora-sky-500);
+  --scheme-text: var(--aurora-slate-600);
+  --scheme-text-secondary: var(--aurora-slate-500);
+  --scheme-heading: var(--aurora-slate-700);
   --scheme-border: var(--aurora-sky-300);
-  --scheme-accent: var(--aurora-sky-500);
+  --scheme-accent: var(--aurora-sky-400);
   --scheme-highlight: var(--aurora-sky-300);
-  background-color: var(--scheme-bg);
+  --scheme-shadow: var(--aurora-shadow-sky);
+  background:
+    radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 220 / 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 160 / 0.03) 0%, transparent 50%),
+    var(--scheme-bg);
   color: var(--scheme-text);
 }
 
 /* Scheme typography integration */
-[class*="aurora-"][class*="-scheme"] h1,
-[class*="aurora-"][class*="-scheme"] h2,
-[class*="aurora-"][class*="-scheme"] h3 {
-  color: var(--scheme-heading);
-}
+[class*='aurora-'][class*='-scheme'] {
+  h1,
+  h2,
+  h3 {
+    color: var(--scheme-heading);
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 12px
+      color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 20%, transparent);
+  }
 
-[class*="aurora-"][class*="-scheme"] p {
-  color: var(--scheme-text-secondary);
-}
+  h1 {
+    letter-spacing: -0.02em;
+    padding-bottom: var(--aurora-space-2);
+    border-bottom: 2px solid
+      color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 30%, transparent);
+  }
 
-[class*="aurora-"][class*="-scheme"] code {
-  background: var(--scheme-bg-code);
-}
+  p {
+    color: var(--scheme-text-secondary);
+  }
 
-[class*="aurora-"][class*="-scheme"] a {
-  color: var(--scheme-accent);
+  code {
+    background: var(--scheme-bg-code);
+  }
+
+  a {
+    color: var(--scheme-accent);
+
+    &:hover {
+      color: color-mix(in oklch, var(--scheme-accent) 85%, black);
+    }
+
+    &:active {
+      color: color-mix(in oklch, var(--scheme-accent) 70%, black);
+    }
+  }
 }
 
 /* Heading text balance (from Agent 3: Dracula finding) */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-wrap: balance;
+}
+
+.slidev-layout {
+  /* Heading balance scoped to slidev-layout for specificity */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* Themed text selection — scheme-aware highlight */
+  ::selection {
+    background: light-dark(
+      var(--scheme-accent, var(--aurora-lavender-400)),
+      var(--scheme-accent, var(--aurora-lavender-500))
+    );
+    color: var(--aurora-cream-50);
+  }
+
+  /* Accessible focus indicators — scheme-aware */
+  :focus-visible {
+    outline: 2px solid var(--scheme-accent, var(--aurora-lavender-400));
+    outline-offset: 2px;
+    border-radius: var(--aurora-radius-sm);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   ACCESSIBILITY — Enhanced contrast
+   Complements aurora-tokens.css prefers-contrast: high
+   ═══════════════════════════════════════════════════ */
+
+@media (prefers-contrast: more) {
+  .slidev-layout {
+    --aurora-shadow-sm: none;
+    --aurora-shadow-md: none;
+    --aurora-shadow-lg: none;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   ACCESSIBILITY — Windows High Contrast Mode
+   System color keywords ensure visibility when the OS
+   overrides all page colors.
+   ═══════════════════════════════════════════════════ */
+
+@media (forced-colors: active) {
+  .slidev-layout {
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  .admonition {
+    border: 2px solid CanvasText;
+  }
+
+  .metric-card {
+    border: 1px solid CanvasText;
+  }
+
+  .code-comparison {
+    border: 1px solid CanvasText;
+  }
+
+  .speaker-bio {
+    border: 1px solid CanvasText;
+  }
+
+  .progress-fill {
+    background: Highlight;
+  }
+
+  .qr-placeholder {
+    border-color: CanvasText;
+  }
+
+  .terminal-embed {
+    border-color: CanvasText;
+  }
+
+  .footnote-marker {
+    color: LinkText;
+  }
+
+  .quote :deep(blockquote) {
+    border-inline-start-color: CanvasText;
+  }
 }

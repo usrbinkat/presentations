@@ -1,0 +1,90 @@
+/* transitions.css — Named slide transitions for Aurora theme
+   Usage in frontmatter: transition: aurora-fade
+   Or per-slide: transition: aurora-slide-up
+
+   View Transitions API: Slidev 52 does not integrate with document.startViewTransition().
+   Slidev's slide transition system uses Vue <Transition> components.
+   When Slidev adds View Transition support, replace aurora-* transitions
+   with ::view-transition-old/new pseudo-element animations for smoother
+   cross-slide morphing. Track: https://github.com/slidevjs/slidev/issues */
+
+/* ═══════════════════════════════════════════════════
+   AURORA FADE — subtle scale + opacity (default)
+   ═══════════════════════════════════════════════════ */
+
+.aurora-fade-enter-active,
+.aurora-fade-leave-active {
+  will-change: opacity, transform;
+  transition:
+    opacity var(--aurora-duration-normal) var(--aurora-ease-out),
+    transform var(--aurora-duration-normal) var(--aurora-ease-spring);
+}
+
+.aurora-fade-enter-from {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.aurora-fade-leave-to {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+/* ═══════════════════════════════════════════════════
+   AURORA SLIDE-UP — content rises into frame
+   ═══════════════════════════════════════════════════ */
+
+.aurora-slide-up-enter-active,
+.aurora-slide-up-leave-active {
+  will-change: opacity, transform;
+  transition:
+    opacity var(--aurora-duration-normal) var(--aurora-ease-out),
+    transform var(--aurora-duration-normal) var(--aurora-ease-spring);
+}
+
+.aurora-slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(var(--aurora-space-6));
+}
+
+.aurora-slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(calc(-1 * var(--aurora-space-3)));
+}
+
+/* ═══════════════════════════════════════════════════
+   AURORA ZOOM — for section dividers
+   ═══════════════════════════════════════════════════ */
+
+.aurora-zoom-enter-active,
+.aurora-zoom-leave-active {
+  will-change: opacity, transform;
+  transition:
+    opacity var(--aurora-duration-slow) var(--aurora-ease-out),
+    transform var(--aurora-duration-slow) var(--aurora-ease-spring);
+}
+
+.aurora-zoom-enter-from {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.aurora-zoom-leave-to {
+  opacity: 0;
+  transform: scale(1.08);
+}
+
+/* ═══════════════════════════════════════════════════
+   REDUCED MOTION — respect user preferences
+   ═══════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-fade-enter-from,
+  .aurora-fade-leave-to,
+  .aurora-slide-up-enter-from,
+  .aurora-slide-up-leave-to,
+  .aurora-zoom-enter-from,
+  .aurora-zoom-leave-to {
+    transform: none;
+  }
+}

@@ -6,14 +6,26 @@
     <Footnote number="1">Source: IEEE 2024</Footnote>
 -->
 <script setup lang="ts">
-const props = defineProps<{
+const { number } = defineProps<{
   number: string | number
 }>()
 </script>
 
 <template>
-  <div class="footnote-item" style="font-size: 0.75em; color: var(--aurora-slate-500);">
-    <sup style="color: var(--aurora-lavender-400); font-weight: 600;">{{ props.number }}</sup>
+  <span class="footnote-item">
+    <sup class="footnote-marker">{{ number }}</sup>
     <span><slot /></span>
-  </div>
+  </span>
 </template>
+
+<style scoped>
+.footnote-item {
+  font-size: var(--aurora-text-xs);
+  color: var(--scheme-text-secondary, var(--aurora-slate-500));
+}
+
+.footnote-marker {
+  color: var(--scheme-accent, var(--aurora-lavender-400));
+  font-weight: var(--aurora-font-semibold);
+}
+</style>

@@ -19,11 +19,12 @@
         "mono": "Space Mono",
         "weights": "300,400,500,600,700"
       },
-      "transition": "slide-left"
+      "transition": "aurora-fade"
     }
   },
   "dependencies": {
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "@shikijs/transformers": "catalog:"
   },
   "devDependencies": {
     "@slidev/client": "catalog:",

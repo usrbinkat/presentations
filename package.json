@@ -6,7 +6,13 @@
     "dev": "slidev-workspace dev",
     "build": "slidev-workspace build",
     "lint": "eslint .",
-    "format": "prettier --write '**/*.{md,vue,ts,css,json,yaml}' --plugin prettier-plugin-slidev"
+    "format": "prettier --write '**/*.{md,vue,ts,css,json,yaml}' --plugin prettier-plugin-slidev",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepare": "simple-git-hooks",
+    "new-deck": "node scripts/new-deck.mjs",
+    "new-layout": "node scripts/new-layout.mjs"
   },
   "devDependencies": {
     "@slidev/cli": "catalog:",
@@ -18,6 +24,19 @@
     "@antfu/eslint-config": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-slidev": "catalog:",
-    "unocss": "catalog:"
+    "unocss": "catalog:",
+    "@iconify-json/carbon": "catalog:",
+    "@iconify-json/logos": "catalog:",
+    "vue-tsc": "catalog:",
+    "vitest": "catalog:",
+    "simple-git-hooks": "catalog:",
+    "lint-staged": "catalog:"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*.{vue,ts,js}": "eslint --fix",
+    "*.{md,css,json,yaml,yml}": "prettier --write"
   }
 }

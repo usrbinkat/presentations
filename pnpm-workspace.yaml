@@ -1,28 +1,42 @@
 packages:
-  - 'packages/*'
-  - 'decks/*'
+  - "packages/*"
+  - "decks/*"
 
 catalog:
   # Slidev ecosystem — pin to same major
-  '@slidev/cli': ^52.11.3
-  '@slidev/client': ^52.11.3
-  '@slidev/types': ^52.11.3
-  'slidev-theme-braincraft': 'workspace:*'
-  'slidev-addon-braincraft': 'workspace:*'
+  "@slidev/cli": ^52.11.3
+  "@slidev/client": ^52.11.3
+  "@slidev/types": ^52.11.3
+  "slidev-theme-braincraft": "workspace:*"
+  "slidev-addon-braincraft": "workspace:*"
 
   # Vue ecosystem
   vue: ^3.5.29
 
   # UnoCSS — match Slidev's version
   unocss: ^66.6.2
-  '@unocss/reset': ^66.6.2
+  "@unocss/reset": ^66.6.2
 
   # Code highlighting
   shiki: ^4.0.0
 
+  # Shiki transformers — code block annotations
+  "@shikijs/transformers": ^3.0.0
+
+  # UnoCSS icon collections
+  "@iconify-json/carbon": ^1.2.5
+  "@iconify-json/logos": ^1.2.5
+
+  # QR code generation
+  "qrcode": ^1.5.4
+
   # Development
   typescript: ^5.9.3
-  '@antfu/eslint-config': ^4.12.0
+  "vue-tsc": ^2.2.0
+  "vitest": ^3.0.0
+  "@antfu/eslint-config": ^4.12.0
   eslint: ^9.25.0
   prettier: ^3.5.3
   prettier-plugin-slidev: ^1.0.5
+  "simple-git-hooks": ^2.11.0
+  "lint-staged": ^15.4.0

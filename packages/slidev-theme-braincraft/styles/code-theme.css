@@ -1,20 +1,106 @@
 /* code-theme.css
-   Code syntax highlighting overrides for Aurora palette.
-   Bridges Slidev's --slidev-code-* vars to Aurora tokens.
-   Source: Agent 2 (all official themes bridge --prism-* or --shiki-* vars)
+   Shiki transformer styles and Magic Move transitions for Aurora palette.
+   Code variable declarations live in aurora-tokens.css (canonical source).
 */
 
-:root {
-  --slidev-code-background: var(--aurora-cream-200);
-  --slidev-code-foreground: var(--aurora-slate-800);
-  --slidev-code-font-family: var(--aurora-font-mono);
-  --slidev-code-font-size: 0.875rem;
-  --slidev-code-line-height: 1.6;
-  --slidev-code-padding: var(--aurora-space-4);
-  --slidev-code-radius: var(--aurora-radius-lg);
+/* ═══════════════════════════════════════════════════
+   SHIKI TRANSFORMER STYLES
+   Without these, // [!code highlight], // [!code ++],
+   // [!code focus] annotations produce no visual effect.
+   ═══════════════════════════════════════════════════ */
+
+.shiki {
+  .line.highlighted {
+    background-color: light-dark(oklch(70% 0.08 300 / 0.15), oklch(70% 0.08 300 / 0.2));
+    border-left: 3px solid var(--aurora-lavender-400);
+    margin-left: -3px;
+    padding-left: 0;
+
+    &.error {
+      background-color: oklch(68% 0.12 25 / 0.15);
+      border-left-color: var(--aurora-danger);
+    }
+
+    &.warning {
+      background-color: oklch(78% 0.12 85 / 0.15);
+      border-left-color: var(--aurora-warning);
+    }
+  }
+
+  .line.diff.add {
+    background-color: light-dark(oklch(72% 0.12 145 / 0.12), oklch(72% 0.12 145 / 0.15));
+
+    &::before {
+      content: '+';
+      position: absolute;
+      left: 0.5em;
+      color: var(--aurora-success);
+      font-weight: 600;
+    }
+  }
+
+  .line.diff.remove {
+    background-color: light-dark(oklch(68% 0.12 25 / 0.12), oklch(68% 0.12 25 / 0.15));
+    opacity: 0.7;
+
+    &::before {
+      content: '-';
+      position: absolute;
+      left: 0.5em;
+      color: var(--aurora-danger);
+      font-weight: 600;
+    }
+  }
+
+  .line.focused {
+    background-color: oklch(70% 0.08 300 / 0.1);
+  }
+
+  &.has-focused-lines {
+    .line:not(.focused) {
+      opacity: 0.4;
+      filter: blur(0.8px);
+      transition:
+        opacity var(--aurora-duration-normal) var(--aurora-ease-out),
+        filter var(--aurora-duration-normal) var(--aurora-ease-out);
+    }
+
+    &:hover .line:not(.focused) {
+      opacity: 0.8;
+      filter: blur(0);
+    }
+  }
 }
 
-html.dark {
-  --slidev-code-background: var(--aurora-slate-800);
-  --slidev-code-foreground: var(--aurora-cream-100);
+/* Code block container polish */
+.slidev-layout {
+  .slidev-code-wrapper {
+    border-radius: var(--aurora-radius-lg);
+    box-shadow: var(--scheme-shadow, var(--aurora-shadow-md));
+    overflow: hidden;
+  }
+}
+
+/* Magic Move transition styling */
+.shiki-magic-move-move {
+  transition: all var(--aurora-duration-slow) var(--aurora-ease-spring);
+}
+
+.shiki-magic-move-enter-active {
+  transition: all var(--aurora-duration-normal) var(--aurora-ease-out);
+}
+
+.shiki-magic-move-leave-active {
+  transition: all var(--aurora-duration-fast) var(--aurora-ease-in);
+  position: absolute;
+}
+
+.shiki-magic-move-enter-from {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.shiki-magic-move-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
 }

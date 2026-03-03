@@ -1,20 +1,38 @@
+<!--
+  Layout: presenter
+  Ontology tier: Tier 10 Supplementary (maps to `profile` in the ontology)
+  Presents a person with photo and details — team members, customer personas,
+  advisory board members. The `image` prop provides the speaker photo; the
+  default slot holds name, role, and bio content. For self-introduction by the
+  presenter, use `intro` instead. This layout activates the fusiform face area
+  via the photo, increasing perceived trustworthiness and engagement.
+-->
 <script setup lang="ts">
-import { resolveAssetUrl } from '../layoutHelper'
+import { handleBackground, resolveAssetUrl, useSchemeClass } from '../layoutHelper'
 
-const props = defineProps<{
+const { color, background, class: className, image, imageSrc } = defineProps<{
+  /** Aurora color scheme applied to the slide. Accepts: cream, slate, lavender, mint, peach, sky. Consumed by useSchemeClass(). */
   color?: string
+  /** Background image URL, CSS color, or CSS gradient string. Processed by handleBackground() to detect type and apply correctly. */
+  background?: string
+  /** Additional CSS classes applied to the layout root element. */
   class?: string
+  /** URL of the person's photo. Rendered as a rounded avatar in the left column. When provided, the layout switches to a two-column grid. */
+  image?: string
+  /** @deprecated Use `image` instead. Kept for backwards compatibility with existing decks. */
   imageSrc?: string
 }>()
 
-const schemeClass = `aurora-${props.color || 'cream'}-scheme`
-const imageUrl = props.imageSrc ? resolveAssetUrl(props.imageSrc) : undefined
+const bgStyle = background ? handleBackground(background) : undefined
+const schemeClass = useSchemeClass(color, 'cream')
+const resolvedImage = image || imageSrc
+const imageUrl = resolvedImage ? resolveAssetUrl(resolvedImage) : undefined
 </script>
 
 <template>
-  <div class="slidev-layout presenter" :class="[schemeClass, props.class, { 'has-image': imageUrl }]">
+  <div class="slidev-layout presenter" :class="[schemeClass, className, { 'has-image': imageUrl }]" :style="bgStyle">
     <div v-if="imageUrl" class="presenter-image">
-      <img :src="imageUrl" alt="Speaker" />
+      <img :src="imageUrl" alt="Speaker">
     </div>
     <div class="presenter-bio">
       <slot />
@@ -27,7 +45,7 @@ const imageUrl = props.imageSrc ? resolveAssetUrl(props.imageSrc) : undefined
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--aurora-space-8);
-  padding: 2.5rem 3.5rem;
+  padding: var(--aurora-slide-padding-y) var(--aurora-slide-padding-x);
   height: 100%;
   align-items: center;
 }

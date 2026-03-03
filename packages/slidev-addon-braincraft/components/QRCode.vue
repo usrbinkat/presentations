@@ -1,38 +1,66 @@
 <!--
-  QRCode.vue — QR code placeholder for audience scanning.
-  Renders a styled placeholder square with the URL text.
-  Full QR generation would require an external library; this is a
-  dependency-free visual placeholder.
+  QRCode.vue — Generates real, scannable QR codes.
+  Requires the 'qrcode' npm package in slidev-addon-braincraft dependencies.
 
-  Usage in slides.md:
-    <QRCode url="https://slides.braincraft.io" label="Follow along" />
-    <QRCode url="https://github.com/usrbinkat" :size="250" />
+  Usage:
+    <QRCode url="https://github.com/usrbinkat" label="GitHub" />
+    <QRCode url="https://git.braincraft.io" :size="250" />
 -->
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
+import { onMounted, ref, watch } from 'vue'
+
+const { url, size = 200, label = '' } = defineProps<{
   url: string
   size?: number
   label?: string
-}>(), {
-  size: 200,
-  label: '',
-})
+}>()
+
+const qrDataUrl = ref('')
+
+async function generateQR() {
+  try {
+    const { default: QRCode } = await import('qrcode')
+    qrDataUrl.value = await QRCode.toDataURL(url, {
+      width: size * 2, // 2x for retina displays
+      margin: 2,
+      color: {
+        dark: '#322C42', // --aurora-slate-800
+        light: '#FDFCFB', // --aurora-cream-50
+      },
+      errorCorrectionLevel: 'M',
+    })
+  }
+  catch {
+    qrDataUrl.value = ''
+  }
+}
+
+onMounted(generateQR)
+watch(() => url, generateQR)
 </script>
 
 <template>
   <div class="qr-wrapper">
-    <div
-      class="qr-box"
-      :style="{ width: `${props.size}px`, height: `${props.size}px` }"
+    <img
+      v-if="qrDataUrl"
+      :src="qrDataUrl"
+      :alt="`QR code for ${url}`"
+      :width="size"
+      :height="size"
+      class="qr-image"
     >
-      <div class="qr-grid">
-        <div class="qr-corner qr-corner-tl" />
-        <div class="qr-corner qr-corner-tr" />
-        <div class="qr-corner qr-corner-bl" />
-      </div>
-      <div class="qr-url">{{ props.url }}</div>
+    <div v-else class="qr-placeholder" :style="{ width: `${size}px`, height: `${size}px` }">
+      {{ url }}
     </div>
-    <div v-if="props.label" class="qr-label">{{ props.label }}</div>
+    <div v-if="label" class="qr-label">
+      {{ label }}
+    </div>
+    <a
+      :href="url"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="qr-link"
+    >{{ url }}</a>
   </div>
 </template>
 
@@ -44,77 +72,43 @@ const props = withDefaults(defineProps<{
   gap: var(--aurora-space-3);
 }
 
-.qr-box {
-  position: relative;
-  border: 3px solid var(--aurora-slate-700);
+.qr-image {
   border-radius: var(--aurora-radius-md);
-  background: white;
+  box-shadow: var(--aurora-shadow-sm);
+}
+
+.qr-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--aurora-space-4);
-  overflow: hidden;
-}
-
-.qr-grid {
-  position: absolute;
-  inset: 8px;
-}
-
-.qr-corner {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  border: 4px solid var(--aurora-slate-800);
-  border-radius: 2px;
-}
-
-.qr-corner::after {
-  content: '';
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 8px;
-  height: 8px;
-  background: var(--aurora-slate-800);
-  border-radius: 1px;
-}
-
-.qr-corner-tl { top: 0; left: 0; }
-.qr-corner-tr { top: 0; right: 0; }
-.qr-corner-bl { bottom: 0; left: 0; }
-
-.qr-url {
+  border: 2px dashed var(--aurora-slate-400);
+  border-radius: var(--aurora-radius-md);
   font-family: var(--aurora-font-mono);
   font-size: var(--aurora-text-xs);
-  color: var(--aurora-slate-600);
+  color: var(--scheme-text-secondary, var(--aurora-slate-500));
   word-break: break-all;
   text-align: center;
-  line-height: var(--aurora-leading-snug);
-  z-index: 1;
-  max-width: 80%;
+  padding: var(--aurora-space-4);
 }
 
 .qr-label {
   font-size: var(--aurora-text-sm);
-  color: var(--aurora-slate-500);
+  color: var(--scheme-text-secondary, var(--aurora-slate-500));
   font-weight: var(--aurora-font-medium);
 }
 
-html.dark .qr-box {
-  background: var(--aurora-cream-50);
-  border-color: var(--aurora-slate-400);
+.qr-link {
+  font-size: var(--aurora-text-xs);
+  font-family: var(--aurora-font-mono);
+  color: var(--scheme-text-secondary, var(--aurora-slate-500));
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--aurora-duration-fast) var(--aurora-ease-out);
+  word-break: break-all;
+  text-align: center;
 }
 
-html.dark .qr-corner {
-  border-color: var(--aurora-slate-700);
-}
-
-html.dark .qr-corner::after {
-  background: var(--aurora-slate-700);
-}
-
-html.dark .qr-label {
-  color: var(--aurora-slate-400);
+.qr-link:hover {
+  border-bottom-color: currentColor;
 }
 </style>

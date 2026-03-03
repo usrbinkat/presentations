@@ -1,7 +1,14 @@
 // setup/shiki.ts
-// Shiki code highlighting theme configuration.
-// Source: Agent 2 (Neversink uses slack-dark/snazzy-light, the-unnamed uses custom JSON)
+// Shiki code highlighting configuration with notation transformers.
+// These enable // [!code highlight], // [!code ++], // [!code focus], etc.
 
+import {
+  transformerNotationDiff,
+  transformerNotationErrorLevel,
+  transformerNotationFocus,
+  transformerNotationHighlight,
+  transformerNotationWordHighlight,
+} from '@shikijs/transformers'
 import { defineShikiSetup } from '@slidev/types'
 
 export default defineShikiSetup(() => {
@@ -10,5 +17,12 @@ export default defineShikiSetup(() => {
       dark: 'vitesse-dark',
       light: 'vitesse-light',
     },
+    transformers: [
+      transformerNotationHighlight(),
+      transformerNotationDiff(),
+      transformerNotationFocus(),
+      transformerNotationErrorLevel(),
+      transformerNotationWordHighlight(),
+    ],
   }
 })

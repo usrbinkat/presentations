@@ -2,7 +2,7 @@
 theme: slidev-theme-braincraft
 addons:
   - slidev-addon-braincraft
-title: "The Multi-Root Workspace Convention: Collision-Free Multi-Project Development"
+title: 'The Multi-Root Workspace Convention: Collision-Free Multi-Project Development'
 info: |
   A filesystem convention that eliminates path collisions across users,
   git servers, and namespaces — enabling multi-project, multi-player
@@ -10,43 +10,42 @@ info: |
 author: usrbinkat
 keywords: workspace,convention,multi-root,developer-experience,direnv
 colorSchema: auto
+themeConfig:
+  qrUrl: https://git.braincraft.io
+transition: aurora-fade
 fonts:
   sans: Inter
   mono: Space Mono
 ---
----
-layout: cover
-color: sky
----
 
-# The Multi-Root Workspace Convention
-
-## Collision-Free Multi-Project Development
-
-**usrbinkat** | Braincraft
-
-<!--
-Welcome everyone. Today I'm going to talk about something deceptively simple — where your code lives on disk. This sounds trivial, but the wrong answer costs real engineering hours every week. I'll show you a filesystem convention that eliminates path collisions across users, git servers, and organizations — without any monorepo tooling. By the end, you'll have a convention you can adopt in five minutes with mkdir and git clone.
--->
+layout: cover color: slate
 
 ---
-src: ../../shared/fragments/intro.md
----
+
+# Where did you clone that repo?
+
+A filesystem convention that eliminates the question entirely
+
+<!-- HOOK. Ask the room: raise your hand if you've searched for a repo you cloned three months ago. Is it in ~/projects? ~/code? ~/work? Every engineer invents their own path convention, and when you pair or share scripts, everything breaks. ~15 seconds. -->
 
 ---
-layout: statement
-color: peach
----
 
-# "Where did I clone that repo?"
-
-<!--
-Raise your hand if you've ever said this. You cloned a repo three months ago, you need it again, and you have no idea where it is. Is it in ~/projects? ~/code? ~/work? ~/src? Every engineer invents their own convention, and when you pair with someone or share a script, everything breaks because paths are different. This is not a minor annoyance — it's a systemic tax on your team.
--->
+## src: ../../shared/fragments/intro.md
 
 ---
-layout: default
-color: lavender
+
+layout: statement color: cream
+
+---
+
+# Every engineer invents their own directory convention. Every script breaks on the next machine.
+
+<!-- Let this statement breathe. The audience who has lived this will nod. Whitespace communicates significance — one sentence, maximum impact. ~5 seconds. -->
+
+---
+
+layout: default color: cream
+
 ---
 
 # Path collisions waste engineering hours every week
@@ -60,16 +59,31 @@ color: lavender
 
 </v-clicks>
 
-<!--
-Here are four real examples I've seen on engineering teams. Everyone uses a different root directory. When you have repos from multiple git servers — GitHub, GitLab, a self-hosted Forgejo — you get name collisions. Two different repos both called "infra" from two different organizations. Two repos both called "backend" from two different teams. And every script that references a path breaks the moment someone else runs it.
--->
+<!-- Four real examples from real teams. Different roots, name collisions across servers, scripts with hardcoded paths. This is a systemic tax, not a minor annoyance. ~30 seconds. -->
 
 ---
-layout: two-cols
-color: mint
+
+layout: fact color: cream
+
+---
+
+# 47
+
+Steps in the onboarding wiki. Last updated six months ago.
+
+<template #context> Nobody maintains it because everybody improvises </template>
+
+<!-- Anchor the problem with a visceral number. Forty-seven steps in a wiki that's always stale. The audience who has written (or suffered through) one of these will laugh ruefully. ~10 seconds. -->
+
+---
+
+layout: two-cols-title color: cream columns: 1fr 1fr
+
 ---
 
 # Monorepo and polyrepo both leave gaps
+
+::left::
 
 <v-clicks>
 
@@ -89,64 +103,78 @@ color: mint
 
 </v-clicks>
 
-<!--
-The industry debates monorepo versus polyrepo like it's a binary choice. Monorepos force coupling — when your blog and your infrastructure live in the same repo, a bad commit to one blocks CI for the other. Polyrepos give you independence but destroy discoverability. You end up with repos scattered across your filesystem with no way to find them. Neither approach handles multiple git servers. Neither handles multiple users on shared VMs. We need a third option.
--->
+<!-- The industry debates monorepo vs polyrepo as binary. Monorepos couple unrelated projects. Polyrepos destroy discoverability. Neither handles multiple git servers. Neither handles multiple users on shared VMs. We need a third option. ~30 seconds. -->
 
 ---
-layout: section
-color: sky
+
+layout: section color: slate transition: aurora-zoom sectionNumber: 1
+
 ---
 
 # The Workspace Convention
 
 A filesystem convention, not a tool
 
-<!--
-The workspace convention is not a tool. It's not a package you install. It's a filesystem naming convention — a rule about where you put your git clones. It's inspired by Go's original GOPATH convention but generalized to any repository from any server. Let me show you the structure.
--->
+<!-- SECTION BREAK. Shift from problem to solution. The convention is not a tool, not a package, not an install — it's a naming rule for where you put git clones. ~5 seconds. -->
 
 ---
-layout: fact
-color: lavender
+
+layout: fact color: cream
+
 ---
 
 # `/workspace/<user>/<git-server>/<namespace>/`
 
 Four segments. Four collision classes eliminated.
 
-<!--
-This is the entire convention. Four path segments. /workspace is the root — consistent across every machine. The user segment enables multi-player on shared machines. The git server segment separates GitHub from GitLab from Forgejo. The namespace segment maps to the organization or group on that server. Every git clone goes into the namespace directory. The path itself is a unique identifier — collisions are structurally impossible.
--->
+<template #context> Inspired by Go's GOPATH, generalized to any server </template>
+
+<!-- The entire convention in one line. /workspace is the consistent root. User segment enables multi-player. Server segment separates GitHub from Forgejo. Namespace maps to org. Collisions are structurally impossible. ~15 seconds. -->
 
 ---
-layout: full
-color: mint
+
+layout: full color: cream transition: aurora-slide-up
+
 ---
 
 # The real workspace proves the convention works
 
+````md magic-move {lines: true}
 ```bash
+# Every developer's ad-hoc path
+~/projects/app
+~/code/infra
+~/work/backend
+```
+
+```bash
+# The workspace convention
 /workspace/usrbinkat/git.braincraft.io/braincraft/
 ├── k9/                      # Konductor Nix flake
 ├── infrastructure/          # Pulumi IaC
 ├── blog.usrbinkat.io/       # Hugo blog
 ├── presentations/           # Slidev presentation factory
-├── optiplex-lab/            # Bare metal cluster configs
 └── docs/                    # Engineering documentation
+```
+
+```bash
+# Multiple servers, zero collisions
+/workspace/usrbinkat/git.braincraft.io/braincraft/
+├── k9/
+└── presentations/
 
 /workspace/usrbinkat/github.com/containercraft/
 ├── konductor/               # No collision with braincraft/k9
 └── devcontainer/            # Different server, different namespace
 ```
+````
 
-<!--
-This is my actual workspace. Under git.braincraft.io/braincraft, I have six sibling projects. K9 is a Nix flake, infrastructure is Pulumi IaC, blog is Hugo, presentations is the Slidev factory producing these slides, optiplex-lab has bare metal cluster configurations. Under github.com/containercraft, I have repos from a different server and organization. The konductor repo here does NOT collide with k9 under braincraft — different server, different namespace, different path.
--->
+<!-- Magic Move evolves from chaos to order. Ad-hoc paths, then the convention, then multi-server. The key: the clone URL is derivable from the path. The path IS the address. ~25 seconds. -->
 
 ---
-layout: two-cols-title
-color: peach
+
+layout: two-cols-title color: cream columns: 1fr 1fr
+
 ---
 
 # Every path segment earns its place
@@ -177,39 +205,36 @@ color: peach
 
 </v-clicks>
 
-<!--
-Let me break down why each segment matters. The /workspace root replaces the chaos of ~/projects, ~/code, ~/src — one root, every machine. The user segment means Alice and Bob can SSH into the same development VM without stepping on each other's clones. The git server segment means your GitHub repos and your self-hosted Forgejo repos coexist without name collisions. The namespace maps to organizations or groups. And the payoff: paths are predictable. Scripts work on every machine. A single tree command shows your entire development universe.
--->
+<!-- Break down each segment. /workspace replaces the chaos of ~/projects, ~/code, ~/src. User enables multi-player. Server separates origins. Namespace maps to orgs. The payoff: scripts work everywhere. ~30 seconds. -->
 
 ---
-layout: quote
-color: sky
+
+layout: quote color: cream
+
 ---
 
-# "This is not a monorepo. Each repository is an independent git clone with its own lifecycle."
+> "This is not a monorepo. Each repository is an independent git clone with its own lifecycle."
 
 No submodules. No Bazel. No Nx. No Turborepo.
 
-<!--
-I want to be very clear about what this is NOT. This is not a monorepo. There is no shared build system, no shared CI pipeline, no git submodules linking repos together. Each repo is a completely independent git clone. You can delete one without affecting any other. You can move one to a different machine. The convention is purely a naming rule for where you clone things. The independence is the point.
--->
+<!-- Clarify what this is NOT. No shared build system, no shared CI, no submodules. Each repo is independent. Delete one without affecting any other. The independence is the point. ~10 seconds. -->
 
 ---
-layout: section
-color: lavender
+
+layout: section color: slate transition: aurora-zoom sectionNumber: 2
+
 ---
 
 # In Practice
 
 direnv, mise, and environment isolation
 
-<!--
-A naming convention is only useful if it integrates with your daily workflow. Let me show you how direnv and mise turn this convention into an automated development experience where your environment changes as you navigate between projects.
--->
+<!-- SECTION BREAK. The naming convention is only useful if it integrates with daily workflow. Show how direnv and mise make it automatic. ~5 seconds. -->
 
 ---
-layout: full
-color: mint
+
+layout: full color: cream
+
 ---
 
 # direnv auto-loads environment per directory
@@ -226,20 +251,19 @@ dotenv_if_exists .env.pulumi
 dotenv_if_exists .env
 
 # Nix devshell activation (auto-detects platform)
-use flake "${DEVSHELL_FLAKE}#${DEVSHELL_NAME}"
+use flake "${DEVSHELL_FLAKE}#${DEVSHELL_NAME}" # [!code highlight]
 
 # PKI trust bundle propagation
-export SSL_CERT_FILE="/etc/konductor/pki/bundle/ca-bundle.crt"
+export SSL_CERT_FILE="/etc/konductor/pki/bundle/ca-bundle.crt" # [!code highlight]
 export KUBECONFIG="${WORKSPACE_ROOT}/.config/talos/clusters/..."
 ```
 
-<!--
-This is the actual .envrc from the braincraft workspace. When you cd into this directory, direnv fires automatically. It loads environment files in order — proxy config first so network operations work, then Pulumi secrets, then local overrides. It activates a Nix devshell that gives you every tool you need. It sets up PKI trust so internal TLS services work. It configures KUBECONFIG for the right cluster. You cd in, and your entire environment is ready. You cd out, and it's all unloaded.
--->
+<!-- The actual .envrc. cd into the directory, direnv fires. Loads env files in order — proxy first for network. Activates Nix devshell. Sets PKI trust. Configures KUBECONFIG. cd out, everything unloads. ~25 seconds. -->
 
 ---
-layout: default
-color: peach
+
+layout: default color: cream
+
 ---
 
 # mise orchestrates tasks across the workspace
@@ -260,20 +284,19 @@ k8s_version = "1.35.0"
 talos_version = "v1.12.1"
 
 [task_config]
-includes = [
+includes = [ # [!code highlight]
   ".config/mise/toml/talos.compose.toml",
   ".config/mise/toml/pulumi.infrastructure.toml",
   ".config/mise/toml/devcontainer.toml",
 ]
 ```
 
-<!--
-Mise is the task runner. It reads .mise.toml from the workspace root and provides tasks that operate across sibling repos. Cluster configuration lives here — versions, node counts, network settings. Task definitions are split into included files by concern: Talos cluster management, Pulumi infrastructure, devcontainer builds. One command like `mise run dev:k8s:compose:up` starts a local Kubernetes cluster. The key insight: mise tasks can reference any sibling repo because paths are predictable under the convention.
--->
+<!-- Mise is the task runner. Tasks operate across sibling repos. Cluster config, versions, network settings. Task definitions split by concern. mise tasks reference siblings because paths are predictable. ~20 seconds. -->
 
 ---
-layout: default
-color: sky
+
+layout: default color: cream
+
 ---
 
 # Environment activation flows automatically
@@ -298,18 +321,19 @@ flowchart LR
 
 </v-clicks>
 
-<!--
-Here's the activation flow as a diagram. You cd into the workspace. Direnv detects the .envrc file. It loads environment files in order — proxy config first. It activates the Nix devshell for your platform. It sets up PKI trust and Kubernetes config. You're ready to work. When you cd out, everything is unloaded cleanly. No stale environment variables, no leaked PATH entries. This is the developer experience the convention enables — you navigate your filesystem and your environment follows.
--->
+<!-- The flow as a diagram. cd in, direnv fires, env files load, Nix activates, PKI sets up, Kubernetes configures, ready. cd out, everything unloads. No stale variables, no leaked PATH entries. ~20 seconds. -->
 
 ---
-layout: side-title
-color: lavender
+
+layout: side-title color: cream
+
 ---
+
+::title::
 
 # Five projects, zero interference
 
-::right::
+::default::
 
 <v-clicks>
 
@@ -321,30 +345,32 @@ color: lavender
 
 </v-clicks>
 
-<br>
+<v-click>
 
-Each project has its own toolchain. None interfere with each other because direnv scopes environment per directory.
+<Admonition type="info" title="Isolation principle">
+Python venv from infrastructure/ never leaks into k9/. Node modules from presentations/ never appear in blog/.
+</Admonition>
 
-<!--
-Look at the diversity of toolchains coexisting here. K9 uses Nix. Infrastructure uses Python with a virtual environment managed by uv. The blog uses Hugo which needs Go. Presentations use Node.js with pnpm. Optiplex-lab is just YAML files. These are fundamentally different technology stacks. In a monorepo, their dependencies would conflict. With the workspace convention and direnv, each one has its own isolated environment. Python venv from infrastructure doesn't leak into k9. Node modules from presentations don't appear when you're working on the blog.
--->
+</v-click>
+
+<!-- Look at the diversity of toolchains coexisting. Nix, Python, Go, Node.js, plain YAML. In a monorepo, dependencies would conflict. With the convention and direnv, each has its own isolated environment. ~25 seconds. -->
 
 ---
-layout: section
-color: peach
+
+layout: section color: slate transition: aurora-zoom sectionNumber: 3
+
 ---
 
 # The Portable Factory
 
 presentations/ as a self-contained workspace
 
-<!--
-Now let me show you something that surprised even me when we built it. The presentations directory — the Slidev factory producing these very slides — is a self-contained pnpm workspace monorepo sitting inside the multi-root workspace. It's portable. It can be picked up and dropped into any other workspace.
--->
+<!-- SECTION BREAK. Something that surprised even me: the Slidev factory producing these slides is a self-contained pnpm workspace inside the multi-root workspace. It's portable. ~5 seconds. -->
 
 ---
-layout: full
-color: sky
+
+layout: full color: cream
+
 ---
 
 # presentations/ is a self-contained pnpm workspace
@@ -365,16 +391,17 @@ presentations/                          # Portable — drop into any workspace
 └── package.json                        # Root workspace scripts
 ```
 
-<!--
-Here's the structure. The packages directory contains the custom theme with 15 layouts and the addon with 9 reusable components. The decks directory contains individual presentations — the konductor talk and this workspace convention talk. Shared fragments like speaker introductions and thank-you slides are imported via Slidev's src: directive. The pnpm workspace manages all of this. And critically, there are zero imports from sibling repos at build time. The presentations directory reads sibling repos for content inspiration but has no build dependency on them.
--->
+<!-- Structure overview. Theme with 15 layouts, addon with 9 components. Individual decks. Shared fragments imported via src:. pnpm workspace. Zero build dependencies on sibling repos. ~20 seconds. -->
 
 ---
-layout: two-cols
-color: mint
+
+layout: two-cols-title color: cream leftColor: peach rightColor: mint columns: 1fr 1fr
+
 ---
 
 # The factory is not married to any project
+
+::left::
 
 **What it references from siblings:**
 
@@ -400,13 +427,12 @@ color: mint
 
 </v-clicks>
 
-<!--
-This distinction matters. The factory reads sibling repos to write about them. It copies directory trees and config snippets into slide content. But at build time, it only needs pnpm, node, its own theme, and its own shared assets. You could move this entire directory to a completely different workspace — a different project, a different organization — and it would build without modification. That portability is by design.
--->
+<!-- The distinction matters. Reads siblings for content. Depends on nothing at build time. Move this entire directory to any workspace and it builds without modification. Portability by design. ~25 seconds. -->
 
 ---
-layout: default
-color: lavender
+
+layout: default color: cream
+
 ---
 
 # Factory architecture separates concerns cleanly
@@ -435,26 +461,24 @@ flowchart TD
     INFRA -.->|"content inspiration"| DECK2
 ```
 
-<!--
-This diagram shows the separation. The portable factory sits inside the multi-root workspace. Dotted lines represent content inspiration — we read sibling repos to write about them. Solid lines represent build dependencies — all internal to the factory. The theme and addon feed into every deck. Shared fragments provide reusable slides. The factory is a monorepo inside a multi-root workspace. It's monorepo where monorepo makes sense — shared theme, shared components — and independent clones everywhere else.
--->
+<!-- Dotted lines = content inspiration (read siblings to write about them). Solid lines = build dependencies (all internal). Monorepo where monorepo makes sense. Independent clones everywhere else. ~20 seconds. -->
 
 ---
-layout: section
-color: peach
+
+layout: section color: slate transition: aurora-zoom sectionNumber: 4
+
 ---
 
 # Developer Experience
 
 Navigation, isolation, and IDE integration
 
-<!--
-Let's talk about what this feels like to use day-to-day. The convention is only valuable if the developer experience is seamless. I'll show you three things: instant navigation, automatic environment isolation, and IDE integration.
--->
+<!-- SECTION BREAK. Convention is only valuable if the daily DX is seamless. Three things: instant navigation, automatic isolation, IDE integration. ~5 seconds. -->
 
 ---
-layout: default
-color: sky
+
+layout: default color: cream
+
 ---
 
 # Navigation is instant with zoxide and direnv
@@ -483,16 +507,17 @@ $ z containercraft
 
 </v-clicks>
 
-<!--
-Zoxide is a smarter cd command. It learns which directories you visit frequently and lets you jump to them with partial matches. Type z braincraft and you're in the workspace. Direnv fires on arrival and loads your environment. Type z k9 and you're in the Nix flake directory. The combination means you navigate and switch environments in a single keystroke. No source activate, no nvm use, no manual context switching.
--->
+<!-- zoxide is a smarter cd. Learns frequent directories. Partial match jumps you there. direnv fires on arrival. Combined: navigate and switch environments in one keystroke. No source activate, no nvm use. ~20 seconds. -->
 
 ---
-layout: two-cols
-color: lavender
+
+layout: two-cols-title color: cream columns: 1fr 1fr
+
 ---
 
 # IDE multi-root workspaces match the convention
+
+::left::
 
 ```json
 // v.code-workspace
@@ -506,8 +531,7 @@ color: lavender
   ],
   "settings": {
     "nix.enableLanguageServer": true,
-    "python.defaultInterpreterPath":
-      "./infrastructure/.venv/bin/python"
+    "python.defaultInterpreterPath": "./infrastructure/.venv/bin/python"
   }
 }
 ```
@@ -524,39 +548,37 @@ color: lavender
 
 </v-clicks>
 
-<!--
-VS Code has native multi-root workspace support, and it maps perfectly to our convention. Each folder in the workspace file gets its own language server, its own settings, its own debug configuration. The Python language server runs in infrastructure/ and knows about the virtual environment there. The Nix language server runs in k9/. TypeScript runs in presentations/. You get full IDE intelligence across five different technology stacks in a single editor window. The workspace convention is the filesystem structure; the IDE workspace file is its editor-side mirror.
--->
+<!-- VS Code multi-root workspace maps perfectly. Each folder gets its own language server, settings, debug config. Full IDE intelligence across five different tech stacks in one editor window. The convention is the filesystem mirror. ~20 seconds. -->
 
 ---
-layout: quote
-color: mint
+
+layout: quote color: cream
+
 ---
 
-# "direnv loads and unloads per-directory. Python venv from infrastructure/ never leaks into k9/. Node modules from presentations/ never appear in blog/."
+> "direnv loads and unloads per-directory. Python venv from infrastructure/ never leaks into k9/.
+> Node modules from presentations/ never appear in blog/."
 
 Environment isolation by filesystem convention.
 
-<!--
-This is the key property. Environment isolation is not enforced by containers or virtual machines — it's enforced by direnv's per-directory scoping. When you cd into infrastructure, its .envrc activates the Python virtual environment. When you cd out, that activation is reversed. There is no way for the Python environment to leak into k9 or presentations. This is simpler than containers, faster than VMs, and works on every platform where direnv runs — macOS, Linux, WSL, NixOS.
--->
+<!-- The key property. Isolation enforced by direnv scoping, not containers. Simpler than containers, faster than VMs, works on macOS, Linux, WSL, NixOS. ~10 seconds. -->
 
 ---
-layout: section
-color: sky
+
+layout: section color: slate transition: aurora-zoom sectionNumber: 5
+
 ---
 
 # Scaling
 
 Multiple users, multiple servers, CI parity
 
-<!--
-Let's talk about what happens when this convention scales beyond a single developer. What about shared machines? What about CI runners? What about organizations with dozens of git servers?
--->
+<!-- SECTION BREAK. What happens when this scales beyond a single developer? Shared machines, CI runners, organizations with dozens of git servers. ~5 seconds. -->
 
 ---
-layout: two-cols-title
-color: peach
+
+layout: two-cols-title color: cream columns: 1fr 1fr
+
 ---
 
 # Multiple users share machines without conflict
@@ -597,13 +619,12 @@ color: peach
 
 </v-clicks>
 
-<!--
-Alice and Bob both work on acme-corp's frontend and API repos from GitHub. They both have their own clones under their own user directory. No collision. Alice has personal repos from GitLab. Bob has repos from Braincraft's Forgejo. They can SSH into the same development VM and each find their workspace exactly where they expect it. File ownership aligns with user directories, so permission issues are rare.
--->
+<!-- Alice and Bob both work on acme-corp repos. Their own clones under their own user directories. No collision. Different git servers coexist. File ownership aligns with user directories. ~20 seconds. -->
 
 ---
-layout: default
-color: lavender
+
+layout: default color: cream
+
 ---
 
 # Multiple git servers coexist naturally
@@ -632,18 +653,19 @@ color: lavender
 
 </v-clicks>
 
-<!--
-Here's the multi-server story. I have repos from GitHub, self-hosted Forgejo, and GitLab. If a client has a repo called "infrastructure" on GitLab, it doesn't collide with my "infrastructure" on Forgejo — different server segment in the path. And there's a beautiful symmetry: the clone URL is derivable from the filesystem path. If you're in /workspace/usrbinkat/github.com/NixOS/nixpkgs, the remote is github.com/NixOS/nixpkgs. The path IS the address.
--->
+<!-- Multi-server story. GitHub, Forgejo, GitLab. Same-name repos on different servers don't collide. Beautiful symmetry: the clone URL is derivable from the path. The path IS the address. ~20 seconds. -->
 
 ---
-layout: side-title
-color: mint
+
+layout: side-title color: cream
+
 ---
+
+::title::
 
 # CI adopts the same convention
 
-::right::
+::default::
 
 ```bash
 # Forgejo CI runner workspace
@@ -666,13 +688,12 @@ color: mint
 
 </v-clicks>
 
-<!--
-The convention extends to CI. Forgejo runners clone into /workspace/runner/ following the same server/namespace structure. CI scripts reference paths identically to developer machines. When a CI job fails, you can reproduce it locally because the paths match. No more translating between GITHUB_WORKSPACE and your local directory structure. The runner is just another user in the convention — it gets /workspace/runner/ instead of /workspace/usrbinkat/.
--->
+<!-- Convention extends to CI. Runners clone into /workspace/runner/ following the same structure. CI scripts reference paths identically. Reproduce failures locally because paths match. Runner is just another user. ~20 seconds. -->
 
 ---
-layout: center
-color: sky
+
+layout: center color: cream
+
 ---
 
 # Adopt the convention in five minutes
@@ -697,25 +718,32 @@ git clone https://github.com/your-org/your-repo \
 
 </v-clicks>
 
-<!--
-Here's how you start. Three commands. Create /workspace and give yourself ownership. Create your path hierarchy. Clone into it. That's it. You don't need direnv. You don't need mise. You don't need Nix. Those are enhancements that make the convention more powerful, but the convention itself is just a naming rule. mkdir and git clone. Five minutes to adopt, zero maintenance burden, and every future clone has a predictable home.
--->
+<!-- Three commands. Create /workspace. Create your path hierarchy. Clone into it. No direnv needed. No mise needed. No Nix needed. Just a naming rule. mkdir and git clone. ~15 seconds. -->
 
 ---
-layout: end
-color: lavender
----
 
-# The filesystem is the first API your team shares.
-
-### Make it collision-free.
-
-**usrbinkat** | Braincraft
-
-<!--
-I'll leave you with this thought. Before you choose a monorepo tool, before you debate Git submodules, before you write a custom clone script — agree on where code lives. The filesystem is the first API your team shares. Make it predictable. Make it collision-free. The workspace convention is four path segments that solve problems you didn't know you had. Thank you.
--->
+layout: fact color: cream
 
 ---
-src: ../../shared/fragments/thanks.md
+
+# 3
+
+Commands to adopt. Zero tools to install. Infinite collisions prevented.
+
+<template #context> mkdir, chown, git clone — that's the entire adoption cost </template>
+
+<!-- Punctuate with a number. Three commands. The simplicity is the selling point. ~5 seconds. -->
+
 ---
+
+layout: statement color: cream
+
+---
+
+# The filesystem is the first API your team shares. Make it collision-free.
+
+<!-- Final thesis. Before you choose a monorepo tool, before you debate submodules, before you write a custom clone script — agree on where code lives. Four path segments. ~10 seconds. -->
+
+---
+
+## src: ../../shared/fragments/thanks.md

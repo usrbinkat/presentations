@@ -1,13 +1,19 @@
 ---
-layout: center
+layout: end
+color: lavender
 ---
 
-# Thank you!
+# Let's Build Together
 
-<br>
+**usrbinkat** | Braincraft
 
-### Questions?
+<template v-slot:cta>
+<div class="flex gap-8 mt-4 justify-center items-end">
+  <QRCode url="https://github.com/usrbinkat" label="GitHub" :size="120" />
+  <QRCode url="https://git.braincraft.io" label="Braincraft" :size="120" />
+</div>
+</template>
 
 <!--
-Thank you for your time. I'm happy to take questions. You can also find me online at the links shown earlier.
+The closing slide stays visible during Q&A — the QR codes are at peak scan motivation here. Customize the heading with the strongest takeaway from the deck. The cta slot keeps the codes structurally separated from the message.
 -->

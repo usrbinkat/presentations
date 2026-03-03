@@ -4,11 +4,11 @@ on:
   push:
     branches: [main]
     paths:
-      - 'presentations/decks/**'
-      - 'presentations/packages/**'
-      - 'presentations/shared/**'
-      - 'presentations/pnpm-workspace.yaml'
-      - 'presentations/package.json'
+      - "presentations/decks/**"
+      - "presentations/packages/**"
+      - "presentations/shared/**"
+      - "presentations/pnpm-workspace.yaml"
+      - "presentations/package.json"
   workflow_dispatch:
 
 permissions:
@@ -78,12 +78,21 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
-          cache: 'pnpm'
+          node-version: "lts/*"
+          cache: "pnpm"
           cache-dependency-path: presentations/pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm exec prettier --check '**/*.{md,vue,ts,css,json,yaml}' --ignore-path .gitignore
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm exec vue-tsc --noEmit
 
       - name: Install Playwright
         run: npx playwright install --with-deps chromium
@@ -97,6 +106,20 @@ jobs:
           pnpm exec slidev build slides.md \
             --base /${{ github.event.repository.name }}/${{ matrix.deck }}/ \
             --out ../../dist/${{ matrix.deck }}
+
+      - name: Verify build output
+        run: |
+          DIST_DIR="dist/${{ matrix.deck }}"
+          if [ ! -d "$DIST_DIR" ]; then
+            echo "::error::Build output directory $DIST_DIR does not exist"
+            exit 1
+          fi
+          FILE_COUNT=$(find "$DIST_DIR" -type f | wc -l)
+          echo "Build verified: $DIST_DIR contains $FILE_COUNT files"
+          if [ "$FILE_COUNT" -lt 1 ]; then
+            echo "::error::Build output directory is empty"
+            exit 1
+          fi
 
       - name: Export PDF
         continue-on-error: true

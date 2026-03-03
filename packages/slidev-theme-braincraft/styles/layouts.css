@@ -4,69 +4,207 @@
 */
 
 .slidev-layout {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
   font-family: var(--aurora-font-sans);
+  color: var(--scheme-text, var(--aurora-slate-800));
+  line-height: var(--aurora-leading-normal);
+
+  h1 {
+    font-size: var(--aurora-text-4xl);
+    font-weight: var(--aurora-font-bold);
+    line-height: var(--aurora-leading-tight);
+    letter-spacing: var(--aurora-tracking-tight);
+    margin-bottom: var(--aurora-title-margin-bottom);
+  }
+
+  h2 {
+    font-size: var(--aurora-text-3xl);
+    font-weight: var(--aurora-font-semibold);
+    line-height: var(--aurora-leading-tight);
+    margin-bottom: var(--aurora-title-margin-bottom);
+  }
+
+  h3 {
+    font-size: var(--aurora-text-2xl);
+    font-weight: var(--aurora-font-semibold);
+    margin-bottom: var(--aurora-space-2);
+  }
+
+  p {
+    font-size: var(--aurora-text-lg);
+    line-height: var(--aurora-leading-relaxed);
+    color: var(--scheme-text-secondary, var(--aurora-slate-600));
+    text-wrap: pretty;
+  }
+
+  ul,
+  ol {
+    font-size: var(--aurora-text-lg);
+    line-height: var(--aurora-leading-relaxed);
+    padding-left: var(--aurora-space-6);
+  }
+
+  li {
+    margin-bottom: var(--aurora-space-2);
+  }
+
+  code {
+    font-family: var(--aurora-font-mono);
+    font-size: var(--aurora-text-sm);
+    background: var(--scheme-bg-code, var(--aurora-cream-200));
+    padding: 0.125em 0.375em;
+    border-radius: var(--aurora-radius-sm);
+  }
+
+  blockquote {
+    border-inline-start: 4px solid var(--scheme-accent, var(--aurora-lavender-400));
+    padding-inline-start: var(--aurora-space-4);
+    font-style: italic;
+    color: var(--scheme-text-secondary, var(--aurora-slate-600));
+  }
+
+  a {
+    color: var(--scheme-accent, var(--aurora-lavender-400));
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--aurora-duration-fast) var(--aurora-ease-out);
+
+    &:hover {
+      border-bottom-color: currentColor;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--scheme-accent, var(--aurora-lavender-400));
+      outline-offset: 2px;
+      border-radius: var(--aurora-radius-sm);
+    }
+  }
 }
 
-.slidev-layout h1 {
-  font-size: var(--aurora-text-4xl);
-  font-weight: var(--aurora-font-bold);
-  line-height: var(--aurora-leading-tight);
-  letter-spacing: var(--aurora-tracking-tight);
-  margin-bottom: var(--aurora-space-4);
+/* Full-bleed utility — for layouts that intentionally break padding (section, cover) */
+.slidev-layout--full-bleed {
+  padding: 0;
 }
 
-.slidev-layout h2 {
-  font-size: var(--aurora-text-3xl);
-  font-weight: var(--aurora-font-semibold);
-  line-height: var(--aurora-leading-tight);
-  margin-bottom: var(--aurora-space-3);
+/* ═══════════════════════════════════════════════════
+   V-CLICK TRANSITION UPGRADE — Spring-physics reveal
+   This is the single highest-impact visual change.
+   Without this, every v-click is a hard opacity snap.
+   ═══════════════════════════════════════════════════ */
+
+.slidev-vclick-target {
+  transition:
+    opacity var(--aurora-duration-normal) var(--aurora-ease-out),
+    transform var(--aurora-duration-normal) var(--aurora-ease-spring);
+
+  &:nth-child(2) {
+    transition-delay: 50ms;
+  }
+  &:nth-child(3) {
+    transition-delay: 100ms;
+  }
+  &:nth-child(4) {
+    transition-delay: 150ms;
+  }
+  &:nth-child(5) {
+    transition-delay: 200ms;
+  }
+  &:nth-child(6) {
+    transition-delay: 250ms;
+  }
+  &:nth-child(7) {
+    transition-delay: 300ms;
+  }
+  &:nth-child(8) {
+    transition-delay: 350ms;
+  }
+  &:nth-child(9) {
+    transition-delay: 400ms;
+  }
+  &:nth-child(10) {
+    transition-delay: 450ms;
+  }
+  &:nth-child(11) {
+    transition-delay: 500ms;
+  }
+  &:nth-child(12) {
+    transition-delay: 550ms;
+  }
 }
 
-.slidev-layout h3 {
-  font-size: var(--aurora-text-2xl);
-  font-weight: var(--aurora-font-semibold);
-  margin-bottom: var(--aurora-space-2);
+/* Promote to compositor layer only during active transitions to avoid permanent GPU memory waste */
+.slidev-vclick-target[class*='-enter-active'],
+.slidev-vclick-target[class*='-leave-active'] {
+  will-change: opacity, transform;
 }
 
-.slidev-layout p {
-  font-size: var(--aurora-text-lg);
-  line-height: var(--aurora-leading-relaxed);
-  color: var(--scheme-text-secondary, var(--aurora-slate-600));
+.slidev-vclick-hidden {
+  opacity: 0;
+  transform: translateY(8px);
 }
 
-.slidev-layout ul,
-.slidev-layout ol {
-  font-size: var(--aurora-text-lg);
-  line-height: var(--aurora-leading-relaxed);
-  padding-left: var(--aurora-space-6);
-}
+/* ═══════════════════════════════════════════════════
+   @PROPERTY ANIMATION UTILITIES — Opt-in effects
+   that consume the @property registrations from
+   aurora-tokens.css. Apply via frontmatter class:.
+   ═══════════════════════════════════════════════════ */
 
-.slidev-layout li {
-  margin-bottom: var(--aurora-space-2);
-}
+@media (prefers-reduced-motion: no-preference) {
+  /* Hue shift — subtle background hue rotation on section slides */
+  .aurora-hue-shift {
+    background: oklch(95% 0.03 var(--aurora-hue));
+    animation: aurora-hue-cycle 20s ease-in-out infinite;
+  }
 
-.slidev-layout code {
-  font-family: var(--aurora-font-mono);
-  font-size: 0.875em;
-  background: var(--scheme-bg-code, var(--aurora-cream-200));
-  padding: 0.125em 0.375em;
-  border-radius: var(--aurora-radius-sm);
-}
+  @keyframes aurora-hue-cycle {
+    0%,
+    100% {
+      --aurora-hue: 300;
+    }
+    33% {
+      --aurora-hue: 160;
+    }
+    66% {
+      --aurora-hue: 60;
+    }
+  }
 
-.slidev-layout blockquote {
-  border-left: 4px solid var(--scheme-accent, var(--aurora-lavender-400));
-  padding-left: var(--aurora-space-4);
-  font-style: italic;
-  color: var(--scheme-text-secondary, var(--aurora-slate-600));
-}
+  /* Glow effect — subtle glow on cover slide title */
+  .aurora-glow {
+    text-shadow: 0 0 calc(var(--aurora-blur) + 8px) oklch(80% 0.12 300 / var(--aurora-glow-opacity));
+    animation: aurora-glow-pulse 3s ease-in-out infinite alternate;
+  }
 
-.slidev-layout a {
-  color: var(--scheme-accent, var(--aurora-lavender-400));
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--aurora-duration-fast) var(--aurora-ease-out);
-}
+  @keyframes aurora-glow-pulse {
+    from {
+      --aurora-blur: 0px;
+      --aurora-glow-opacity: 0;
+    }
+    to {
+      --aurora-blur: 12px;
+      --aurora-glow-opacity: 0.4;
+    }
+  }
 
-.slidev-layout a:hover {
-  border-bottom-color: currentColor;
+  /* Gradient stop — animated gradient backgrounds */
+  .aurora-gradient-flow {
+    background: linear-gradient(
+      135deg,
+      oklch(95% 0.04 300) 0%,
+      oklch(95% 0.04 160) var(--aurora-gradient-stop),
+      oklch(95% 0.04 60) 100%
+    );
+    animation: aurora-gradient-shift 10s ease-in-out infinite alternate;
+  }
+
+  @keyframes aurora-gradient-shift {
+    from {
+      --aurora-gradient-stop: 30%;
+    }
+    to {
+      --aurora-gradient-stop: 70%;
+    }
+  }
 }

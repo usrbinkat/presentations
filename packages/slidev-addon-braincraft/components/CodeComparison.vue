@@ -18,25 +18,26 @@
     </CodeComparison>
 -->
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
+const { beforeLabel = 'Before', afterLabel = 'After' } = defineProps<{
   beforeLabel?: string
   afterLabel?: string
-}>(), {
-  beforeLabel: 'Before',
-  afterLabel: 'After',
-})
+}>()
 </script>
 
 <template>
   <div class="code-comparison">
     <div class="code-col">
-      <div class="code-header code-header-before">{{ props.beforeLabel }}</div>
+      <div class="code-header code-header-before">
+        {{ beforeLabel }}
+      </div>
       <div class="code-body">
         <slot />
       </div>
     </div>
     <div class="code-col">
-      <div class="code-header code-header-after">{{ props.afterLabel }}</div>
+      <div class="code-header code-header-after">
+        {{ afterLabel }}
+      </div>
       <div class="code-body">
         <slot name="after" />
       </div>
@@ -46,6 +47,7 @@ const props = withDefaults(defineProps<{
 
 <style scoped>
 .code-comparison {
+  container-type: inline-size;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--aurora-space-4);
@@ -55,7 +57,7 @@ const props = withDefaults(defineProps<{
 .code-col {
   border-radius: var(--aurora-radius-lg);
   overflow: hidden;
-  border: 1px solid var(--aurora-cream-400);
+  border: 1px solid var(--scheme-border, var(--aurora-cream-400));
 }
 
 .code-header {
@@ -67,37 +69,25 @@ const props = withDefaults(defineProps<{
 }
 
 .code-header-before {
-  background: oklch(90% 0.06 60);
-  color: var(--aurora-slate-700);
+  background: color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 15%, var(--scheme-bg, var(--aurora-cream-100)));
+  color: var(--scheme-heading, var(--aurora-slate-700));
 }
 
 .code-header-after {
-  background: oklch(90% 0.06 160);
-  color: var(--aurora-slate-700);
+  background: color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 25%, var(--scheme-bg, var(--aurora-cream-100)));
+  color: var(--scheme-heading, var(--aurora-slate-700));
 }
 
 .code-body {
   padding: var(--aurora-space-4);
-  background: var(--aurora-cream-100);
+  background: var(--scheme-bg-code, var(--aurora-cream-100));
   font-size: var(--aurora-text-sm);
   overflow-x: auto;
 }
 
-html.dark .code-col {
-  border-color: var(--aurora-slate-700);
-}
-
-html.dark .code-header-before {
-  background: oklch(30% 0.06 60);
-  color: var(--aurora-cream-300);
-}
-
-html.dark .code-header-after {
-  background: oklch(30% 0.06 160);
-  color: var(--aurora-cream-300);
-}
-
-html.dark .code-body {
-  background: var(--aurora-slate-800);
+@container (max-width: 500px) {
+  .code-comparison {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

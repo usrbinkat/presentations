@@ -1,19 +1,24 @@
 ---
-layout: intro
+layout: presenter
+imageSrc: https://github.com/usrbinkat.png
 ---
 
-# usrbinkat
+<SpeakerBio name="Kat Morgan" title="Principal Platform Engineer — Braincraft"
+avatarUrl="https://github.com/usrbinkat.png" :links="['@usrbinkat', 'github.com/usrbinkat',
+'git.braincraft.io']"
 
-Platform Engineer — Braincraft
+>
 
 <v-clicks>
 
-- Nix, Kubernetes, bare-metal infrastructure
-- Open source: Konductor, ContainerCraft
-- `git.braincraft.io` | `github.com/usrbinkat`
+- 15+ years: Dell, Canonical, Red Hat, Kong, Pulumi, NASA, Microsoft, Cisco
+- Nix, Kubernetes, bare-metal infrastructure, open source
+- Konductor, ContainerCraft
 
 </v-clicks>
 
+</SpeakerBio>
+
 <!--
-Quick introduction. I'm usrbinkat, a platform engineer at Braincraft. I work on Nix-based developer environments, Kubernetes on bare metal, and open-source infrastructure tooling. Everything I'm showing today is running in production on self-hosted hardware.
+Quick introduction. I'm Kat Morgan, also known as usrbinkat. I've spent 15 years building infrastructure at scale across Dell, Canonical, Red Hat, Kong, Pulumi, and several others. Currently I'm building reproducible developer environments and bare-metal Kubernetes at Braincraft. Everything I'm showing today is running in production on self-hosted hardware.
 -->

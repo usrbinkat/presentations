@@ -4,72 +4,75 @@
 */
 
 html.dark {
+  color-scheme: dark;
   --slidev-code-background: var(--aurora-slate-800);
+  --slidev-code-foreground: var(--aurora-cream-100);
   --slidev-slide-container-background: var(--aurora-slate-900);
-}
 
-html.dark .aurora-cream-scheme {
-  --scheme-bg: var(--aurora-slate-800);
-  --scheme-bg-code: var(--aurora-slate-700);
-  --scheme-text: var(--aurora-cream-100);
-  --scheme-text-secondary: var(--aurora-cream-300);
-  --scheme-heading: var(--aurora-cream-50);
-  --scheme-border: var(--aurora-slate-600);
-  --scheme-accent: var(--aurora-lavender-300);
-  --scheme-highlight: var(--aurora-lavender-400);
-  background-color: var(--scheme-bg);
-  color: var(--scheme-text);
-}
+  .aurora-cream-scheme {
+    --scheme-bg: var(--aurora-slate-800);
+    --scheme-bg-code: var(--aurora-slate-700);
+    --scheme-text: var(--aurora-cream-100);
+    --scheme-text-secondary: var(--aurora-cream-300);
+    --scheme-heading: var(--aurora-cream-100);
+    --scheme-border: var(--aurora-slate-600);
+    --scheme-accent: var(--aurora-lavender-300);
+    --scheme-highlight: var(--aurora-lavender-400);
+    background-color: var(--scheme-bg);
+    color: var(--scheme-text);
+  }
 
-html.dark .aurora-lavender-scheme {
-  --scheme-bg: oklch(22% 0.04 300);
-  --scheme-bg-code: oklch(20% 0.06 300);
-  --scheme-text: var(--aurora-cream-100);
-  --scheme-text-secondary: var(--aurora-cream-300);
-  --scheme-heading: var(--aurora-lavender-300);
-  --scheme-border: var(--aurora-lavender-500);
-  --scheme-accent: var(--aurora-lavender-300);
-  --scheme-highlight: var(--aurora-lavender-400);
-  background-color: var(--scheme-bg);
-  color: var(--scheme-text);
-}
+  .aurora-lavender-scheme {
+    --scheme-bg: oklch(22% 0.04 300);
+    --scheme-bg-code: oklch(20% 0.06 300);
+    --scheme-text: var(--aurora-cream-100);
+    --scheme-text-secondary: var(--aurora-cream-300);
+    --scheme-heading: var(--aurora-lavender-300);
+    --scheme-border: var(--aurora-lavender-500);
+    --scheme-accent: var(--aurora-lavender-300);
+    --scheme-highlight: var(--aurora-lavender-400);
+    background-color: var(--scheme-bg);
+    color: var(--scheme-text);
+  }
 
-html.dark .aurora-mint-scheme {
-  --scheme-bg: oklch(22% 0.04 160);
-  --scheme-bg-code: oklch(20% 0.06 160);
-  --scheme-text: var(--aurora-cream-100);
-  --scheme-text-secondary: var(--aurora-cream-300);
-  --scheme-heading: var(--aurora-mint-300);
-  --scheme-border: var(--aurora-mint-500);
-  --scheme-accent: var(--aurora-mint-300);
-  --scheme-highlight: var(--aurora-mint-400);
-  background-color: var(--scheme-bg);
-  color: var(--scheme-text);
-}
+  .aurora-mint-scheme {
+    --scheme-bg: oklch(22% 0.04 160);
+    --scheme-bg-code: oklch(20% 0.06 160);
+    --scheme-text: var(--aurora-cream-100);
+    --scheme-text-secondary: var(--aurora-cream-300);
+    --scheme-heading: var(--aurora-mint-300);
+    --scheme-border: var(--aurora-mint-500);
+    --scheme-accent: var(--aurora-mint-300);
+    --scheme-highlight: var(--aurora-mint-400);
+    background-color: var(--scheme-bg);
+    color: var(--scheme-text);
+  }
 
-html.dark .aurora-peach-scheme {
-  --scheme-bg: oklch(22% 0.04 60);
-  --scheme-bg-code: oklch(20% 0.06 60);
-  --scheme-text: var(--aurora-cream-100);
-  --scheme-text-secondary: var(--aurora-cream-300);
-  --scheme-heading: var(--aurora-peach-300);
-  --scheme-border: var(--aurora-peach-500);
-  --scheme-accent: var(--aurora-peach-300);
-  --scheme-highlight: var(--aurora-peach-400);
-  background-color: var(--scheme-bg);
-  color: var(--scheme-text);
-}
+  .aurora-peach-scheme {
+    --scheme-bg: oklch(22% 0.04 60);
+    --scheme-bg-code: oklch(20% 0.06 60);
+    --scheme-text: var(--aurora-cream-100);
+    --scheme-text-secondary: var(--aurora-cream-300);
+    --scheme-heading: var(--aurora-peach-300);
+    --scheme-border: var(--aurora-peach-500);
+    --scheme-accent: var(--aurora-peach-300);
+    --scheme-highlight: var(--aurora-peach-400);
+    background-color: var(--scheme-bg);
+    color: var(--scheme-text);
+  }
 
-html.dark .aurora-sky-scheme {
-  --scheme-bg: oklch(22% 0.04 220);
-  --scheme-bg-code: oklch(20% 0.06 220);
-  --scheme-text: var(--aurora-cream-100);
-  --scheme-text-secondary: var(--aurora-cream-300);
-  --scheme-heading: var(--aurora-sky-300);
-  --scheme-border: var(--aurora-sky-500);
-  --scheme-accent: var(--aurora-sky-300);
-  background-color: var(--scheme-bg);
-  color: var(--scheme-text);
-}
+  .aurora-sky-scheme {
+    --scheme-bg: oklch(22% 0.04 220);
+    --scheme-bg-code: oklch(20% 0.06 220);
+    --scheme-text: var(--aurora-cream-100);
+    --scheme-text-secondary: var(--aurora-cream-300);
+    --scheme-heading: var(--aurora-sky-300);
+    --scheme-border: var(--aurora-sky-500);
+    --scheme-accent: var(--aurora-sky-300);
+    --scheme-highlight: var(--aurora-sky-400);
+    background-color: var(--scheme-bg);
+    color: var(--scheme-text);
+  }
 
-/* Slate scheme is inherently dark — no change needed in dark mode */
+  /* Slate scheme is inherently dark — no change needed in dark mode */
+}
