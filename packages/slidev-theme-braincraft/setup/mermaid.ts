@@ -40,7 +40,7 @@ export default defineMermaidSetup(() => {
         actorLineColor: '#615870', // slate-500
         signalColor: '#FAF9F7', // cream-100
         fontFamily: 'Inter, sans-serif',
-        fontSize: '14px',
+        fontSize: '18px',
         curve: 'basis',
         nodeRadius: 12,
       },
@@ -71,7 +71,7 @@ export default defineMermaidSetup(() => {
       noteBkgColor: '#F5F3F0', // cream-200
       noteBorderColor: '#C0A6DB', // lavender-400
       fontFamily: 'Inter, sans-serif',
-      fontSize: '14px',
+      fontSize: '18px',
       curve: 'basis',
       nodeRadius: 12,
     },

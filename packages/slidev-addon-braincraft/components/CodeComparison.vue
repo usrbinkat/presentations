@@ -81,8 +81,9 @@ const { beforeLabel = 'Before', afterLabel = 'After' } = defineProps<{
 .code-body {
   padding: var(--aurora-space-4);
   background: var(--scheme-bg-code, var(--aurora-cream-100));
-  font-size: var(--aurora-text-sm);
+  font-size: clamp(0.65rem, 1.2vw, var(--aurora-text-sm));
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 @container (max-width: 500px) {

@@ -83,6 +83,94 @@
   }
 }
 
+/* ═══════════════════════════════════════════════════
+   MERMAID DIAGRAM CONTAINMENT
+   Slidev renders mermaid SVGs inside Shadow DOM.
+   CSS cannot cross the shadow boundary — setup/main.ts
+   uses a MutationObserver to reach into the shadow root
+   and force the SVG to scale responsively.
+   This CSS controls only the light-DOM container.
+   ═══════════════════════════════════════════════════ */
+
+.slidev-layout .mermaid {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════
+   EXCALIDRAW DIAGRAM CONTAINMENT
+   slidev-addon-excalidraw renders a <div v-html="svg">
+   containing an inline <svg> in light DOM. The addon sets
+   maxWidth:100% and height:auto on the SVG, but does NOT
+   constrain maxHeight — so tall diagrams overflow the slide.
+   This CSS makes the wrapper div a flex container that fills
+   remaining space and constrains the SVG within it.
+   ═══════════════════════════════════════════════════ */
+
+/* Target: the <div class="w-full h-full" v-html="svg"> wrapper created
+   by the Excalidraw component. The div contains a single <svg> child.
+   We use :has(> svg[version]) since excalidraw SVGs carry a version attr,
+   but also match the broad w-full+h-full pattern as a safety net. */
+.slidev-layout div:has(> svg) {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  & > svg {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   EXCALIDRAW FONT REMAPPING
+   Remap excalidraw default fonts to theme fonts.
+   Inter (sans) and Space Mono (mono) are already
+   loaded by Slidev from the deck frontmatter.
+   ═══════════════════════════════════════════════════ */
+
+.slidev-layout div:has(> svg) svg {
+  /* Sans-serif: Excalidraw "Helvetica" → theme "Inter" */
+  text[style*='Helvetica'] {
+    font-family: 'Inter', sans-serif !important;
+  }
+
+  /* Monospace: Excalidraw "Cascadia" → theme "Space Mono" */
+  text[style*='Cascadia'] {
+    font-family: 'Space Mono', monospace !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   CODE BLOCK CONTAINMENT
+   Prevent code blocks from creating horizontal
+   scrollbars in constrained containers (side-by-side
+   layouts, CodeComparison, etc). Scale font down
+   rather than scroll.
+   ═══════════════════════════════════════════════════ */
+
+.slidev-layout pre {
+  max-width: 100%;
+  overflow-x: auto;
+
+  code {
+    font-size: var(--aurora-text-sm);
+    tab-size: 2;
+  }
+}
+
 /* Full-bleed utility — for layouts that intentionally break padding (section, cover) */
 .slidev-layout--full-bleed {
   padding: 0;

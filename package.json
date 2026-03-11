@@ -15,22 +15,22 @@
     "new-layout": "node scripts/new-layout.mjs"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "catalog:",
+    "@iconify-json/carbon": "catalog:",
+    "@iconify-json/logos": "catalog:",
     "@slidev/cli": "catalog:",
     "@slidev/client": "catalog:",
     "@slidev/types": "catalog:",
-    "slidev-workspace": "^0.9.3",
-    "typescript": "catalog:",
     "eslint": "catalog:",
-    "@antfu/eslint-config": "catalog:",
+    "lint-staged": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-slidev": "catalog:",
-    "unocss": "catalog:",
-    "@iconify-json/carbon": "catalog:",
-    "@iconify-json/logos": "catalog:",
-    "vue-tsc": "catalog:",
-    "vitest": "catalog:",
     "simple-git-hooks": "catalog:",
-    "lint-staged": "catalog:"
+    "slidev-workspace": "^0.9.3",
+    "typescript": "catalog:",
+    "unocss": "catalog:",
+    "vitest": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged"
@@ -38,5 +38,8 @@
   "lint-staged": {
     "*.{vue,ts,js}": "eslint --fix",
     "*.{md,css,json,yaml,yml}": "prettier --write"
+  },
+  "dependencies": {
+    "slidev-addon-excalidraw": "^1.0.4"
   }
 }

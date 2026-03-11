@@ -4,31 +4,63 @@
 */
 
 /* ═══════════════════════════════════════════════════
-   SHIKI TRANSFORMER STYLES
-   Without these, // [!code highlight], // [!code ++],
-   // [!code focus] annotations produce no visual effect.
+   CONTAINER OWNS THE BACKGROUND
+   Shiki injects per-token inline style="background-color:..."
+   on every <span>. That creates "strips of tape" per line.
+   We nuke ALL inline backgrounds with !important, then
+   re-assert our annotation backgrounds with !important too.
+   ═══════════════════════════════════════════════════ */
+
+/* Wrapper is the single source of background */
+.slidev-layout .slidev-code-wrapper {
+  border-radius: var(--aurora-radius-lg);
+  border: 1px solid var(--scheme-border, var(--aurora-cream-400));
+  box-shadow: var(--scheme-shadow, var(--aurora-shadow-md));
+  background: var(--scheme-bg-code, var(--aurora-cream-200));
+  overflow: hidden;
+}
+
+/* <pre> transparent — wrapper supplies the fill */
+.slidev-layout .slidev-code {
+  background: transparent !important;
+}
+
+/* Kill ALL per-token inline backgrounds from Shiki themes */
+.shiki span {
+  background-color: transparent !important;
+}
+
+/* Kill per-line backgrounds */
+.shiki .line {
+  background-color: transparent !important;
+}
+
+/* ═══════════════════════════════════════════════════
+   SHIKI TRANSFORMER ANNOTATION STYLES
+   These re-assert backgrounds with !important to win
+   back from the global transparent rule above.
    ═══════════════════════════════════════════════════ */
 
 .shiki {
   .line.highlighted {
-    background-color: light-dark(oklch(70% 0.08 300 / 0.15), oklch(70% 0.08 300 / 0.2));
+    background-color: light-dark(oklch(70% 0.08 300 / 0.15), oklch(70% 0.08 300 / 0.2)) !important;
     border-left: 3px solid var(--aurora-lavender-400);
     margin-left: -3px;
     padding-left: 0;
 
     &.error {
-      background-color: oklch(68% 0.12 25 / 0.15);
+      background-color: oklch(68% 0.12 25 / 0.15) !important;
       border-left-color: var(--aurora-danger);
     }
 
     &.warning {
-      background-color: oklch(78% 0.12 85 / 0.15);
+      background-color: oklch(78% 0.12 85 / 0.15) !important;
       border-left-color: var(--aurora-warning);
     }
   }
 
   .line.diff.add {
-    background-color: light-dark(oklch(72% 0.12 145 / 0.12), oklch(72% 0.12 145 / 0.15));
+    background-color: light-dark(oklch(72% 0.12 145 / 0.12), oklch(72% 0.12 145 / 0.15)) !important;
 
     &::before {
       content: '+';
@@ -40,7 +72,7 @@
   }
 
   .line.diff.remove {
-    background-color: light-dark(oklch(68% 0.12 25 / 0.12), oklch(68% 0.12 25 / 0.15));
+    background-color: light-dark(oklch(68% 0.12 25 / 0.12), oklch(68% 0.12 25 / 0.15)) !important;
     opacity: 0.7;
 
     &::before {
@@ -53,7 +85,7 @@
   }
 
   .line.focused {
-    background-color: oklch(70% 0.08 300 / 0.1);
+    background-color: oklch(70% 0.08 300 / 0.1) !important;
   }
 
   &.has-focused-lines {
@@ -72,12 +104,19 @@
   }
 }
 
-/* Code block container polish */
+/* Consecutive code blocks share a visual group */
 .slidev-layout {
-  .slidev-code-wrapper {
-    border-radius: var(--aurora-radius-lg);
-    box-shadow: var(--scheme-shadow, var(--aurora-shadow-md));
-    overflow: hidden;
+  .slidev-code-wrapper + .slidev-code-wrapper {
+    margin-top: calc(-1 * var(--aurora-space-1));
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .slidev-code-wrapper:has(+ .slidev-code-wrapper) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
   }
 }
 

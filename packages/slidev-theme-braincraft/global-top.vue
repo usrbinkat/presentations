@@ -13,7 +13,13 @@ const nav = computed(() => $nav)
 
 const showFooter = computed(() => configs.value?.themeConfig?.showFooter ?? true)
 const showProgress = computed(() => configs.value?.themeConfig?.showProgress ?? true)
-const qrUrl = computed(() => configs.value?.themeConfig?.qrUrl || '')
+
+// Dynamic QR: points to the deck's slides.md on GitHub.
+// __SLIDEV_SOURCE_URL__ is injected at build time by the gitMetadataPlugin
+// in vite.config.ts. It resolves to the GitHub blob URL for this deck's
+// slides.md on the main branch. Falls back to themeConfig.qrUrl.
+const sourceUrl: string = typeof __SLIDEV_SOURCE_URL__ === 'string' ? __SLIDEV_SOURCE_URL__ : ''
+const qrUrl = computed(() => sourceUrl || configs.value?.themeConfig?.qrUrl || '')
 const author = computed(() => configs.value?.author || '')
 const title = computed(() => configs.value?.title || '')
 const currentLayout = computed(() => nav.value?.currentLayout || '')

@@ -44,6 +44,11 @@ const schemeClass = useSchemeClass(color, 'lavender')
   position: relative;
 }
 
+.cover-full .cover-content {
+  max-width: 100%;
+  width: 100%;
+}
+
 /* Ambient glow behind the title — subtle depth cue */
 .cover-content::before {
   content: '';

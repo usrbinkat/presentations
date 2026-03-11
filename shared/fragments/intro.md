@@ -1,24 +1,106 @@
 ---
 layout: presenter
-imageSrc: https://github.com/usrbinkat.png
+color: cream
+imageSrc: /speaker-kat-morgan.jpg
 ---
 
-<SpeakerBio name="Kat Morgan" title="Principal Platform Engineer — Braincraft"
-avatarUrl="https://github.com/usrbinkat.png" :links="['@usrbinkat', 'github.com/usrbinkat',
-'git.braincraft.io']"
+<div class="intro">
+  <div class="intro-name">Kat Morgan</div>
+  <div class="intro-handle">@usrbinkat</div>
+  <div class="intro-tagline">Educator · Innovator · Advocate</div>
 
->
+  <hr class="intro-rule" />
 
-<v-clicks>
+  <div class="intro-section">
+    <div class="intro-label">Experience</div>
+    <div class="intro-detail">10+ years across Dell, Canonical, Red Hat, Kong, Pulumi, NASA, Microsoft, Cisco</div>
+  </div>
 
-- 15+ years: Dell, Canonical, Red Hat, Kong, Pulumi, NASA, Microsoft, Cisco
-- Nix, Kubernetes, bare-metal infrastructure, open source
-- Konductor, ContainerCraft
+  <div class="intro-section">
+    <div class="intro-label">Projects</div>
+    <div class="intro-detail">ContainerCraft · BrainCraft · OpenSovreign · ScopeCreap</div>
+  </div>
 
-</v-clicks>
+  <div class="intro-links">
+    <a href="https://github.com/usrbinkat" target="_blank">github.com/usrbinkat</a>
+    <a href="https://linkedin.com/in/usrbinkat" target="_blank">linkedin.com/in/usrbinkat</a>
+  </div>
+</div>
 
-</SpeakerBio>
+<style>
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: var(--aurora-space-2);
+}
 
-<!--
-Quick introduction. I'm Kat Morgan, also known as usrbinkat. I've spent 15 years building infrastructure at scale across Dell, Canonical, Red Hat, Kong, Pulumi, and several others. Currently I'm building reproducible developer environments and bare-metal Kubernetes at Braincraft. Everything I'm showing today is running in production on self-hosted hardware.
--->
+.intro-name {
+  font-size: var(--aurora-text-4xl);
+  font-weight: var(--aurora-font-bold);
+  color: var(--scheme-heading);
+  line-height: 1.1;
+}
+
+.intro-handle {
+  font-size: var(--aurora-text-lg);
+  font-family: var(--aurora-font-mono);
+  color: var(--scheme-accent);
+}
+
+.intro-tagline {
+  font-size: var(--aurora-text-xl);
+  font-weight: var(--aurora-font-medium);
+  color: var(--scheme-text-secondary);
+  padding-top: var(--aurora-space-1);
+}
+
+.intro-rule {
+  border: none;
+  border-top: 2px solid color-mix(in oklch, var(--scheme-accent) 30%, transparent);
+  margin: var(--aurora-space-4) 0;
+}
+
+.intro-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aurora-space-1);
+  padding-bottom: var(--aurora-space-2);
+}
+
+.intro-label {
+  font-size: var(--aurora-text-xs);
+  font-weight: var(--aurora-font-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--scheme-accent);
+}
+
+.intro-detail {
+  font-size: var(--aurora-text-base);
+  color: var(--scheme-text);
+  line-height: var(--aurora-leading-relaxed);
+}
+
+.intro-links {
+  display: flex;
+  gap: var(--aurora-space-6);
+  padding-top: var(--aurora-space-2);
+}
+
+.intro-links a {
+  font-size: var(--aurora-text-sm);
+  font-family: var(--aurora-font-mono);
+  color: var(--scheme-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--aurora-duration-fast) var(--aurora-ease-out);
+}
+
+.intro-links a:hover {
+  border-bottom-color: currentColor;
+}
+</style>
+
+<!-- Speaker intro. No boilerplate component — hand-crafted for this talk. The photo carries the human connection. The right side is sparse and scannable: name, handle, tagline, experience, projects, links. The audience gets who you are in 5 seconds. ~10 seconds spoken. -->

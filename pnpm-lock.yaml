@@ -63,6 +63,10 @@ catalogs:
 
 importers:
   .:
+    dependencies:
+      slidev-addon-excalidraw:
+        specifier: ^1.0.4
+        version: 1.0.4
     devDependencies:
       "@antfu/eslint-config":
         specifier: "catalog:"
@@ -133,6 +137,21 @@ importers:
       slidev-addon-braincraft:
         specifier: workspace:*
         version: link:../../packages/slidev-addon-braincraft
+      slidev-theme-braincraft:
+        specifier: workspace:*
+        version: link:../../packages/slidev-theme-braincraft
+
+  decks/platform-factory-paas:
+    dependencies:
+      "@slidev/cli":
+        specifier: "catalog:"
+        version: 52.14.0(@nuxt/kit@3.21.1)(@types/markdown-it@14.1.2)(@types/node@22.19.13)(@vue/compiler-sfc@3.5.29)(lightningcss@1.31.1)(markdown-it@14.1.1)(postcss@8.5.6)
+      slidev-addon-braincraft:
+        specifier: workspace:*
+        version: link:../../packages/slidev-addon-braincraft
+      slidev-addon-excalidraw:
+        specifier: ^1.0.4
+        version: 1.0.4
       slidev-theme-braincraft:
         specifier: workspace:*
         version: link:../../packages/slidev-theme-braincraft
@@ -4646,6 +4665,7 @@ packages:
     resolution:
       { integrity: sha512-LYzdNAjRHhF2yA4JUQm/QyARyi216N2rpJ0lJZb8E9FU2y5v6Vk+xq/U4XBOxMefpWixT5H3TslmAHm1rqIq2w== }
     engines: { node: ^20.19.0 || >=22.12.0 }
+    deprecated: Use this package to migrate from Vite 7 to Vite 8. For the most recent updates, migrate to Vite 8 once you're ready.
     hasBin: true
     peerDependencies:
       "@types/node": ^20.19.0 || >=22.12.0
@@ -4821,6 +4841,10 @@ packages:
     resolution:
       { integrity: sha512-iOBWFgUX7caIZiuutICxVgX1SdxwAVFFKwt1EvMYYec/NWO5meOJ6K5uQxhrYBdQJne4KxiqZc+KptFOWFSI9w== }
     engines: { node: ">=18" }
+
+  slidev-addon-excalidraw@1.0.4:
+    resolution:
+      { integrity: sha512-BLSn1RDXbcIvUypzKPZxc62sCD15hUEk3wOdL7UP8mI6StN4em3bsWNKQp/10dECK5GXRu9Q6Rlxaau9WkKvdw== }
 
   slidev-workspace@0.9.3:
     resolution:
@@ -9915,6 +9939,8 @@ snapshots:
     dependencies:
       ansi-styles: 6.2.3
       is-fullwidth-code-point: 5.1.0
+
+  slidev-addon-excalidraw@1.0.4: {}
 
   slidev-workspace@0.9.3(@types/node@22.19.13)(esbuild@0.27.3)(jiti@2.6.1)(typescript@5.9.3):
     dependencies:

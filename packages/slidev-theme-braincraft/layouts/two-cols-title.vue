@@ -65,7 +65,19 @@ const rightSchemeClass = rightColor ? useSchemeClass(rightColor) : undefined
   gap: var(--aurora-content-gap);
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow: hidden;
+}
+
+.columns-area .col-left,
+.columns-area .col-right {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.columns-area :deep(img) {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 /* When columns receive a per-column color scheme, elevate them into cards */
@@ -73,6 +85,8 @@ const rightSchemeClass = rightColor ? useSchemeClass(rightColor) : undefined
 .col-right[class*="-scheme"] {
   padding: var(--aurora-space-6);
   border-radius: var(--aurora-radius-xl);
+  border: var(--aurora-border-medium) solid var(--scheme-border, var(--aurora-cream-400));
   box-shadow: var(--scheme-shadow, var(--aurora-shadow-sm));
+  background-color: var(--scheme-bg);
 }
 </style>

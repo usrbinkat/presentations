@@ -3,14 +3,14 @@ layout: end
 color: lavender
 ---
 
-# Let's Build Together
+# Let's go build Star Trek
 
 **usrbinkat** | Braincraft
 
 <template v-slot:cta>
 <div class="flex gap-8 mt-4 justify-center items-end">
   <QRCode url="https://github.com/usrbinkat" label="GitHub" :size="120" />
-  <QRCode url="https://git.braincraft.io" label="Braincraft" :size="120" />
+  <QRCode url="https://linkedin.com/in/usrbinkat" label="LinkedIn" :size="120" />
 </div>
 </template>
 

@@ -34,7 +34,6 @@ const schemeClass = useSchemeClass(color, 'cream')
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 }
 
 .default :deep(h1:first-child),

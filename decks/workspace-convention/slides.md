@@ -18,6 +18,8 @@ fonts:
   mono: Space Mono
 ---
 
+---
+
 layout: cover color: slate
 
 ---
@@ -26,7 +28,9 @@ layout: cover color: slate
 
 A filesystem convention that eliminates the question entirely
 
-<!-- HOOK. Ask the room: raise your hand if you've searched for a repo you cloned three months ago. Is it in ~/projects? ~/code? ~/work? Every engineer invents their own path convention, and when you pair or share scripts, everything breaks. ~15 seconds. -->
+<!--
+HOOK. Ask the room: raise your hand if you've searched for a repo you cloned three months ago. Is it in ~/projects? ~/code? ~/work? Every engineer invents their own path convention, and when you pair or share scripts, everything breaks. ~15 seconds.
+-->
 
 ---
 
@@ -40,7 +44,9 @@ layout: statement color: cream
 
 # Every engineer invents their own directory convention. Every script breaks on the next machine.
 
-<!-- Let this statement breathe. The audience who has lived this will nod. Whitespace communicates significance — one sentence, maximum impact. ~5 seconds. -->
+<!--
+Let this statement breathe. The audience who has lived this will nod. Whitespace communicates significance — one sentence, maximum impact. ~5 seconds.
+-->
 
 ---
 
@@ -59,7 +65,9 @@ layout: default color: cream
 
 </v-clicks>
 
-<!-- Four real examples from real teams. Different roots, name collisions across servers, scripts with hardcoded paths. This is a systemic tax, not a minor annoyance. ~30 seconds. -->
+<!--
+Four real examples from real teams. Different roots, name collisions across servers, scripts with hardcoded paths. This is a systemic tax, not a minor annoyance. ~30 seconds.
+-->
 
 ---
 
@@ -73,7 +81,9 @@ Steps in the onboarding wiki. Last updated six months ago.
 
 <template #context> Nobody maintains it because everybody improvises </template>
 
-<!-- Anchor the problem with a visceral number. Forty-seven steps in a wiki that's always stale. The audience who has written (or suffered through) one of these will laugh ruefully. ~10 seconds. -->
+<!--
+Anchor the problem with a visceral number. Forty-seven steps in a wiki that's always stale. The audience who has written (or suffered through) one of these will laugh ruefully. ~10 seconds.
+-->
 
 ---
 
@@ -103,7 +113,9 @@ layout: two-cols-title color: cream columns: 1fr 1fr
 
 </v-clicks>
 
-<!-- The industry debates monorepo vs polyrepo as binary. Monorepos couple unrelated projects. Polyrepos destroy discoverability. Neither handles multiple git servers. Neither handles multiple users on shared VMs. We need a third option. ~30 seconds. -->
+<!--
+The industry debates monorepo vs polyrepo as binary. Monorepos couple unrelated projects. Polyrepos destroy discoverability. Neither handles multiple git servers. Neither handles multiple users on shared VMs. We need a third option. ~30 seconds.
+-->
 
 ---
 
@@ -115,7 +127,9 @@ layout: section color: slate transition: aurora-zoom sectionNumber: 1
 
 A filesystem convention, not a tool
 
-<!-- SECTION BREAK. Shift from problem to solution. The convention is not a tool, not a package, not an install — it's a naming rule for where you put git clones. ~5 seconds. -->
+<!--
+SECTION BREAK. Shift from problem to solution. The convention is not a tool, not a package, not an install — it's a naming rule for where you put git clones. ~5 seconds.
+-->
 
 ---
 
@@ -129,7 +143,9 @@ Four segments. Four collision classes eliminated.
 
 <template #context> Inspired by Go's GOPATH, generalized to any server </template>
 
-<!-- The entire convention in one line. /workspace is the consistent root. User segment enables multi-player. Server segment separates GitHub from Forgejo. Namespace maps to org. Collisions are structurally impossible. ~15 seconds. -->
+<!--
+The entire convention in one line. /workspace is the consistent root. User segment enables multi-player. Server segment separates GitHub from Forgejo. Namespace maps to org. Collisions are structurally impossible. ~15 seconds.
+-->
 
 ---
 
@@ -169,7 +185,9 @@ layout: full color: cream transition: aurora-slide-up
 ```
 ````
 
-<!-- Magic Move evolves from chaos to order. Ad-hoc paths, then the convention, then multi-server. The key: the clone URL is derivable from the path. The path IS the address. ~25 seconds. -->
+<!--
+Magic Move evolves from chaos to order. Ad-hoc paths, then the convention, then multi-server. The key: the clone URL is derivable from the path. The path IS the address. ~25 seconds.
+-->
 
 ---
 
@@ -205,7 +223,9 @@ layout: two-cols-title color: cream columns: 1fr 1fr
 
 </v-clicks>
 
-<!-- Break down each segment. /workspace replaces the chaos of ~/projects, ~/code, ~/src. User enables multi-player. Server separates origins. Namespace maps to orgs. The payoff: scripts work everywhere. ~30 seconds. -->
+<!--
+Break down each segment. /workspace replaces the chaos of ~/projects, ~/code, ~/src. User enables multi-player. Server separates origins. Namespace maps to orgs. The payoff: scripts work everywhere. ~30 seconds.
+-->
 
 ---
 
@@ -217,7 +237,9 @@ layout: quote color: cream
 
 No submodules. No Bazel. No Nx. No Turborepo.
 
-<!-- Clarify what this is NOT. No shared build system, no shared CI, no submodules. Each repo is independent. Delete one without affecting any other. The independence is the point. ~10 seconds. -->
+<!--
+Clarify what this is NOT. No shared build system, no shared CI, no submodules. Each repo is independent. Delete one without affecting any other. The independence is the point. ~10 seconds.
+-->
 
 ---
 
@@ -229,7 +251,9 @@ layout: section color: slate transition: aurora-zoom sectionNumber: 2
 
 direnv, mise, and environment isolation
 
-<!-- SECTION BREAK. The naming convention is only useful if it integrates with daily workflow. Show how direnv and mise make it automatic. ~5 seconds. -->
+<!--
+SECTION BREAK. The naming convention is only useful if it integrates with daily workflow. Show how direnv and mise make it automatic. ~5 seconds.
+-->
 
 ---
 
@@ -258,7 +282,9 @@ export SSL_CERT_FILE="/etc/konductor/pki/bundle/ca-bundle.crt" # [!code highligh
 export KUBECONFIG="${WORKSPACE_ROOT}/.config/talos/clusters/..."
 ```
 
-<!-- The actual .envrc. cd into the directory, direnv fires. Loads env files in order — proxy first for network. Activates Nix devshell. Sets PKI trust. Configures KUBECONFIG. cd out, everything unloads. ~25 seconds. -->
+<!--
+The actual .envrc. cd into the directory, direnv fires. Loads env files in order — proxy first for network. Activates Nix devshell. Sets PKI trust. Configures KUBECONFIG. cd out, everything unloads. ~25 seconds.
+-->
 
 ---
 
@@ -291,7 +317,9 @@ includes = [ # [!code highlight]
 ]
 ```
 
-<!-- Mise is the task runner. Tasks operate across sibling repos. Cluster config, versions, network settings. Task definitions split by concern. mise tasks reference siblings because paths are predictable. ~20 seconds. -->
+<!--
+Mise is the task runner. Tasks operate across sibling repos. Cluster config, versions, network settings. Task definitions split by concern. mise tasks reference siblings because paths are predictable. ~20 seconds.
+-->
 
 ---
 
@@ -321,7 +349,9 @@ flowchart LR
 
 </v-clicks>
 
-<!-- The flow as a diagram. cd in, direnv fires, env files load, Nix activates, PKI sets up, Kubernetes configures, ready. cd out, everything unloads. No stale variables, no leaked PATH entries. ~20 seconds. -->
+<!--
+The flow as a diagram. cd in, direnv fires, env files load, Nix activates, PKI sets up, Kubernetes configures, ready. cd out, everything unloads. No stale variables, no leaked PATH entries. ~20 seconds.
+-->
 
 ---
 
@@ -353,7 +383,9 @@ Python venv from infrastructure/ never leaks into k9/. Node modules from present
 
 </v-click>
 
-<!-- Look at the diversity of toolchains coexisting. Nix, Python, Go, Node.js, plain YAML. In a monorepo, dependencies would conflict. With the convention and direnv, each has its own isolated environment. ~25 seconds. -->
+<!--
+Look at the diversity of toolchains coexisting. Nix, Python, Go, Node.js, plain YAML. In a monorepo, dependencies would conflict. With the convention and direnv, each has its own isolated environment. ~25 seconds.
+-->
 
 ---
 
@@ -365,7 +397,9 @@ layout: section color: slate transition: aurora-zoom sectionNumber: 3
 
 presentations/ as a self-contained workspace
 
-<!-- SECTION BREAK. Something that surprised even me: the Slidev factory producing these slides is a self-contained pnpm workspace inside the multi-root workspace. It's portable. ~5 seconds. -->
+<!--
+SECTION BREAK. Something that surprised even me: the Slidev factory producing these slides is a self-contained pnpm workspace inside the multi-root workspace. It's portable. ~5 seconds.
+-->
 
 ---
 
@@ -391,7 +425,9 @@ presentations/                          # Portable — drop into any workspace
 └── package.json                        # Root workspace scripts
 ```
 
-<!-- Structure overview. Theme with 15 layouts, addon with 9 components. Individual decks. Shared fragments imported via src:. pnpm workspace. Zero build dependencies on sibling repos. ~20 seconds. -->
+<!--
+Structure overview. Theme with 15 layouts, addon with 9 components. Individual decks. Shared fragments imported via src:. pnpm workspace. Zero build dependencies on sibling repos. ~20 seconds.
+-->
 
 ---
 
@@ -427,7 +463,9 @@ layout: two-cols-title color: cream leftColor: peach rightColor: mint columns: 1
 
 </v-clicks>
 
-<!-- The distinction matters. Reads siblings for content. Depends on nothing at build time. Move this entire directory to any workspace and it builds without modification. Portability by design. ~25 seconds. -->
+<!--
+The distinction matters. Reads siblings for content. Depends on nothing at build time. Move this entire directory to any workspace and it builds without modification. Portability by design. ~25 seconds.
+-->
 
 ---
 
@@ -461,7 +499,9 @@ flowchart TD
     INFRA -.->|"content inspiration"| DECK2
 ```
 
-<!-- Dotted lines = content inspiration (read siblings to write about them). Solid lines = build dependencies (all internal). Monorepo where monorepo makes sense. Independent clones everywhere else. ~20 seconds. -->
+<!--
+Dotted lines = content inspiration (read siblings to write about them). Solid lines = build dependencies (all internal). Monorepo where monorepo makes sense. Independent clones everywhere else. ~20 seconds.
+-->
 
 ---
 
@@ -473,7 +513,9 @@ layout: section color: slate transition: aurora-zoom sectionNumber: 4
 
 Navigation, isolation, and IDE integration
 
-<!-- SECTION BREAK. Convention is only valuable if the daily DX is seamless. Three things: instant navigation, automatic isolation, IDE integration. ~5 seconds. -->
+<!--
+SECTION BREAK. Convention is only valuable if the daily DX is seamless. Three things: instant navigation, automatic isolation, IDE integration. ~5 seconds.
+-->
 
 ---
 
@@ -507,7 +549,9 @@ $ z containercraft
 
 </v-clicks>
 
-<!-- zoxide is a smarter cd. Learns frequent directories. Partial match jumps you there. direnv fires on arrival. Combined: navigate and switch environments in one keystroke. No source activate, no nvm use. ~20 seconds. -->
+<!--
+zoxide is a smarter cd. Learns frequent directories. Partial match jumps you there. direnv fires on arrival. Combined: navigate and switch environments in one keystroke. No source activate, no nvm use. ~20 seconds.
+-->
 
 ---
 
@@ -548,7 +592,9 @@ layout: two-cols-title color: cream columns: 1fr 1fr
 
 </v-clicks>
 
-<!-- VS Code multi-root workspace maps perfectly. Each folder gets its own language server, settings, debug config. Full IDE intelligence across five different tech stacks in one editor window. The convention is the filesystem mirror. ~20 seconds. -->
+<!--
+VS Code multi-root workspace maps perfectly. Each folder gets its own language server, settings, debug config. Full IDE intelligence across five different tech stacks in one editor window. The convention is the filesystem mirror. ~20 seconds.
+-->
 
 ---
 
@@ -561,7 +607,9 @@ layout: quote color: cream
 
 Environment isolation by filesystem convention.
 
-<!-- The key property. Isolation enforced by direnv scoping, not containers. Simpler than containers, faster than VMs, works on macOS, Linux, WSL, NixOS. ~10 seconds. -->
+<!--
+The key property. Isolation enforced by direnv scoping, not containers. Simpler than containers, faster than VMs, works on macOS, Linux, WSL, NixOS. ~10 seconds.
+-->
 
 ---
 
@@ -573,7 +621,9 @@ layout: section color: slate transition: aurora-zoom sectionNumber: 5
 
 Multiple users, multiple servers, CI parity
 
-<!-- SECTION BREAK. What happens when this scales beyond a single developer? Shared machines, CI runners, organizations with dozens of git servers. ~5 seconds. -->
+<!--
+SECTION BREAK. What happens when this scales beyond a single developer? Shared machines, CI runners, organizations with dozens of git servers. ~5 seconds.
+-->
 
 ---
 
@@ -619,7 +669,9 @@ layout: two-cols-title color: cream columns: 1fr 1fr
 
 </v-clicks>
 
-<!-- Alice and Bob both work on acme-corp repos. Their own clones under their own user directories. No collision. Different git servers coexist. File ownership aligns with user directories. ~20 seconds. -->
+<!--
+Alice and Bob both work on acme-corp repos. Their own clones under their own user directories. No collision. Different git servers coexist. File ownership aligns with user directories. ~20 seconds.
+-->
 
 ---
 
@@ -653,7 +705,9 @@ layout: default color: cream
 
 </v-clicks>
 
-<!-- Multi-server story. GitHub, Forgejo, GitLab. Same-name repos on different servers don't collide. Beautiful symmetry: the clone URL is derivable from the path. The path IS the address. ~20 seconds. -->
+<!--
+Multi-server story. GitHub, Forgejo, GitLab. Same-name repos on different servers don't collide. Beautiful symmetry: the clone URL is derivable from the path. The path IS the address. ~20 seconds.
+-->
 
 ---
 
@@ -688,7 +742,9 @@ layout: side-title color: cream
 
 </v-clicks>
 
-<!-- Convention extends to CI. Runners clone into /workspace/runner/ following the same structure. CI scripts reference paths identically. Reproduce failures locally because paths match. Runner is just another user. ~20 seconds. -->
+<!--
+Convention extends to CI. Runners clone into /workspace/runner/ following the same structure. CI scripts reference paths identically. Reproduce failures locally because paths match. Runner is just another user. ~20 seconds.
+-->
 
 ---
 
@@ -718,7 +774,9 @@ git clone https://github.com/your-org/your-repo \
 
 </v-clicks>
 
-<!-- Three commands. Create /workspace. Create your path hierarchy. Clone into it. No direnv needed. No mise needed. No Nix needed. Just a naming rule. mkdir and git clone. ~15 seconds. -->
+<!--
+Three commands. Create /workspace. Create your path hierarchy. Clone into it. No direnv needed. No mise needed. No Nix needed. Just a naming rule. mkdir and git clone. ~15 seconds.
+-->
 
 ---
 
@@ -732,7 +790,9 @@ Commands to adopt. Zero tools to install. Infinite collisions prevented.
 
 <template #context> mkdir, chown, git clone — that's the entire adoption cost </template>
 
-<!-- Punctuate with a number. Three commands. The simplicity is the selling point. ~5 seconds. -->
+<!--
+Punctuate with a number. Three commands. The simplicity is the selling point. ~5 seconds.
+-->
 
 ---
 
@@ -742,7 +802,9 @@ layout: statement color: cream
 
 # The filesystem is the first API your team shares. Make it collision-free.
 
-<!-- Final thesis. Before you choose a monorepo tool, before you debate submodules, before you write a custom clone script — agree on where code lives. Four path segments. ~10 seconds. -->
+<!--
+Final thesis. Before you choose a monorepo tool, before you debate submodules, before you write a custom clone script — agree on where code lives. Four path segments. ~10 seconds.
+-->
 
 ---
 

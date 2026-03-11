@@ -31,12 +31,15 @@ const schemeClass = useSchemeClass(color, 'cream')
 
 <style scoped>
 .full {
-  padding: var(--aurora-space-6) var(--aurora-slide-padding-x);
+  padding: var(--aurora-space-4) var(--aurora-slide-padding-x);
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
+}
+
+.full :deep(h1) {
+  margin-bottom: var(--aurora-space-2);
 }
 </style>

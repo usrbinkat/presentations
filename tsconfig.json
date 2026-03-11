@@ -16,6 +16,12 @@
       "#addon/*": ["./packages/slidev-addon-braincraft/*"]
     }
   },
-  "include": ["packages/**/*.ts", "packages/**/*.vue", "decks/**/*.ts", "decks/**/*.vue"],
+  "include": [
+    "env.d.ts",
+    "packages/**/*.ts",
+    "packages/**/*.vue",
+    "decks/**/*.ts",
+    "decks/**/*.vue"
+  ],
   "exclude": ["node_modules", "dist", ".slidev"]
 }

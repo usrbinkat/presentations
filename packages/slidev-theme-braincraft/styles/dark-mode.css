@@ -75,4 +75,108 @@ html.dark {
   }
 
   /* Slate scheme is inherently dark — no change needed in dark mode */
+
+  /* ═══════════════════════════════════════════════════
+     FORCE-LIGHT ESCAPE HATCH
+     Per-slide opt-out from dark mode. Apply via
+     frontmatter: class: force-light
+     Forces light-mode color scheme vars even when
+     html.dark is active. Useful for slides with
+     diagrams or content that don't render well in
+     dark mode.
+     ═══════════════════════════════════════════════════ */
+
+  .force-light {
+    color-scheme: light;
+
+    &.aurora-cream-scheme,
+    & .aurora-cream-scheme {
+      --scheme-bg: var(--aurora-cream-100);
+      --scheme-bg-code: var(--aurora-cream-200);
+      --scheme-text: var(--aurora-slate-600);
+      --scheme-text-secondary: var(--aurora-slate-500);
+      --scheme-heading: var(--aurora-slate-700);
+      --scheme-border: var(--aurora-cream-400);
+      --scheme-accent: var(--aurora-lavender-400);
+      --scheme-highlight: var(--aurora-lavender-300);
+      background:
+        radial-gradient(ellipse at 30% 40%, oklch(35% 0.02 300 / 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 70%, oklch(35% 0.02 160 / 0.04) 0%, transparent 50%),
+        var(--scheme-bg);
+      color: var(--scheme-text);
+    }
+
+    &.aurora-lavender-scheme,
+    & .aurora-lavender-scheme {
+      --scheme-bg: oklch(95% 0.04 300);
+      --scheme-bg-code: oklch(92% 0.06 300);
+      --scheme-text: var(--aurora-slate-600);
+      --scheme-text-secondary: var(--aurora-slate-500);
+      --scheme-heading: var(--aurora-slate-700);
+      --scheme-border: var(--aurora-lavender-300);
+      --scheme-accent: var(--aurora-lavender-400);
+      --scheme-highlight: var(--aurora-lavender-300);
+      background:
+        radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 300 / 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 160 / 0.03) 0%, transparent 50%),
+        var(--scheme-bg);
+      color: var(--scheme-text);
+    }
+
+    &.aurora-mint-scheme,
+    & .aurora-mint-scheme {
+      --scheme-bg: oklch(95% 0.04 160);
+      --scheme-bg-code: oklch(92% 0.06 160);
+      --scheme-text: var(--aurora-slate-600);
+      --scheme-text-secondary: var(--aurora-slate-500);
+      --scheme-heading: var(--aurora-slate-700);
+      --scheme-border: var(--aurora-mint-300);
+      --scheme-accent: var(--aurora-mint-400);
+      --scheme-highlight: var(--aurora-mint-300);
+      background:
+        radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 160 / 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 300 / 0.03) 0%, transparent 50%),
+        var(--scheme-bg);
+      color: var(--scheme-text);
+    }
+
+    &.aurora-peach-scheme,
+    & .aurora-peach-scheme {
+      --scheme-bg: oklch(95% 0.04 60);
+      --scheme-bg-code: oklch(92% 0.06 60);
+      --scheme-text: var(--aurora-slate-600);
+      --scheme-text-secondary: var(--aurora-slate-500);
+      --scheme-heading: var(--aurora-slate-700);
+      --scheme-border: var(--aurora-peach-300);
+      --scheme-accent: var(--aurora-peach-400);
+      --scheme-highlight: var(--aurora-peach-300);
+      background:
+        radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 60 / 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 300 / 0.03) 0%, transparent 50%),
+        var(--scheme-bg);
+      color: var(--scheme-text);
+    }
+
+    &.aurora-sky-scheme,
+    & .aurora-sky-scheme {
+      --scheme-bg: oklch(95% 0.04 220);
+      --scheme-bg-code: oklch(92% 0.06 220);
+      --scheme-text: var(--aurora-slate-600);
+      --scheme-text-secondary: var(--aurora-slate-500);
+      --scheme-heading: var(--aurora-slate-700);
+      --scheme-border: var(--aurora-sky-300);
+      --scheme-accent: var(--aurora-sky-400);
+      --scheme-highlight: var(--aurora-sky-300);
+      background:
+        radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 220 / 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 160 / 0.03) 0%, transparent 50%),
+        var(--scheme-bg);
+      color: var(--scheme-text);
+    }
+
+    &.aurora-slate-scheme,
+    & .aurora-slate-scheme {
+      /* Slate is inherently dark — force-light keeps it dark */
+    }
+  }
 }

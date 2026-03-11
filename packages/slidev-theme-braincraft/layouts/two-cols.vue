@@ -50,8 +50,21 @@ const rightSchemeClass = rightColor ? useSchemeClass(rightColor) : undefined
   gap: var(--aurora-content-gap);
   padding: var(--aurora-slide-padding-y) var(--aurora-slide-padding-x);
   height: 100%;
-  align-content: start;
-  overflow-y: auto;
+  overflow: hidden;
+}
+
+.col-left,
+.col-right {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Constrain images within columns */
+.col-left :deep(img),
+.col-right :deep(img) {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .two-cols :deep(h1:first-child),
@@ -65,6 +78,8 @@ const rightSchemeClass = rightColor ? useSchemeClass(rightColor) : undefined
 .col-right[class*="-scheme"] {
   padding: var(--aurora-space-6);
   border-radius: var(--aurora-radius-xl);
+  border: var(--aurora-border-medium) solid var(--scheme-border, var(--aurora-cream-400));
   box-shadow: var(--scheme-shadow, var(--aurora-shadow-sm));
+  background-color: var(--scheme-bg);
 }
 </style>
