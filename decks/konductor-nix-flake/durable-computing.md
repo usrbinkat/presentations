@@ -67,12 +67,13 @@ h1 { text-align: center; }
 .ds-yellow { --_ds-color: #e2a832; }
 </style>
 
-<!-- Durable systems — a design philosophy for any compute. Row 1 (fundamentals): the three-word mantras that define the posture. Row 2 (concrete): what it looks like in practice — root cause visible immediately, clean crash semantics, signal-to-noise discipline. Row 3 (industry): MTTD/MTTR as the measurable, the security metaphor, the alert hygiene test. Applies to apps, infra, hardware — anything that computes. ~25 seconds across 2 clicks. -->
+<!--
+Durable systems — a design philosophy for any compute. Row 1 (fundamentals): the three-word mantras that define the posture. Row 2 (concrete): what it looks like in practice — root cause visible immediately, clean crash semantics, signal-to-noise discipline. Row 3 (industry): MTTD/MTTR as the measurable, the security metaphor, the alert hygiene test. Applies to apps, infra, hardware — anything that computes. ~25 seconds across 2 clicks.
+-->
 
 ---
-
-layout: statement color: slate
-
+layout: statement
+color: slate
 ---
 
 # A leaky faucet under maintenance does not close the emergency room.
@@ -83,4 +84,6 @@ Scoped blast radius. Designed failure envelope. Allowable operations continue.
 
 </v-click>
 
-<!-- Graceful degradation is designed, not accidental. A broken subsystem doesn't cascade into unrelated services. The audience imagines their own systems. ~15 seconds. -->
+<!--
+Graceful degradation is designed, not accidental. A broken subsystem doesn't cascade into unrelated services. The audience imagines their own systems. ~15 seconds.
+-->

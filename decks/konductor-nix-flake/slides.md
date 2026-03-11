@@ -20,9 +20,8 @@ fonts:
 ---
 
 ---
-
-layout: cover color: slate
-
+layout: cover
+color: slate
 ---
 
 <div class="title-card">
@@ -76,20 +75,21 @@ layout: cover color: slate
 }
 </style>
 
-<!-- Title card. Audience orients: who, where, when. ~10 seconds while people settle. -->
+<!--
+Title card. Audience orients: who, where, when. ~10 seconds while people settle.
+-->
 
 ---
 
-## src: ../../shared/fragments/riddle.md
+src: ../../shared/fragments/riddle.md
 
 ---
 
-## src: ../../shared/fragments/intro.md
+src: ../../shared/fragments/intro.md
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 <div class="jeopardy-title">
@@ -194,16 +194,18 @@ layout: default color: cream
 }
 </style>
 
-<!-- Jeopardy reveal. The riddle answer isn't one word — it's three dimensions of the same invisible problem. Waste: where the hours and money go. Drift: what diverges without alarms. Uncertainty: questions nobody in the room can answer. Each row lands simultaneously across all three columns so the audience processes the pattern, not individual items. The "how many engineers" escalation in Uncertainty is a lightbulb joke that stops being funny. ~30 seconds across all clicks. -->
+<!--
+Jeopardy reveal. The riddle answer isn't one word — it's three dimensions of the same invisible problem. Waste: where the hours and money go. Drift: what diverges without alarms. Uncertainty: questions nobody in the room can answer. Each row lands simultaneously across all three columns so the audience processes the pattern, not individual items. The "how many engineers" escalation in Uncertainty is a lightbulb joke that stops being funny. ~30 seconds across all clicks.
+-->
 
 ---
 
-## src: ../../shared/fragments/riddle.md
+src: ../../shared/fragments/riddle.md
 
 ---
-
-layout: two-cols color: cream layoutClass: flex flex-col justify-center
-
+layout: two-cols
+color: cream
+layoutClass: flex flex-col justify-center
 ---
 
 # 180 million developers on GitHub alone.
@@ -232,20 +234,22 @@ layout: two-cols color: cream layoutClass: flex flex-col justify-center
 .source-qr :deep(.qr-link) { display: none; }
 </style>
 
-<!-- Planet scale. 180M+ developers on GitHub (Octoverse 2025). 36.2M new in one year. 80% of new devs use Copilot week 1 — AI agents are developers now. 81.5% private repo contributions = the tax is mostly invisible. Only 5.5% of repos have contributor guides — onboarding is broken at industry scale. ~15 seconds. -->
+<!--
+Planet scale. 180M+ developers on GitHub (Octoverse 2025). 36.2M new in one year. 80% of new devs use Copilot week 1 — AI agents are developers now. 81.5% private repo contributions = the tax is mostly invisible. Only 5.5% of repos have contributor guides — onboarding is broken at industry scale. ~15 seconds.
+-->
 
 ---
 
-## src: ../../shared/fragments/github-population.md
+src: ../../shared/fragments/github-population.md
 
 ---
 
-## src: ../../shared/fragments/healthcheck.md
+src: ../../shared/fragments/healthcheck.md
 
 ---
-
-layout: cover color: slate class: cover-full
-
+layout: cover
+color: slate
+class: cover-full
 ---
 
 <div class="scale-punch">
@@ -289,28 +293,31 @@ layout: cover color: slate class: cover-full
 }
 </style>
 
-<!-- The math. 5.5% of repos have contributor guides = ~1M repos "doing it right" out of 518M total. The click reveals the scale of the problem they just saw the stats for. Drifting + undocumented + onboarding = maps back to the Jeopardy grid (Drift + Uncertainty + Waste). "Engineers and AI agents" seeds the multi-player arc. ~10 seconds. -->
+<!--
+The math. 5.5% of repos have contributor guides = ~1M repos "doing it right" out of 518M total. The click reveals the scale of the problem they just saw the stats for. Drifting + undocumented + onboarding = maps back to the Jeopardy grid (Drift + Uncertainty + Waste). "Engineers and AI agents" seeds the multi-player arc. ~10 seconds.
+-->
 
 ---
 
-## src: ./thought-to-action.md
+src: ./thought-to-action.md
 
 ---
-
-layout: section color: slate transition: aurora-zoom
-
+layout: section
+color: slate
+transition: aurora-zoom
 ---
 
 # The {un}Conventional Path
 
 Solve six problems in four steps
 
-<!-- Triple entendre. "Conventional" as in the established norm. "un" in curly braces = Nix expression syntax AND "unconventional." "Path" as in /the/literal/path/. We're about to make a filesystem path carry a LOT of weight. ~5 seconds. -->
+<!--
+Triple entendre. "Conventional" as in the established norm. "un" in curly braces = Nix expression syntax AND "unconventional." "Path" as in /the/literal/path/. We're about to make a filesystem path carry a LOT of weight. ~5 seconds.
+-->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 <div class="flex flex-col h-full">
@@ -332,12 +339,13 @@ layout: default color: cream
 </div>
 </div>
 
-<!-- Walk through one segment per click. Each "step" in the staircase is a step on The Conventional Path — the double entendre pays off visually. /workspace is convention evolved from devcontainers. /user separates work from home and allows group sharing. /server means you derive the remote from the path. /namespace means two orgs with a repo called "infra" never collide. ~40 seconds across 4 clicks. -->
+<!--
+Walk through one segment per click. Each "step" in the staircase is a step on The Conventional Path — the double entendre pays off visually. /workspace is convention evolved from devcontainers. /user separates work from home and allows group sharing. /server means you derive the remote from the path. /namespace means two orgs with a repo called "infra" never collide. ~40 seconds across 4 clicks.
+-->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # `workspace.git` — one repo to rule them all
@@ -369,22 +377,25 @@ namespace.
 
 </v-click>
 
-<!-- workspace.git is the special repo name convention. Clone it first at the namespace root. .envrc sets $WORKSPACE_ROOT. lefthook, mise, prettier, all shared config lives here. Every other repo cloned inside inherits it via direnv and path convention. Forgejo Actions Runner clones workspace.git before the triggering repo so CI has the same automation. Not "project-wide tooling" — it's the policy layer for the namespace. ~25 seconds. -->
+<!--
+workspace.git is the special repo name convention. Clone it first at the namespace root. .envrc sets $WORKSPACE_ROOT. lefthook, mise, prettier, all shared config lives here. Every other repo cloned inside inherits it via direnv and path convention. Forgejo Actions Runner clones workspace.git before the triggering repo so CI has the same automation. Not "project-wide tooling" — it's the policy layer for the namespace. ~25 seconds.
+-->
 
 ---
-
-layout: full color: cream class: force-light
-
+layout: full
+color: cream
+class: force-light
 ---
 
 <Excalidraw drawFilePath="./workspace-tree.excalidraw.json" :darkMode="false" :background="false" class="w-full h-full" />
 
-<!-- Active multi-player. Not independent multi-user — collaborative multi-actor. The workspace convention turns a four-segment path into a security boundary that the operating system enforces. ~20 seconds. -->
+<!--
+Active multi-player. Not independent multi-user — collaborative multi-actor. The workspace convention turns a four-segment path into a security boundary that the operating system enforces. ~20 seconds.
+-->
 
 ---
-
-layout: statement color: slate
-
+layout: statement
+color: slate
 ---
 
 # One root to rule them all.
@@ -449,28 +460,32 @@ h1 + hr {
 }
 </style>
 
-<!-- The Lord of the Rings callback earns a grin. $WORKSPACE_ROOT dominates at center. One click fades in the surrounding path segments small and dim — decorating, not competing. ~8 seconds. -->
+<!--
+The Lord of the Rings callback earns a grin. $WORKSPACE_ROOT dominates at center. One click fades in the surrounding path segments small and dim — decorating, not competing. ~8 seconds.
+-->
 
 ---
 
-## src: ./habitat.md
+src: ./habitat.md
 
 ---
-
-layout: section color: slate transition: aurora-zoom
-
+layout: section
+color: slate
+transition: aurora-zoom
 ---
 
 # Should Not vs. Cannot
 
 What if the architecture made policy convenient?
 
-<!-- "Should Not vs Cannot" — the mnemonic. The question reframes: we don't dismiss policy, we make it effortless. The audience imagines their own org. ~5 seconds. -->
+<!--
+"Should Not vs Cannot" — the mnemonic. The question reframes: we don't dismiss policy, we make it effortless. The audience imagines their own org. ~5 seconds.
+-->
 
 ---
-
-layout: cover color: slate class: cover-full
-
+layout: cover
+color: slate
+class: cover-full
 ---
 
 <div class="pivot">
@@ -542,12 +557,13 @@ layout: cover color: slate class: cover-full
 }
 </style>
 
-<!-- The sandwich. Policy at top (sky, dimmed) — the audience recognizes the familiar failure. One click: "cannot" appears bold below the arrow, bottom rule and conclusion fade in. The visual weight shifts downward — from policy to construction. ~10 seconds. -->
+<!--
+The sandwich. Policy at top (sky, dimmed) — the audience recognizes the familiar failure. One click: "cannot" appears bold below the arrow, bottom rule and conclusion fade in. The visual weight shifts downward — from policy to construction. ~10 seconds.
+-->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Confidence. Conformity. Simplicity.
@@ -634,46 +650,52 @@ h1 { text-align: center; }
 }
 </style>
 
-<!-- All four actors in one grid. The "should not" column is visible immediately — the audience recognizes their own org. One click reveals the entire "cannot" column. The visual shift from sky to mint IS the argument. No marathon. ~15 seconds. -->
+<!--
+All four actors in one grid. The "should not" column is visible immediately — the audience recognizes their own org. One click reveals the entire "cannot" column. The visual shift from sky to mint IS the argument. No marathon. ~15 seconds.
+-->
 
 ---
-
-layout: full color: cream class: force-light
-
+layout: full
+color: cream
+class: force-light
 ---
 
 <Excalidraw drawFilePath="./wrapper-anatomy.excalidraw.json" :darkMode="false" :background="false" class="w-full h-full" />
 
-<!-- Show the anatomy. The config lives alongside the nix file as a real dotfile — not generated, not abstracted. You develop and test it like any config. The wrapper just seals it. Architecture all the way down to the minutia. And the reach: every editor and AI tool that calls these gets the sealed version automatically. ~25 seconds. -->
+<!--
+Show the anatomy. The config lives alongside the nix file as a real dotfile — not generated, not abstracted. You develop and test it like any config. The wrapper just seals it. Architecture all the way down to the minutia. And the reach: every editor and AI tool that calls these gets the sealed version automatically. ~25 seconds.
+-->
 
 ---
-
-layout: statement color: lavender
-
+layout: statement
+color: lavender
 ---
 
 # Editors are orthogonal to guarantees.
 
 Pick vscode, vim, cursor, windsurf, zed. The habitat guarantees consistency.
 
-<!-- The debate becomes preference, not risk. Everyone in the room has an editor opinion. This slide resolves the tension: your preference is yours, the guarantee is structural. ~8 seconds. -->
+<!--
+The debate becomes preference, not risk. Everyone in the room has an editor opinion. This slide resolves the tension: your preference is yours, the guarantee is structural. ~8 seconds.
+-->
 
 ---
-
-layout: section color: slate transition: aurora-zoom
-
+layout: section
+color: slate
+transition: aurora-zoom
 ---
 
 # One expression — macOS, Linux, containers, VMs, cloud images, CI
 
 What happens when adding a deployment target is just another output?
 
-<!-- The list in the title IS the anxiety — every one of those is a surface someone maintains separately. The subtitle reframes: they're all outputs of one expression. ~5 seconds. -->
+<!--
+The list in the title IS the anxiety — every one of those is a surface someone maintains separately. The subtitle reframes: they're all outputs of one expression. ~5 seconds.
+-->
 
 ---
-
-layout: fact color: cream
-
+layout: fact
+color: cream
 ---
 
 # 1 source
@@ -684,12 +706,13 @@ NixOS · CI runners · devcontainers · testcontainers · agentcontainers
 <template #context> One Nix expression. Every surface inherits the same sealed configs, versions,
 and PKI trust chain. </template>
 
-<!-- ICONIC. "1 source" dominates. Below the fold: the dizzying list. The anxiety of that list is the point — every one of those is a surface someone maintains separately today. The simplicity of "1 source" above is the resolution. Let the contrast do the work. ~10 seconds. -->
+<!--
+ICONIC. "1 source" dominates. Below the fold: the dizzying list. The anxiety of that list is the point — every one of those is a surface someone maintains separately today. The simplicity of "1 source" above is the resolution. Let the contrast do the work. ~10 seconds.
+-->
 
 ---
-
-layout: default color: slate
-
+layout: default
+color: slate
 ---
 
 # Adding a surface is adding a line
@@ -737,12 +760,13 @@ p {
 }
 </style>
 
-<!-- The receipt. Technical audience sees real Nix outputs — this is how it works. Business audience counts: six targets, one file, no parallel maintenance. Every output inherits everything. ~15 seconds. -->
+<!--
+The receipt. Technical audience sees real Nix outputs — this is how it works. Business audience counts: six targets, one file, no parallel maintenance. Every output inherits everything. ~15 seconds.
+-->
 
 ---
-
-layout: default color: slate
-
+layout: default
+color: slate
 ---
 
 # Fork. Patch. Deploy.
@@ -875,34 +899,38 @@ h1 { text-align: center; }
 }
 </style>
 
-<!-- The fork is the standard posture, not the emergency exit. Fork, patch, deploy, validate — every path starts the same. After validation, three outcomes: PR upstream with battle-tested evidence (healthy contributor), maintain independently (license change, vendor durress), or adopt alternate upstream entirely. The capability is the same. The decision is yours. ~20 seconds. -->
+<!--
+The fork is the standard posture, not the emergency exit. Fork, patch, deploy, validate — every path starts the same. After validation, three outcomes: PR upstream with battle-tested evidence (healthy contributor), maintain independently (license change, vendor durress), or adopt alternate upstream entirely. The capability is the same. The decision is yours. ~20 seconds.
+-->
 
 ---
-
-layout: section color: slate transition: aurora-zoom
-
+layout: section
+color: slate
+transition: aurora-zoom
 ---
 
 # The System That Proves Its Own Lineage
 
 Does your supply chain do your audit for you?
 
-<!-- Self-attested sovereign software supply chain. This section is about provenance that doesn't require a separate tool, a separate process, or a separate team. The system carries its own proof. ~5 seconds. -->
+<!--
+Self-attested sovereign software supply chain. This section is about provenance that doesn't require a separate tool, a separate process, or a separate team. The system carries its own proof. ~5 seconds.
+-->
 
 ---
-
-layout: statement color: lavender
-
+layout: statement
+color: lavender
 ---
 
 # Intent. Guarantee. Outcome. — Three artifacts that prove your entire supply chain.
 
-<!-- The triad. Each word becomes a slide. ~5 seconds. -->
+<!--
+The triad. Each word becomes a slide. ~5 seconds.
+-->
 
 ---
-
-layout: full color: cream
-
+layout: full
+color: cream
 ---
 
 # Intent: `flake.nix` declares what you will build. `flake.lock` pins it.
@@ -942,12 +970,13 @@ always current.
 
 </CodeComparison>
 
-<!-- Side by side: declaration → pin. flake.nix says "I want nixpkgs from the 25.11 branch." flake.lock says "specifically commit 2b0b0e4, last modified Jan 2025, with this exact content hash." The lock file IS your software bill of materials. ~20 seconds. -->
+<!--
+Side by side: declaration → pin. flake.nix says "I want nixpkgs from the 25.11 branch." flake.lock says "specifically commit 2b0b0e4, last modified Jan 2025, with this exact content hash." The lock file IS your software bill of materials. ~20 seconds.
+-->
 
 ---
-
-layout: full color: cream
-
+layout: full
+color: cream
 ---
 
 # Guarantee: `versions.nix` starts simple and grows with your ambition
@@ -1011,12 +1040,13 @@ layout: full color: cream
 }
 </style>
 
-<!-- One diff here propagates to every devshell, container, VM, and CI pipeline. No surface left behind. Magic Move: versions.nix grows. Languages first — reasonable. Platform targets — ambitious. Operational metadata with strict mode — surprising. Each click raises the stakes. The file starts as version pins and evolves into a policy declaration. ~25 seconds across 3 transitions. -->
+<!--
+One diff here propagates to every devshell, container, VM, and CI pipeline. No surface left behind. Magic Move: versions.nix grows. Languages first — reasonable. Platform targets — ambitious. Operational metadata with strict mode — surprising. Each click raises the stakes. The file starts as version pins and evolves into a policy declaration. ~25 seconds across 3 transitions.
+-->
 
 ---
-
-layout: default color: slate
-
+layout: default
+color: slate
 ---
 
 # Outcome: the system fingerprints itself on every build
@@ -1077,12 +1107,13 @@ p { text-align: center; }
 }
 </style>
 
-<!-- Real output from a live Konductor VM. SSH in and the MOTD shows the Nix derivation hash and git commit immediately. cat /.konductor gives you everything: commit, branch, remote, dirty state, nix hash, derivation path, flake lock hash, build metadata, strict mode. The system tells you what it is, who built it, and whether it's promotion-ready. SOC 2, DOD, HIPAA, ITAR — this is what assessors need. ~25 seconds. -->
+<!--
+Real output from a live Konductor VM. SSH in and the MOTD shows the Nix derivation hash and git commit immediately. cat /.konductor gives you everything: commit, branch, remote, dirty state, nix hash, derivation path, flake lock hash, build metadata, strict mode. The system tells you what it is, who built it, and whether it's promotion-ready. SOC 2, DOD, HIPAA, ITAR — this is what assessors need. ~25 seconds.
+-->
 
 ---
-
-layout: default color: slate
-
+layout: default
+color: slate
 ---
 
 # The same provenance, inside the certificate
@@ -1136,22 +1167,25 @@ p { text-align: center; }
 }
 </style>
 
-<!-- Same provenance data from /.konductor now lives inside the wildcard TLS certificate as URI SANs and custom extensions. The git commit, nix derivation, build hardware — all embedded in the crypto. Every TLS handshake carries provenance. The audience sees the progression: fingerprint → certificate → same hashes, enriched. ~20 seconds. -->
+<!--
+Same provenance data from /.konductor now lives inside the wildcard TLS certificate as URI SANs and custom extensions. The git commit, nix derivation, build hardware — all embedded in the crypto. Every TLS handshake carries provenance. The audience sees the progression: fingerprint → certificate → same hashes, enriched. ~20 seconds.
+-->
 
 ---
-
-layout: full color: cream class: force-light
-
+layout: full
+color: cream
+class: force-light
 ---
 
 <Excalidraw drawFilePath="./pki-trust-chain.excalidraw.json" :darkMode="false" :background="false" class="w-full h-full" />
 
-<!-- The trust chain diagram is the teaching slide. Hypervisor → VM → service. Provenance at every level. If the chain breaks, the system screams. Then the practical payoff: six env vars, total TLS coverage, no manual cert management. ~25 seconds. -->
+<!--
+The trust chain diagram is the teaching slide. Hypervisor → VM → service. Provenance at every level. If the chain breaks, the system screams. Then the practical payoff: six env vars, total TLS coverage, no manual cert management. ~25 seconds.
+-->
 
 ---
-
-layout: default color: slate
-
+layout: default
+color: slate
 ---
 
 # Build log attestation
@@ -1178,16 +1212,17 @@ Intent (`flake.lock`) + Guarantee (`versions.nix`) + Outcome (`/.konductor` + PK
 17,000+ lines of serial console captured as `build-vm.log`, shipped inside the OCI `FROM scratch`
 image. The build pipeline attests itself.
 
-<!-- The third artifact completes the triad. build-vm.log records WHO built it, ON WHAT hardware, WHEN. Combined with flake.lock (what was declared) and /.konductor (what shipped), you have a complete provenance chain. The system does its own audit. ~20 seconds. -->
+<!--
+The third artifact completes the triad. build-vm.log records WHO built it, ON WHAT hardware, WHEN. Combined with flake.lock (what was declared) and /.konductor (what shipped), you have a complete provenance chain. The system does its own audit. ~20 seconds.
+-->
 
 ---
 
-## src: ./durable-computing.md
+src: ./durable-computing.md
 
 ---
-
-layout: default color: slate
-
+layout: default
+color: slate
 ---
 
 # The browser is just one way in
@@ -1235,22 +1270,24 @@ h1 { text-align: center; }
 }
 </style>
 
-<!-- Screenshot sandwich. The browser screenshot proves it works. The rule line below separates. The access methods line shows four ways in — browser is just one. ~10 seconds. -->
+<!--
+Screenshot sandwich. The browser screenshot proves it works. The rule line below separates. The access methods line shows four ways in — browser is just one. ~10 seconds.
+-->
 
 ---
-
-layout: statement color: lavender
-
+layout: statement
+color: lavender
 ---
 
 # Your development environment runs inside Kubernetes. `go build` deploys to the cluster you're sitting in.
 
-<!-- The KubeVirt VM is a pod. Services built inside it are live on the cluster — Kubernetes detects them with standard primitives. Production-like development, multi-player, no simulation. ~8 seconds. -->
+<!--
+The KubeVirt VM is a pod. Services built inside it are live on the cluster — Kubernetes detects them with standard primitives. Production-like development, multi-player, no simulation. ~8 seconds.
+-->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 <div class="hub-header">
@@ -1459,22 +1496,28 @@ layout: default color: cream
 }
 </style>
 
-<!-- Human + CI + AI above the fold line, Hub below it — the title IS the math-problem pattern. Click 1: three bullets build the argument. Click 2: the tree with real repos proves it. Seeds the multi-player diagram on the next slide. ~20 seconds across 2 clicks. -->
+<!--
+Human + CI + AI above the fold line, Hub below it — the title IS the math-problem pattern. Click 1: three bullets build the argument. Click 2: the tree with real repos proves it. Seeds the multi-player diagram on the next slide. ~20 seconds across 2 clicks.
+-->
 
 ---
-
-layout: full color: cream class: force-light
-
+layout: full
+color: cream
+class: force-light
 ---
 
 <Excalidraw drawFilePath="./multiplayer-platform.excalidraw.json" :darkMode="false" :background="false" class="w-full h-full" />
 
-<!-- Active multi-player. Shared VM, isolated workspaces. The workspace convention provides the isolation. Pulumi manages the user lifecycle. OIDC handles auth. ~20 seconds. -->
+<!--
+Active multi-player. Shared VM, isolated workspaces. The workspace convention provides the isolation. Pulumi manages the user lifecycle. OIDC handles auth. ~20 seconds.
+-->
 
 ---
-
-layout: two-cols-title color: cream columns: 1fr 1fr leftColor: lavender rightColor: sky
-
+layout: two-cols-title
+color: cream
+columns: 1fr 1fr
+leftColor: lavender
+rightColor: sky
 ---
 
 # Access and security
@@ -1504,12 +1547,16 @@ Login unlocks. Logout locks. The volume persists, the keys do not.
 
 STIG, FedRAMP, HIPAA, ITAR, SOC 2.
 
-<!-- Two-column: left is how you get in, right is how data stays safe. Ingress surfaces all consume the same sealed environment. Encryption is per-user, per-volume, across every platform. The compliance list speaks for itself. ~20 seconds. -->
+<!--
+Two-column: left is how you get in, right is how data stays safe. Ingress surfaces all consume the same sealed environment. Encryption is per-user, per-volume, across every platform. The compliance list speaks for itself. ~20 seconds.
+-->
 
 ---
-
-layout: two-cols-title color: cream columns: 1fr 1fr leftColor: lavender rightColor: sky
-
+layout: two-cols-title
+color: cream
+columns: 1fr 1fr
+leftColor: lavender
+rightColor: sky
 ---
 
 # Shared experience. Structural alignment.
@@ -1534,50 +1581,56 @@ Public and private multi-root repos coexist. Common experience for everyone.
 
 Structural property. Zero maintenance.
 
-<!-- Two concerns, one slide. Left: the experience is shared even when the code isn't — public workspace.git, private repos, sealed tooling carries over. Right: alignment is structural, not staffed — no coordination headcount, no drift between boundaries. ~20 seconds. -->
+<!--
+Two concerns, one slide. Left: the experience is shared even when the code isn't — public workspace.git, private repos, sealed tooling carries over. Right: alignment is structural, not staffed — no coordination headcount, no drift between boundaries. ~20 seconds.
+-->
 
 ---
 
-## src: ./scale-inflections.md
+src: ./scale-inflections.md
 
 ---
-
-layout: section color: slate transition: aurora-zoom
-
+layout: section
+color: slate
+transition: aurora-zoom
 ---
 
 # The Ouroboros
 
 The platform that develops, tests, and deploys itself — using itself
 
-<!-- ~5 seconds. -->
+<!--
+~5 seconds.
+-->
 
 ---
-
-layout: statement color: lavender
-
+layout: statement
+color: lavender
 ---
 
 # We develop Konductor inside Konductor. We deploy Kubernetes inside Konductor. We test Konductor on that Kubernetes. All on bare metal Kubernetes deployed by Konductor.
 
-<!-- Four sentences, each nesting deeper. The brain twist is intentional. Let the audience sit with it. ~10 seconds. -->
+<!--
+Four sentences, each nesting deeper. The brain twist is intentional. Let the audience sit with it. ~10 seconds.
+-->
 
 ---
-
-layout: full color: cream class: force-light
-
+layout: full
+color: cream
+class: force-light
 ---
 
 # The recursive platform loop
 
 <Excalidraw drawFilePath="./ouroboros.excalidraw.json" :darkMode="false" :background="false" class="w-full h-full" />
 
-<!-- The loop is closed. CI runner IS Konductor, tests Konductor on K8s-in-K8s inside Konductor on bare metal K8s. What CI tests and what production runs aren't two things kept in sync — they're one Nix expression on different surfaces. Developers in Loop 3 edit in Loop 1 — the ouroboros. ~25 seconds. -->
+<!--
+The loop is closed. CI runner IS Konductor, tests Konductor on K8s-in-K8s inside Konductor on bare metal K8s. What CI tests and what production runs aren't two things kept in sync — they're one Nix expression on different surfaces. Developers in Loop 3 edit in Loop 1 — the ouroboros. ~25 seconds.
+-->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # The source ships with the VM
@@ -1593,12 +1646,14 @@ sudo nixos-rebuild switch --flake .#konductor
 `nixos-rebuild switch` — edit, switch, verify. The same expression that builds the golden image
 manages the live system.
 
-<!-- The live rebuild. One technical receipt. This is here because it proves the ouroboros: the same expression BUILDS and MANAGES every surface. The practical impact: the platform evolves without downtime, without reimaging, without redeployment. ~20 seconds. -->
+<!--
+The live rebuild. One technical receipt. This is here because it proves the ouroboros: the same expression BUILDS and MANAGES every surface. The practical impact: the platform evolves without downtime, without reimaging, without redeployment. ~20 seconds.
+-->
 
 ---
-
-layout: section color: slate transition: aurora-zoom
-
+layout: section
+color: slate
+transition: aurora-zoom
 ---
 
 # Before and After
@@ -1615,12 +1670,16 @@ layout: section color: slate transition: aurora-zoom
 }
 </style>
 
-<!-- Raptors. The audience laughs. Then we show them what they're living with. ~5 seconds. -->
+<!--
+Raptors. The audience laughs. Then we show them what they're living with. ~5 seconds.
+-->
 
 ---
-
-layout: two-cols-title color: cream columns: 1fr 1fr leftColor: sky rightColor: lavender
-
+layout: two-cols-title
+color: cream
+columns: 1fr 1fr
+leftColor: sky
+rightColor: lavender
 ---
 
 # Before and after
@@ -1645,16 +1704,17 @@ layout: two-cols-title color: cream columns: 1fr 1fr leftColor: sky rightColor: 
 - PKI: generated at build, provenance embedded
 - `cat /.konductor` (the system tells you)
 
-<!-- Before/after callbacks. Left column: phrases every engineer has said or heard. Right column: the specific mechanism from the talk that eliminates it. Each pair maps to an arc they walked through. ~15 seconds. -->
+<!--
+Before/after callbacks. Left column: phrases every engineer has said or heard. Right column: the specific mechanism from the talk that eliminates it. Each pair maps to an arc they walked through. ~15 seconds.
+-->
 
 ---
 
-## src: ../../shared/fragments/riddle.md
+src: ../../shared/fragments/riddle.md
 
 ---
-
-layout: statement color: slate
-
+layout: statement
+color: slate
 ---
 
 <div class="closer">
@@ -1713,12 +1773,13 @@ layout: statement color: slate
 }
 </style>
 
-<!-- The closer. Two columns: left is the ghost of what was (Waste, Drift, Uncertainty at 15% opacity, struck through), right is what replaced it (Convenient, Consistent, Confident at full weight). No title needed. The visual contrast IS the statement. ~8 seconds. -->
+<!--
+The closer. Two columns: left is the ghost of what was (Waste, Drift, Uncertainty at 15% opacity, struck through), right is what replaced it (Convenient, Consistent, Confident at full weight). No title needed. The visual contrast IS the statement. ~8 seconds.
+-->
 
 ---
-
-layout: default color: slate
-
+layout: default
+color: slate
 ---
 
 # `nix develop`
@@ -1757,8 +1818,10 @@ h1, h3 { text-align: center; }
 }
 </style>
 
-<!-- CTA. Open source. Fork it. Clone into your workspace path. nix develop. QR codes are on the closing slide. ~15 seconds. -->
+<!--
+CTA. Open source. Fork it. Clone into your workspace path. nix develop. QR codes are on the closing slide. ~15 seconds.
+-->
 
 ---
 
-## src: ../../shared/fragments/thanks.md
+src: ../../shared/fragments/thanks.md

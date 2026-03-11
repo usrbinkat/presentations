@@ -37,7 +37,7 @@
   },
   "lint-staged": {
     "*.{vue,ts,js}": "eslint --fix",
-    "*.{md,css,json,yaml,yml}": "prettier --write"
+    "*.{md,css,json,yaml,yml}": "prettier --write --plugin prettier-plugin-slidev"
   },
   "dependencies": {
     "slidev-addon-excalidraw": "^1.0.4"

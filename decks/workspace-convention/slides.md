@@ -19,9 +19,8 @@ fonts:
 ---
 
 ---
-
-layout: cover color: slate
-
+layout: cover
+color: slate
 ---
 
 # Where did you clone that repo?
@@ -34,12 +33,11 @@ HOOK. Ask the room: raise your hand if you've searched for a repo you cloned thr
 
 ---
 
-## src: ../../shared/fragments/intro.md
+src: ../../shared/fragments/intro.md
 
 ---
-
-layout: statement color: cream
-
+layout: statement
+color: cream
 ---
 
 # Every engineer invents their own directory convention. Every script breaks on the next machine.
@@ -49,9 +47,8 @@ Let this statement breathe. The audience who has lived this will nod. Whitespace
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Path collisions waste engineering hours every week
@@ -70,9 +67,8 @@ Four real examples from real teams. Different roots, name collisions across serv
 -->
 
 ---
-
-layout: fact color: cream
-
+layout: fact
+color: cream
 ---
 
 # 47
@@ -86,9 +82,9 @@ Anchor the problem with a visceral number. Forty-seven steps in a wiki that's al
 -->
 
 ---
-
-layout: two-cols-title color: cream columns: 1fr 1fr
-
+layout: two-cols-title
+color: cream
+columns: 1fr 1fr
 ---
 
 # Monorepo and polyrepo both leave gaps
@@ -118,9 +114,10 @@ The industry debates monorepo vs polyrepo as binary. Monorepos couple unrelated 
 -->
 
 ---
-
-layout: section color: slate transition: aurora-zoom sectionNumber: 1
-
+layout: section
+color: slate
+transition: aurora-zoom
+sectionNumber: 1
 ---
 
 # The Workspace Convention
@@ -132,9 +129,8 @@ SECTION BREAK. Shift from problem to solution. The convention is not a tool, not
 -->
 
 ---
-
-layout: fact color: cream
-
+layout: fact
+color: cream
 ---
 
 # `/workspace/<user>/<git-server>/<namespace>/`
@@ -148,9 +144,9 @@ The entire convention in one line. /workspace is the consistent root. User segme
 -->
 
 ---
-
-layout: full color: cream transition: aurora-slide-up
-
+layout: full
+color: cream
+transition: aurora-slide-up
 ---
 
 # The real workspace proves the convention works
@@ -190,9 +186,9 @@ Magic Move evolves from chaos to order. Ad-hoc paths, then the convention, then 
 -->
 
 ---
-
-layout: two-cols-title color: cream columns: 1fr 1fr
-
+layout: two-cols-title
+color: cream
+columns: 1fr 1fr
 ---
 
 # Every path segment earns its place
@@ -228,9 +224,8 @@ Break down each segment. /workspace replaces the chaos of ~/projects, ~/code, ~/
 -->
 
 ---
-
-layout: quote color: cream
-
+layout: quote
+color: cream
 ---
 
 > "This is not a monorepo. Each repository is an independent git clone with its own lifecycle."
@@ -242,9 +237,10 @@ Clarify what this is NOT. No shared build system, no shared CI, no submodules. E
 -->
 
 ---
-
-layout: section color: slate transition: aurora-zoom sectionNumber: 2
-
+layout: section
+color: slate
+transition: aurora-zoom
+sectionNumber: 2
 ---
 
 # In Practice
@@ -256,9 +252,8 @@ SECTION BREAK. The naming convention is only useful if it integrates with daily 
 -->
 
 ---
-
-layout: full color: cream
-
+layout: full
+color: cream
 ---
 
 # direnv auto-loads environment per directory
@@ -287,9 +282,8 @@ The actual .envrc. cd into the directory, direnv fires. Loads env files in order
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # mise orchestrates tasks across the workspace
@@ -322,9 +316,8 @@ Mise is the task runner. Tasks operate across sibling repos. Cluster config, ver
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Environment activation flows automatically
@@ -354,9 +347,8 @@ The flow as a diagram. cd in, direnv fires, env files load, Nix activates, PKI s
 -->
 
 ---
-
-layout: side-title color: cream
-
+layout: side-title
+color: cream
 ---
 
 ::title::
@@ -388,9 +380,10 @@ Look at the diversity of toolchains coexisting. Nix, Python, Go, Node.js, plain 
 -->
 
 ---
-
-layout: section color: slate transition: aurora-zoom sectionNumber: 3
-
+layout: section
+color: slate
+transition: aurora-zoom
+sectionNumber: 3
 ---
 
 # The Portable Factory
@@ -402,9 +395,8 @@ SECTION BREAK. Something that surprised even me: the Slidev factory producing th
 -->
 
 ---
-
-layout: full color: cream
-
+layout: full
+color: cream
 ---
 
 # presentations/ is a self-contained pnpm workspace
@@ -430,9 +422,11 @@ Structure overview. Theme with 15 layouts, addon with 9 components. Individual d
 -->
 
 ---
-
-layout: two-cols-title color: cream leftColor: peach rightColor: mint columns: 1fr 1fr
-
+layout: two-cols-title
+color: cream
+leftColor: peach
+rightColor: mint
+columns: 1fr 1fr
 ---
 
 # The factory is not married to any project
@@ -468,9 +462,8 @@ The distinction matters. Reads siblings for content. Depends on nothing at build
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Factory architecture separates concerns cleanly
@@ -504,9 +497,10 @@ Dotted lines = content inspiration (read siblings to write about them). Solid li
 -->
 
 ---
-
-layout: section color: slate transition: aurora-zoom sectionNumber: 4
-
+layout: section
+color: slate
+transition: aurora-zoom
+sectionNumber: 4
 ---
 
 # Developer Experience
@@ -518,9 +512,8 @@ SECTION BREAK. Convention is only valuable if the daily DX is seamless. Three th
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Navigation is instant with zoxide and direnv
@@ -554,9 +547,9 @@ zoxide is a smarter cd. Learns frequent directories. Partial match jumps you the
 -->
 
 ---
-
-layout: two-cols-title color: cream columns: 1fr 1fr
-
+layout: two-cols-title
+color: cream
+columns: 1fr 1fr
 ---
 
 # IDE multi-root workspaces match the convention
@@ -597,9 +590,8 @@ VS Code multi-root workspace maps perfectly. Each folder gets its own language s
 -->
 
 ---
-
-layout: quote color: cream
-
+layout: quote
+color: cream
 ---
 
 > "direnv loads and unloads per-directory. Python venv from infrastructure/ never leaks into k9/.
@@ -612,9 +604,10 @@ The key property. Isolation enforced by direnv scoping, not containers. Simpler 
 -->
 
 ---
-
-layout: section color: slate transition: aurora-zoom sectionNumber: 5
-
+layout: section
+color: slate
+transition: aurora-zoom
+sectionNumber: 5
 ---
 
 # Scaling
@@ -626,9 +619,9 @@ SECTION BREAK. What happens when this scales beyond a single developer? Shared m
 -->
 
 ---
-
-layout: two-cols-title color: cream columns: 1fr 1fr
-
+layout: two-cols-title
+color: cream
+columns: 1fr 1fr
 ---
 
 # Multiple users share machines without conflict
@@ -674,9 +667,8 @@ Alice and Bob both work on acme-corp repos. Their own clones under their own use
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Multiple git servers coexist naturally
@@ -710,9 +702,8 @@ Multi-server story. GitHub, Forgejo, GitLab. Same-name repos on different server
 -->
 
 ---
-
-layout: side-title color: cream
-
+layout: side-title
+color: cream
 ---
 
 ::title::
@@ -747,9 +738,8 @@ Convention extends to CI. Runners clone into /workspace/runner/ following the sa
 -->
 
 ---
-
-layout: center color: cream
-
+layout: center
+color: cream
 ---
 
 # Adopt the convention in five minutes
@@ -779,9 +769,8 @@ Three commands. Create /workspace. Create your path hierarchy. Clone into it. No
 -->
 
 ---
-
-layout: fact color: cream
-
+layout: fact
+color: cream
 ---
 
 # 3
@@ -795,9 +784,8 @@ Punctuate with a number. Three commands. The simplicity is the selling point. ~5
 -->
 
 ---
-
-layout: statement color: cream
-
+layout: statement
+color: cream
 ---
 
 # The filesystem is the first API your team shares. Make it collision-free.
@@ -808,4 +796,4 @@ Final thesis. Before you choose a monorepo tool, before you debate submodules, b
 
 ---
 
-## src: ../../shared/fragments/thanks.md
+src: ../../shared/fragments/thanks.md

@@ -19,9 +19,8 @@ fonts:
 ---
 
 ---
-
-layout: cover color: slate
-
+layout: cover
+color: slate
 ---
 
 # What if every slide earned its layout?
@@ -33,8 +32,8 @@ HOOK. This deck is the living documentation of the Braincraft Slidev factory. Ev
 -->
 
 ---
-
-## src: ../../shared/fragments/intro.md
+src: ../../shared/fragments/intro.md
+---
 
 layout: section color: slate transition: aurora-zoom sectionNumber: 1
 
@@ -49,9 +48,8 @@ SECTION BREAK. Structural layouts mark beginnings, endings, and transitions. The
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Default Layout — the workhorse
@@ -77,9 +75,8 @@ Default is the layout presenters reach for first. It must never look wrong. Its 
 -->
 
 ---
-
-layout: intro color: cream
-
+layout: intro
+color: cream
 ---
 
 # Intro Layout
@@ -93,9 +90,8 @@ Intro layout centers content vertically with generous whitespace. Use for openin
 -->
 
 ---
-
-layout: statement color: cream
-
+layout: statement
+color: cream
 ---
 
 # Every slide competes with the speaker's voice for the same cognitive budget.
@@ -105,9 +101,8 @@ Statement layout: your words, centered, maximum whitespace. One powerful sentenc
 -->
 
 ---
-
-layout: quote color: cream
-
+layout: quote
+color: cream
 ---
 
 > "The audience's working memory is the bottleneck. Every element on your slide competes for the
@@ -120,9 +115,8 @@ Quote layout: someone else's words. Decorative ::before quotation mark. The bord
 -->
 
 ---
-
-layout: fact color: cream
-
+layout: fact
+color: cream
 ---
 
 # 94.6%
@@ -136,9 +130,10 @@ Fact layout: single metric at maximum visual impact. Enormous type, tabular-nums
 -->
 
 ---
-
-layout: section color: slate transition: aurora-zoom sectionNumber: 2
-
+layout: section
+color: slate
+transition: aurora-zoom
+sectionNumber: 2
 ---
 
 # Content Layouts
@@ -150,9 +145,8 @@ SECTION BREAK. Content layouts are the workhorses. Each exists to express one id
 -->
 
 ---
-
-layout: two-cols color: cream
-
+layout: two-cols
+color: cream
 ---
 
 # Two Columns — side by side
@@ -214,9 +208,9 @@ Per-column schemes via leftColor/rightColor frontmatter props. The audience read
 -->
 
 ---
-
-layout: two-cols-title color: cream columns: 1fr 1fr
-
+layout: two-cols-title
+color: cream
+columns: 1fr 1fr
 ---
 
 # Two Columns with Title — shared heading
@@ -249,9 +243,8 @@ Two-cols-title adds a dedicated title zone spanning both columns. The columns pr
 -->
 
 ---
-
-layout: side-title color: cream
-
+layout: side-title
+color: cream
 ---
 
 # Side Title
@@ -270,9 +263,8 @@ Side-title uses a vertical divider between title and content columns. The audien
 -->
 
 ---
-
-layout: center color: cream
-
+layout: center
+color: cream
 ---
 
 # Center Layout
@@ -286,9 +278,8 @@ Center is a structural utility, not in the ontology taxonomy. Use sparingly for 
 -->
 
 ---
-
-layout: full color: cream
-
+layout: full
+color: cream
 ---
 
 <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, oklch(95% 0.04 240), oklch(95% 0.04 200));">
@@ -321,9 +312,9 @@ Figure layout uses <figure> and <figcaption> for accessibility. figureUrl for im
 -->
 
 ---
-
-layout: presenter image: https://github.com/usrbinkat.png color: cream
-
+layout: presenter
+image: https://github.com/usrbinkat.png
+color: cream
 ---
 
 <SpeakerBio name="Kat Morgan" title="Principal Platform Engineer"
@@ -339,9 +330,10 @@ Presenter layout is for introducing someone ELSE (not yourself — use intro + s
 -->
 
 ---
-
-layout: section color: slate transition: aurora-zoom sectionNumber: 3
-
+layout: section
+color: slate
+transition: aurora-zoom
+sectionNumber: 3
 ---
 
 # Components
@@ -353,9 +345,8 @@ SECTION BREAK. Addon components provide reusable, accessible UI elements. Nine c
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Admonition — callout boxes with five types
@@ -377,9 +368,8 @@ Admonitions use border-inline-start + icon + background for triple-modality sign
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Admonition — danger and note types
@@ -397,9 +387,8 @@ Danger type uses red accents for critical warnings. Note type is neutral grey �
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # MetricCard — KPI display with semantic markup
@@ -416,9 +405,8 @@ MetricCard uses <figure>/<figcaption> semantics. tabular-nums for aligned digits
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # CodeComparison — side-by-side code blocks
@@ -448,9 +436,8 @@ CodeComparison places two code blocks side by side with scheme-aware borders. Co
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # QRCode — real scannable codes at 2x retina
@@ -468,9 +455,8 @@ QR codes serve the pass-along audience. Generated at 2x retina resolution. Props
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Footnote and Footnotes — reference citations
@@ -489,9 +475,10 @@ Footnote renders an inline superscript marker. Footnotes renders the reference l
 -->
 
 ---
-
-layout: section color: slate transition: aurora-zoom sectionNumber: 4
-
+layout: section
+color: slate
+transition: aurora-zoom
+sectionNumber: 4
 ---
 
 # Color Schemes
@@ -503,9 +490,8 @@ SECTION BREAK. Six color schemes, each defining 8 CSS variables with light and d
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Cream — the default neutral
@@ -522,9 +508,8 @@ Cream is the default because warm backgrounds reduce eye strain. The lavender ac
 -->
 
 ---
-
-layout: default color: slate
-
+layout: default
+color: slate
 ---
 
 # Slate — dramatic dark emphasis
@@ -540,9 +525,8 @@ Slate inverts everything. The visual shift from light to dark is itself a "desig
 -->
 
 ---
-
-layout: default color: lavender
-
+layout: default
+color: lavender
 ---
 
 # Lavender — primary brand accent
@@ -593,9 +577,8 @@ The peach/mint pair is semantic encoding in action. Use peach consistently for p
 -->
 
 ---
-
-layout: default color: sky
-
+layout: default
+color: sky
 ---
 
 # Sky — technical trust
@@ -617,9 +600,10 @@ Sky is the enterprise choice. Cool palettes drive trust and retention. Use for a
 -->
 
 ---
-
-layout: section color: slate transition: aurora-zoom sectionNumber: 5
-
+layout: section
+color: slate
+transition: aurora-zoom
+sectionNumber: 5
 ---
 
 # Features
@@ -631,9 +615,8 @@ SECTION BREAK. Interactive features and code presentation capabilities. These ar
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Progressive Disclosure — v-click and v-clicks
@@ -662,9 +645,8 @@ v-click uses spring-physics animations with 50ms stagger per nth-child (up to 12
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Shiki Annotations — guided code reading
@@ -689,9 +671,8 @@ Shiki line highlighting guides the audience through code sequentially. Prevents 
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Shiki Inline Annotations
@@ -722,9 +703,8 @@ Inline annotations: highlight for emphasis, ++/-- for diffs, error/warning for a
 -->
 
 ---
-
-layout: full color: cream
-
+layout: full
+color: cream
 ---
 
 # Magic Move — animated code evolution
@@ -760,9 +740,8 @@ Magic Move animates between code blocks with smooth morphing. Additions, deletio
 -->
 
 ---
-
-layout: default color: cream
-
+layout: default
+color: cream
 ---
 
 # Named Transitions — communicative motion
@@ -785,9 +764,10 @@ Three transitions, three communicative purposes. aurora-fade is invisible. auror
 -->
 
 ---
-
-layout: section color: slate transition: aurora-slide-up sectionNumber: 6
-
+layout: section
+color: slate
+transition: aurora-slide-up
+sectionNumber: 6
 ---
 
 # Principles in Action
@@ -799,9 +779,11 @@ SECTION BREAK — using aurora-slide-up here to demonstrate that transition. Thi
 -->
 
 ---
-
-layout: two-cols-title color: cream columns: 1fr 1fr leftColor: peach rightColor: mint
-
+layout: two-cols-title
+color: cream
+columns: 1fr 1fr
+leftColor: peach
+rightColor: mint
 ---
 
 # Mayer's Redundancy Principle
@@ -830,9 +812,8 @@ The redundancy principle: don't duplicate information across visual and auditory
 -->
 
 ---
-
-layout: two-cols color: cream
-
+layout: two-cols
+color: cream
 ---
 
 # Primacy and Recency Effects
@@ -866,9 +847,8 @@ Primacy: first impressions create the frame for everything. Your name can wait. 
 -->
 
 ---
-
-layout: statement color: cream
-
+layout: statement
+color: cream
 ---
 
 # Whitespace is information. Less content equals more significance.
@@ -878,9 +858,8 @@ This slide IS the demonstration. One sentence. Maximum whitespace. The emptiness
 -->
 
 ---
-
-layout: end color: lavender
-
+layout: end
+color: lavender
 ---
 
 # The best slide decks don't just inform — they transform how the audience thinks.
@@ -900,4 +879,4 @@ End layout with substance. The cta named slot holds QR codes. This slide stays v
 
 ---
 
-## src: ../../shared/fragments/thanks.md
+src: ../../shared/fragments/thanks.md
