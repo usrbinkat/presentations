@@ -11,7 +11,7 @@ on:
       - pnpm-workspace.yaml
       - pnpm-lock.yaml
       - package.json
-      - ".github/workflows/build-and-deploy.yml"
+      - .github/workflows/build-and-deploy.yml
   workflow_dispatch:
 
 permissions:

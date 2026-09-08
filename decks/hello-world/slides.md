@@ -884,6 +884,7 @@ End layout with substance. The cta named slot holds QR codes. This slide stays v
 
 ---
 
+
 ---
 
 src: ../../shared/fragments/thanks.md
