@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .slidev/
+.astro/
 *.local
 
 # Source material (cloned repos for study, not committed)

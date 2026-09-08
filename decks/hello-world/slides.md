@@ -35,7 +35,10 @@ HOOK. This deck is the living documentation of the Braincraft Slidev factory. Ev
 src: ../../shared/fragments/intro.md
 ---
 
-layout: section color: slate transition: aurora-zoom sectionNumber: 1
+layout: section
+color: slate
+transition: aurora-zoom
+sectionNumber: 1
 
 ---
 
@@ -175,9 +178,9 @@ Two-cols is the backbone of multimodal reinforcement. Narrative text on the left
 -->
 
 ---
-
-layout: two-cols leftColor: peach rightColor: mint
-
+layout: two-cols
+leftColor: peach
+rightColor: mint
 ---
 
 # Per-Column Color Schemes
@@ -299,10 +302,10 @@ Full layout removes all padding and constraints. The break from the spatial gram
 -->
 
 ---
-
-layout: figure figureUrl: https://github.com/usrbinkat.png figureCaption: 'Semantic figure layout —
-image with <figure>/<figcaption> HTML elements' color: cream
-
+layout: figure
+figureUrl: https://github.com/usrbinkat.png
+figureCaption: "Semantic figure layout — image with figure/figcaption HTML elements"
+color: cream
 ---
 
 The figure layout provides semantic HTML for images with captions. The `media` named slot allows
@@ -544,9 +547,9 @@ Lavender is the brand color. Use for primary content and sections where brand id
 -->
 
 ---
-
-layout: two-cols leftColor: peach rightColor: mint
-
+layout: two-cols
+leftColor: peach
+rightColor: mint
 ---
 
 # Peach and Mint — semantic pair

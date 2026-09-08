@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import { loadDecks } from '../data/decks';
+import { href } from '../utils/paths';
+
+export function getStaticPaths() {
+  const decks = loadDecks();
+  return decks.map(deck => ({
+    params: { deck: deck.slug },
+    props: { deck },
+  }));
+}
+
+const { deck } = Astro.props;
+const presentUrl = href(`/${deck.slug}/slides/`);
+const pdfUrl = href(`/${deck.slug}/slides/${deck.slug}.pdf`);
+const sourceUrl = `https://github.com/usrbinkat/presentations/tree/main/decks/${deck.slug}`;
+
+// Tone assignment by keyword
+const tone = deck.keywords.some(k => ['veilid', 'p2p', 'transport', 'rekindle'].includes(k.toLowerCase()))
+  ? 'cool'
+  : deck.keywords.some(k => ['nix', 'konductor', 'platform', 'pulumi'].includes(k.toLowerCase()))
+    ? 'mint'
+    : 'warm';
+---
+
+<Layout title={`${deck.title} | Presentations`} description={deck.description}>
+  <Navbar />
+
+  <main class="min-h-screen flex flex-col items-center pt-24 md:pt-32 p-4 md:p-8">
+    <div class="max-w-3xl w-full space-y-12 pb-24">
+
+      <header class="space-y-6">
+        <a href={href('/')} class="text-sm text-text-tertiary hover:text-brand-primary transition-colors">
+          ← All presentations
+        </a>
+
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight text-text-primary">
+          {deck.title}
+        </h1>
+
+        <p class="text-xl text-text-secondary leading-relaxed font-light">
+          {deck.description}
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4 text-sm text-text-tertiary">
+          {deck.author && (
+            <span class="font-medium">{deck.author}</span>
+          )}
+          {deck.duration && (
+            <span class="font-mono bg-surface-subtle px-2 py-1 rounded-md">{deck.duration}</span>
+          )}
+          <span class="font-mono bg-surface-subtle px-2 py-1 rounded-md">{deck.slideCount} slides</span>
+        </div>
+
+        {deck.keywords.length > 0 && (
+          <div class="flex flex-wrap gap-2">
+            {deck.keywords.map(kw => (
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-surface-subtle text-text-tertiary border border-border-subtle">
+                {kw}
+              </span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href={presentUrl} class="btn btn-primary text-lg py-3 px-8 group relative overflow-hidden">
+          <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
+          Present
+          <svg class="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </a>
+        <a href={pdfUrl} class="btn btn-secondary" download>
+          Download PDF
+        </a>
+        <a href={sourceUrl} class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+          View Source
+        </a>
+      </div>
+
+      <div class="border-t border-border-subtle pt-8 space-y-4">
+        <h2 class="text-lg font-bold text-text-secondary">Keyboard shortcuts in presentation mode</h2>
+        <div class="grid grid-cols-2 gap-3 max-w-md">
+          <div class="flex items-center gap-3">
+            <kbd class="font-mono text-xs bg-surface-subtle border border-border-default px-2 py-1 rounded">→</kbd>
+            <span class="text-sm text-text-secondary">Next slide / click</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <kbd class="font-mono text-xs bg-surface-subtle border border-border-default px-2 py-1 rounded">←</kbd>
+            <span class="text-sm text-text-secondary">Previous slide / click</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <kbd class="font-mono text-xs bg-surface-subtle border border-border-default px-2 py-1 rounded">f</kbd>
+            <span class="text-sm text-text-secondary">Fullscreen</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <kbd class="font-mono text-xs bg-surface-subtle border border-border-default px-2 py-1 rounded">o</kbd>
+            <span class="text-sm text-text-secondary">Slide overview</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <kbd class="font-mono text-xs bg-surface-subtle border border-border-default px-2 py-1 rounded">d</kbd>
+            <span class="text-sm text-text-secondary">Toggle dark mode</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <kbd class="font-mono text-xs bg-surface-subtle border border-border-default px-2 py-1 rounded">Esc</kbd>
+            <span class="text-sm text-text-secondary">Exit fullscreen / overview</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .animate-shimmer { animation: shimmer 1.5s ease-in-out forwards; }
+</style>

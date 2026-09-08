@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+import { themes } from '../styles/palette';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Braincraft Presentations',
+  description = 'Engineering presentations powered by Slidev with the Aurora design system.',
+} = Astro.props;
+
+const antiFlashRules = Object.entries(themes).map(([name, { background, foreground }]) =>
+  `html[data-theme="${name}"] { background-color: ${background}; color: ${foreground}; }`
+).join('\n');
+
+const darkTheme = themes.dark;
+const lightTheme = themes.light;
+---
+
+<html lang="en" data-theme="dark" style="color-scheme: dark">
+  <head>
+    <style set:html={`
+      html { background-color: ${darkTheme.background}; color: ${darkTheme.foreground}; }
+      ${antiFlashRules}
+      @media (prefers-color-scheme: light) {
+        html:not([data-theme="dark"]) { background-color: ${lightTheme.background}; color: ${lightTheme.foreground}; }
+      }
+    `} />
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script is:inline>
+      (function() {
+        var c = document.cookie.match(/(?:^|; )aurora-theme=(\w+)/);
+        var theme = c ? c[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+  </head>
+  <body class="bg-surface-base text-text-primary font-sans antialiased selection:bg-brand-primary selection:text-text-inverse">
+    <slot />
+    <footer class="border-t border-border-subtle py-8 mt-16">
+      <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-text-tertiary">
+        <span class="font-mono">&copy; {new Date().getFullYear()} BrainCraft.io</span>
+        <div class="flex items-center gap-6">
+          <a href="https://github.com/usrbinkat/presentations" class="hover:text-text-primary transition-colors">GitHub</a>
+          <a href="https://braincraft.io" class="hover:text-text-primary transition-colors">BrainCraft</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

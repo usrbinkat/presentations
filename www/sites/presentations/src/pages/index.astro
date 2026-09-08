@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import DeckCard from '../components/DeckCard.astro';
+import { loadDecks } from '../data/decks';
+
+const decks = loadDecks();
+---
+
+<Layout title="Braincraft Presentations" description="Engineering presentations powered by Slidev with the Aurora design system.">
+  <Navbar />
+
+  <main class="min-h-screen flex flex-col items-center pt-24 md:pt-32 p-4 md:p-8">
+    <div class="max-w-5xl w-full space-y-16 pb-24">
+
+      <header class="space-y-6 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight leading-tight text-text-primary">
+          Presentations
+        </h1>
+        <p class="text-xl text-text-secondary leading-relaxed font-light max-w-3xl mx-auto">
+          Engineering talks on P2P transport, reproducible infrastructure, platform architecture, and developer experience. Built with <a href="https://sli.dev" class="text-brand-primary hover:underline">Slidev</a> and the Aurora design system.
+        </p>
+      </header>
+
+      <section class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {decks.map((deck, i) => (
+            <DeckCard
+              title={deck.title}
+              description={deck.description}
+              slug={deck.slug}
+              slideCount={deck.slideCount}
+              duration={deck.duration}
+              audiences={deck.keywords.slice(0, 5)}
+              tone={
+                deck.keywords.some(k => ['veilid', 'p2p', 'transport', 'rekindle'].includes(k.toLowerCase()))
+                  ? 'cool'
+                  : deck.keywords.some(k => ['nix', 'konductor', 'platform', 'pulumi'].includes(k.toLowerCase()))
+                    ? 'mint'
+                    : 'warm'
+              }
+              featured={i === 0}
+            />
+          ))}
+        </div>
+      </section>
+
+    </div>
+  </main>
+</Layout>

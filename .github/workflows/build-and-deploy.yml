@@ -4,11 +4,13 @@ on:
   push:
     branches: [main]
     paths:
-      - "presentations/decks/**"
-      - "presentations/packages/**"
-      - "presentations/shared/**"
-      - presentations/pnpm-workspace.yaml
-      - presentations/package.json
+      - "decks/**"
+      - "packages/**"
+      - "shared/**"
+      - "www/**"
+      - pnpm-workspace.yaml
+      - package.json
+      - ".github/workflows/build-and-deploy.yml"
   workflow_dispatch:
 
 permissions:
@@ -18,37 +20,27 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: false
-
-defaults:
-  run:
-    working-directory: presentations
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "lts/*"
           cache: pnpm
-          cache-dependency-path: presentations/pnpm-lock.yaml
+          cache-dependency-path: pnpm-lock.yaml
 
-      - name: Install dependencies
+      - name: Install Slidev workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check formatting
-        run: pnpm exec prettier --check '**/*.{md,vue,ts,css,json,yaml}' --ignore-path .gitignore
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Type check
-        run: pnpm exec vue-tsc --noEmit
+      - name: Install Astro site dependencies
+        run: pnpm -C www/sites/presentations install --frozen-lockfile
 
       - name: Install Playwright
         run: npx playwright install --with-deps chromium
@@ -56,110 +48,46 @@ jobs:
       - name: Install emoji font
         run: sudo apt-get install -y fonts-noto-color-emoji
 
-      - name: Build all decks
-        run: |
-          for deck_dir in decks/*/; do
-            deck=$(basename "$deck_dir")
-            echo "::group::Building $deck"
-            cd "decks/$deck"
-            pnpm exec slidev build slides.md \
-              --base /${{ github.event.repository.name }}/$deck/ \
-              --out ../../dist/$deck
-            cd ../..
-            echo "::endgroup::"
-          done
+      - name: Build Astro site + all Slidev decks
+        run: pnpm -C www/sites/presentations run build
 
       - name: Verify build output
         run: |
+          DIST="www/sites/presentations/dist"
+          if [ ! -f "$DIST/index.html" ]; then
+            echo "::error::Astro landing page missing"
+            exit 1
+          fi
           for deck_dir in decks/*/; do
             deck=$(basename "$deck_dir")
-            DIST_DIR="dist/$deck"
-            if [ ! -d "$DIST_DIR" ]; then
-              echo "::error::Build output directory $DIST_DIR does not exist"
+            if [ ! -f "$DIST/$deck/index.html" ]; then
+              echo "::error::Deck detail page missing for $deck"
               exit 1
             fi
-            FILE_COUNT=$(find "$DIST_DIR" -type f | wc -l)
-            echo "Build verified: $DIST_DIR contains $FILE_COUNT files"
-            if [ "$FILE_COUNT" -lt 1 ]; then
-              echo "::error::Build output directory $DIST_DIR is empty"
+            if [ ! -f "$DIST/$deck/slides/index.html" ]; then
+              echo "::error::Slidev SPA missing for $deck"
               exit 1
             fi
+            echo "✓ $deck: detail page + slides SPA"
           done
 
       - name: Export PDFs
         continue-on-error: true
         run: |
+          DIST="www/sites/presentations/dist"
           for deck_dir in decks/*/; do
             deck=$(basename "$deck_dir")
             echo "::group::Exporting $deck PDF"
-            cd "decks/$deck"
-            pnpm exec slidev export slides.md \
-              --output ../../dist/$deck/$deck.pdf \
+            pnpm -C "decks/$deck" exec slidev export slides.md \
+              --output "../../$DIST/$deck/slides/$deck.pdf" \
               --timeout 60000 || true
-            cd ../..
             echo "::endgroup::"
           done
 
-      - name: Generate landing page
-        run: |
-          cat > dist/index.html << 'HTMLEOF'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Braincraft Presentations</title>
-            <style>
-              *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-              body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 3rem 1rem; }
-              h1 { font-size: 2rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-              .subtitle { color: #94a3b8; margin-bottom: 2rem; }
-              .decks { display: grid; gap: 1rem; width: 100%; max-width: 640px; }
-              .deck { background: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; padding: 1.25rem 1.5rem; }
-              .deck h2 { font-size: 1.125rem; margin-bottom: 0.5rem; }
-              .deck a { color: #818cf8; text-decoration: none; margin-right: 1rem; }
-              .deck a:hover { text-decoration: underline; }
-            </style>
-          </head>
-          <body>
-            <h1>Braincraft Presentations</h1>
-            <p class="subtitle">Slide decks built with Slidev</p>
-            <div class="decks" id="decks"></div>
-            <script>
-          HTMLEOF
-
-          echo '    const decks = [' >> dist/index.html
-          for dir in dist/*/; do
-            [ -d "$dir" ] || continue
-            name=$(basename "$dir")
-            has_pdf="false"
-            [ -f "$dir/${name}.pdf" ] && has_pdf="true"
-            echo "      { name: \"${name}\", hasPdf: ${has_pdf} }," >> dist/index.html
-          done
-          cat >> dist/index.html << 'HTMLEOF'
-            ];
-            const container = document.getElementById('decks');
-            decks.forEach(d => {
-              const div = document.createElement('div');
-              div.className = 'deck';
-              const base = location.pathname.replace(/\/+$/, '');
-              let links = `<a href="${base}/${d.name}/">View Slides</a>`;
-              if (d.hasPdf) links += `<a href="${base}/${d.name}/${d.name}.pdf">Download PDF</a>`;
-              div.innerHTML = `<h2>${d.name}</h2><div>${links}</div>`;
-              container.appendChild(div);
-            });
-            </script>
-          </body>
-          </html>
-          HTMLEOF
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
-          path: presentations/dist
+          path: www/sites/presentations/dist
 
   deploy:
     needs: build
@@ -170,4 +98,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
