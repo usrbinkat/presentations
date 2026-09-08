@@ -8,35 +8,35 @@
 //   /presentations/{deck}/        → Astro deck detail page
 //   /presentations/{deck}/slides/ → Slidev SPA (full presentation)
 
-import { execFileSync } from 'node:child_process';
-import { existsSync, readdirSync, statSync } from 'node:fs';
-import { resolve } from 'node:path';
-import process from 'node:process';
+import { execFileSync } from 'node:child_process'
+import { existsSync, readdirSync, statSync } from 'node:fs'
+import { resolve } from 'node:path'
+import process from 'node:process'
 
-const REPO_ROOT = resolve(import.meta.dirname, '..', '..', '..');
-const DECKS_DIR = resolve(REPO_ROOT, 'decks');
-const DIST_DIR = resolve(import.meta.dirname, 'dist');
-const BASE = '/presentations';
+const REPO_ROOT = resolve(import.meta.dirname, '..', '..', '..')
+const DECKS_DIR = resolve(REPO_ROOT, 'decks')
+const DIST_DIR = resolve(import.meta.dirname, 'dist')
+const BASE = '/presentations'
 
-const decks = readdirSync(DECKS_DIR).filter(name => {
-  const dir = resolve(DECKS_DIR, name);
-  return statSync(dir).isDirectory() && existsSync(resolve(dir, 'slides.md'));
-});
+const decks = readdirSync(DECKS_DIR).filter((name) => {
+  const dir = resolve(DECKS_DIR, name)
+  return statSync(dir).isDirectory() && existsSync(resolve(dir, 'slides.md'))
+})
 
-console.log(`Building ${decks.length} decks into ${DIST_DIR}`);
+console.warn(`Building ${decks.length} decks into ${DIST_DIR}`)
 
 for (const deck of decks) {
-  const deckDir = resolve(DECKS_DIR, deck);
-  const outDir = resolve(DIST_DIR, deck, 'slides');
-  const base = `${BASE}/${deck}/slides/`;
+  const deckDir = resolve(DECKS_DIR, deck)
+  const outDir = resolve(DIST_DIR, deck, 'slides')
+  const base = `${BASE}/${deck}/slides/`
 
-  console.log(`  ${deck} → ${outDir}`);
+  console.warn(`  ${deck} → ${outDir}`)
 
   execFileSync('pnpm', ['exec', 'slidev', 'build', 'slides.md', '--base', base, '--out', outDir], {
     cwd: deckDir,
     stdio: 'inherit',
     env: { ...process.env },
-  });
+  })
 }
 
-console.log('All decks built.');
+console.warn('All decks built.')

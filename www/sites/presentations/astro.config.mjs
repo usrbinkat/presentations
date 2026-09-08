@@ -1,6 +1,6 @@
-import { defineConfig, fontProviders } from 'astro/config';
-import expressiveCode from 'astro-expressive-code';
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from '@tailwindcss/vite'
+import expressiveCode from 'astro-expressive-code'
+import { defineConfig, fontProviders } from 'astro/config'
 
 export default defineConfig({
   site: 'https://usrbinkat.github.io',
@@ -11,9 +11,9 @@ export default defineConfig({
     server: {
       fs: {
         // Allow reading deck frontmatter and shared Shiki themes from repo root
-        allow: ['../../..']
-      }
-    }
+        allow: ['../../..'],
+      },
+    },
   },
   fonts: [
     {
@@ -33,4 +33,4 @@ export default defineConfig({
   prefetch: {
     defaultStrategy: 'hover',
   },
-});
+})

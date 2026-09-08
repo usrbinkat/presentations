@@ -3,8 +3,8 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "strict": true,
-    "types": ["astro/client"]
+    "types": ["astro/client"],
+    "strict": true
   },
   "include": ["src/**/*"]
 }

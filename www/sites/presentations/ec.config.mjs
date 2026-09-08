@@ -1,7 +1,10 @@
 // @ts-check
+import { createRequire } from 'node:module'
 import { defineEcConfig } from 'astro-expressive-code'
-import auroraDark from '../../../packages/slidev-theme-braincraft/setup/aurora-dark.json' with { type: 'json' }
-import auroraLight from '../../../packages/slidev-theme-braincraft/setup/aurora-light.json' with { type: 'json' }
+
+const require = createRequire(import.meta.url)
+const auroraDark = require('../../../packages/slidev-theme-braincraft/setup/aurora-dark.json')
+const auroraLight = require('../../../packages/slidev-theme-braincraft/setup/aurora-light.json')
 
 export default defineEcConfig({
   themes: [
@@ -14,13 +17,13 @@ export default defineEcConfig({
     borderRadius: '0.75rem',
     borderWidth: '1px',
     codeBackground: 'var(--code-bg)',
-    codeFontFamily: "'Space Mono', monospace",
+    codeFontFamily: '\'Space Mono\', monospace',
     codeFontSize: '0.875rem',
     codeLineHeight: '1.7',
     codePaddingBlock: '1rem',
     codePaddingInline: '1rem',
     focusBorder: 'var(--focus)',
-    uiFontFamily: "'Inter', system-ui, sans-serif",
+    uiFontFamily: '\'Inter\', system-ui, sans-serif',
     uiFontSize: '0.8rem',
     frames: {
       editorTabBarBackground: 'var(--surface-subtle)',
