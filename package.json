@@ -1,18 +1,22 @@
 {
   "name": "braincraft-presentations",
-  "private": true,
   "type": "module",
+  "private": true,
+  "packageManager": "pnpm@11.21.0",
   "scripts": {
     "dev": "slidev-workspace dev",
     "build": "slidev-workspace build",
     "lint": "eslint .",
     "format": "prettier --write '**/*.{md,vue,ts,css,json,yaml}' --plugin prettier-plugin-slidev",
     "typecheck": "vue-tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run && vitest run --config packages/slidev-theme-braincraft/__tests__/vitest.config.base.ts --root .",
     "test:watch": "vitest",
     "prepare": "simple-git-hooks",
     "new-deck": "node scripts/new-deck.mjs",
     "new-layout": "node scripts/new-layout.mjs"
+  },
+  "dependencies": {
+    "slidev-addon-excalidraw": "^1.0.4"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
@@ -21,15 +25,19 @@
     "@slidev/cli": "catalog:",
     "@slidev/client": "catalog:",
     "@slidev/types": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
     "eslint": "catalog:",
     "lint-staged": "catalog:",
+    "playwright": "^1.52.0",
     "prettier": "catalog:",
     "prettier-plugin-slidev": "catalog:",
     "simple-git-hooks": "catalog:",
+    "sirv": "^3.0.0",
     "slidev-workspace": "^0.9.3",
     "typescript": "catalog:",
     "unocss": "catalog:",
     "vitest": "catalog:",
+    "vue": "catalog:",
     "vue-tsc": "catalog:"
   },
   "simple-git-hooks": {
@@ -38,8 +46,5 @@
   "lint-staged": {
     "*.{vue,ts,js}": "eslint --fix",
     "*.{md,css,json,yaml,yml}": "prettier --write --plugin prettier-plugin-slidev"
-  },
-  "dependencies": {
-    "slidev-addon-excalidraw": "^1.0.4"
   }
 }

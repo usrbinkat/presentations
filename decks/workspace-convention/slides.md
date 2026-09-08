@@ -2,7 +2,7 @@
 theme: slidev-theme-braincraft
 addons:
   - slidev-addon-braincraft
-title: 'The Multi-Root Workspace Convention: Collision-Free Multi-Project Development'
+title: "The Multi-Root Workspace Convention: Collision-Free Multi-Project Development"
 info: |
   A filesystem convention that eliminates path collisions across users,
   git servers, and namespaces — enabling multi-project, multi-player
@@ -32,12 +32,12 @@ HOOK. Ask the room: raise your hand if you've searched for a repo you cloned thr
 -->
 
 ---
-
 src: ../../shared/fragments/intro.md
-
 ---
+
 layout: statement
 color: cream
+
 ---
 
 # Every engineer invents their own directory convention. Every script breaks on the next machine.
@@ -793,6 +793,8 @@ color: cream
 <!--
 Final thesis. Before you choose a monorepo tool, before you debate submodules, before you write a custom clone script — agree on where code lives. Four path segments. ~10 seconds.
 -->
+
+---
 
 ---
 

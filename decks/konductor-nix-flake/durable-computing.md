@@ -74,6 +74,7 @@ Durable systems — a design philosophy for any compute. Row 1 (fundamentals): t
 ---
 layout: statement
 color: slate
+class: reveal-build
 ---
 
 # A leaky faucet under maintenance does not close the emergency room.

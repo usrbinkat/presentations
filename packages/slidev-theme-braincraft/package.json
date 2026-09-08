@@ -1,7 +1,7 @@
 {
   "name": "slidev-theme-braincraft",
-  "version": "0.1.0",
   "type": "module",
+  "version": "0.1.0",
   "private": true,
   "keywords": [
     "slidev-theme",
@@ -23,8 +23,8 @@
     }
   },
   "dependencies": {
-    "vue": "catalog:",
-    "@shikijs/transformers": "catalog:"
+    "@shikijs/transformers": "catalog:",
+    "vue": "catalog:"
   },
   "devDependencies": {
     "@slidev/client": "catalog:",

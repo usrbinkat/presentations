@@ -9,5 +9,9 @@ export default antfu({
     'dist',
     '.slidev',
     'sources/',
+    // Documentation markdown contains YAML/JSON code fences that the
+    // eslint markdown processor parses as live code, producing false
+    // positives. These files are prose, not executable source.
+    'docs/**/*.md',
   ],
 })

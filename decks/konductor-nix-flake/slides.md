@@ -3,7 +3,7 @@ theme: slidev-theme-braincraft
 addons:
   - slidev-addon-braincraft
   - slidev-addon-excalidraw
-title: 'Cloud Taming — A Human Friendly DevOps Experience'
+title: "Cloud Taming — A Human Friendly DevOps Experience"
 info: |
   How a single source of truth eliminates the invisible tax of environment
   drift, surface fragmentation, and tooling misalignment — across developers,
@@ -80,9 +80,7 @@ Title card. Audience orients: who, where, when. ~10 seconds while people settle.
 -->
 
 ---
-
 src: ../../shared/fragments/riddle.md
-
 ---
 
 src: ../../shared/fragments/intro.md
@@ -199,13 +197,13 @@ Jeopardy reveal. The riddle answer isn't one word — it's three dimensions of t
 -->
 
 ---
-
 src: ../../shared/fragments/riddle.md
-
 ---
+
 layout: two-cols
 color: cream
 layoutClass: flex flex-col justify-center
+
 ---
 
 # 180 million developers on GitHub alone.
@@ -239,9 +237,7 @@ Planet scale. 180M+ developers on GitHub (Octoverse 2025). 36.2M new in one year
 -->
 
 ---
-
 src: ../../shared/fragments/github-population.md
-
 ---
 
 src: ../../shared/fragments/healthcheck.md
@@ -298,13 +294,13 @@ The math. 5.5% of repos have contributor guides = ~1M repos "doing it right" out
 -->
 
 ---
-
 src: ./thought-to-action.md
-
 ---
+
 layout: section
 color: slate
 transition: aurora-zoom
+
 ---
 
 # The {un}Conventional Path
@@ -318,6 +314,7 @@ Triple entendre. "Conventional" as in the established norm. "un" in curly braces
 ---
 layout: default
 color: cream
+class: reveal-build
 ---
 
 <div class="flex flex-col h-full">
@@ -465,13 +462,13 @@ The Lord of the Rings callback earns a grin. $WORKSPACE_ROOT dominates at center
 -->
 
 ---
-
 src: ./habitat.md
-
 ---
+
 layout: section
 color: slate
 transition: aurora-zoom
+
 ---
 
 # Should Not vs. Cannot
@@ -953,12 +950,14 @@ inputs = {
 <template #after>
 
 ```json
-"nixpkgs": {
-  "locked": {
-    "lastModified": 1739020877,
-    "narHash": "sha256-KG+Vsma...",
-    "rev": "2b0b0e4bde8...",
-    "type": "github"
+{
+  "nixpkgs": {
+    "locked": {
+      "lastModified": 1739020877,
+      "narHash": "sha256-KG+Vsma...",
+      "rev": "2b0b0e4bde8...",
+      "type": "github"
+    }
   }
 }
 ```
@@ -1217,12 +1216,12 @@ The third artifact completes the triad. build-vm.log records WHO built it, ON WH
 -->
 
 ---
-
 src: ./durable-computing.md
-
 ---
+
 layout: default
 color: slate
+
 ---
 
 # The browser is just one way in
@@ -1586,13 +1585,13 @@ Two concerns, one slide. Left: the experience is shared even when the code isn't
 -->
 
 ---
-
 src: ./scale-inflections.md
-
 ---
+
 layout: section
 color: slate
 transition: aurora-zoom
+
 ---
 
 # The Ouroboros
@@ -1709,12 +1708,12 @@ Before/after callbacks. Left column: phrases every engineer has said or heard. R
 -->
 
 ---
-
 src: ../../shared/fragments/riddle.md
-
 ---
+
 layout: statement
 color: slate
+
 ---
 
 <div class="closer">
@@ -1821,6 +1820,8 @@ h1, h3 { text-align: center; }
 <!--
 CTA. Open source. Fork it. Clone into your workspace path. nix develop. QR codes are on the closing slide. ~15 seconds.
 -->
+
+---
 
 ---
 

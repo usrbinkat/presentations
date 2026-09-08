@@ -32,7 +32,9 @@
 import type { CSSProperties } from 'vue'
 
 export function resolveAssetUrl(url: string): string {
-  if (url.startsWith('/') || url.startsWith('http'))
+  if (url.startsWith('/'))
+    return import.meta.env.BASE_URL + url.slice(1)
+  if (url.startsWith('http'))
     return url
   return new URL(url, import.meta.url).href
 }

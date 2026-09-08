@@ -1,21 +1,21 @@
 {
   "name": "slidev-addon-braincraft",
-  "version": "0.1.0",
   "type": "module",
+  "version": "0.1.0",
   "private": true,
   "keywords": [
     "slidev-addon",
     "slidev"
   ],
   "files": [
+    "!**/*.test.*",
     "components",
-    "styles",
     "setup",
-    "!**/*.test.*"
+    "styles"
   ],
   "dependencies": {
-    "vue": "catalog:",
-    "qrcode": "catalog:"
+    "qrcode": "catalog:",
+    "vue": "catalog:"
   },
   "devDependencies": {
     "@slidev/client": "catalog:",

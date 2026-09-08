@@ -1,7 +1,7 @@
 ---
 layout: presenter
 color: cream
-imageSrc: /speaker-kat-morgan.jpg
+imageSrc: /shared/speakers/speaker-kat-morgan.jpg
 ---
 
 <div class="intro">
@@ -103,4 +103,6 @@ imageSrc: /speaker-kat-morgan.jpg
 }
 </style>
 
-<!-- Speaker intro. No boilerplate component — hand-crafted for this talk. The photo carries the human connection. The right side is sparse and scannable: name, handle, tagline, experience, projects, links. The audience gets who you are in 5 seconds. ~10 seconds spoken. -->
+<!--
+Speaker intro. No boilerplate component — hand-crafted for this talk. The photo carries the human connection. The right side is sparse and scannable: name, handle, tagline, experience, projects, links. The audience gets who you are in 5 seconds. ~10 seconds spoken.
+-->

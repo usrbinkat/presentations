@@ -1,6 +1,7 @@
 ---
 layout: default
 color: slate
+class: reveal-build
 ---
 
 # Healthy habitats produce healthy habits
@@ -97,4 +98,6 @@ color: slate
 }
 </style>
 
-<!-- The workspace is a habitat, not a platform. Habitats shape habits. Habits shape outcomes. The highlighted layer is where Konductor lives — the environment that makes the right thing the easy thing. Click reveals the OXO question: OXO made a potato peeler for people with arthritis and accidentally made the best potato peeler for everyone. Same principle. ~15 seconds. -->
+<!--
+The workspace is a habitat, not a platform. Habitats shape habits. Habits shape outcomes. The highlighted layer is where Konductor lives — the environment that makes the right thing the easy thing. Click reveals the OXO question: OXO made a potato peeler for people with arthritis and accidentally made the best potato peeler for everyone. Same principle. ~15 seconds.
+-->

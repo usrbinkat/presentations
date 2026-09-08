@@ -2,7 +2,7 @@
 theme: slidev-theme-braincraft
 addons:
   - slidev-addon-braincraft
-title: 'Braincraft Theme Showcase'
+title: "Braincraft Theme Showcase"
 info: |
   A comprehensive demonstration of every layout, component, color scheme,
   transition, and feature in the Braincraft Slidev factory. Living documentation
@@ -50,6 +50,7 @@ SECTION BREAK. Structural layouts mark beginnings, endings, and transitions. The
 ---
 layout: default
 color: cream
+class: reveal-build
 ---
 
 # Default Layout — the workhorse
@@ -222,7 +223,7 @@ columns: 1fr 1fr
 ```ts
 // Old approach
 function getData() {
-  return fetch('/api').then((r) => r.json());
+  return fetch("/api").then((r) => r.json());
 }
 ```
 
@@ -233,7 +234,7 @@ function getData() {
 ```ts
 // Modern approach
 async function getData() {
-  const r = await fetch('/api');
+  const r = await fetch("/api");
   return r.json();
 }
 ```
@@ -617,6 +618,7 @@ SECTION BREAK. Interactive features and code presentation capabilities. These ar
 ---
 layout: default
 color: cream
+class: reveal-build
 ---
 
 # Progressive Disclosure — v-click and v-clicks
@@ -679,22 +681,22 @@ color: cream
 
 ```ts
 const config = {
-  theme: 'braincraft', // [!code highlight]
-  transition: 'aurora-fade', // [!code highlight]
-  fonts: { sans: 'Inter' },
+  theme: "braincraft", // [!code highlight]
+  transition: "aurora-fade", // [!code highlight]
+  fonts: { sans: "Inter" },
 };
 
 function deprecated() {
   // [!code --]
-  return 'old way'; // [!code --]
+  return "old way"; // [!code --]
 } // [!code --]
 
 function modern() {
   // [!code ++]
-  return 'new way'; // [!code ++]
+  return "new way"; // [!code ++]
 } // [!code ++]
 
-const risky = eval(input); // [!code error]
+const risky = eval(input); // eslint-disable-line no-eval -- [!code error]
 const beta = experimental(); // [!code warning]
 ```
 
@@ -720,7 +722,7 @@ function greet(name: string) {
 ```ts
 // Step 2: Add validation
 function greet(name: string) {
-  if (!name) throw new Error('Name required');
+  if (!name) throw new Error("Name required");
   return `Hello, ${name}`;
 }
 ```
@@ -728,8 +730,8 @@ function greet(name: string) {
 ```ts
 // Step 3: Add formatting options
 function greet(name: string, formal = false) {
-  if (!name) throw new Error('Name required');
-  const greeting = formal ? 'Good day' : 'Hello';
+  if (!name) throw new Error("Name required");
+  const greeting = formal ? "Good day" : "Hello";
   return `${greeting}, ${name}`;
 }
 ```
@@ -876,6 +878,8 @@ color: lavender
 <!--
 End layout with substance. The cta named slot holds QR codes. This slide stays visible during Q&A — peak scan motivation. The heading IS the takeaway, not a throwaway "Thank You." ~visible for duration of Q&A.
 -->
+
+---
 
 ---
 

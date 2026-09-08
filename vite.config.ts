@@ -1,56 +1,122 @@
 import type { Plugin } from 'vite'
-// vite.config.ts
-// Shared Vite config for all decks.
-// Injects build-time git metadata for dynamic QR code URL generation.
-//
-// TODO: Commit-pinned QR URLs
-// Replace 'main' with `git rev-parse HEAD` for immutable links:
-//   1. Add to gitPlugin: const commit = execSync('git rev-parse HEAD').toString().trim()
-//   2. Define __SLIDEV_GIT_COMMIT__: JSON.stringify(commit)
-//   3. In global-top.vue: replace '/blob/main/' with `/blob/${__SLIDEV_GIT_COMMIT__}/`
-//   4. This gives every built deck a QR code pointing to the exact source at that commit
-//   5. Consider also injecting __SLIDEV_BUILD_DATE__ for provenance
 
-import { execSync } from 'node:child_process'
+import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
+import sirv from 'sirv'
 import { defineConfig } from 'vite'
+import { buildDate, git, repositoryUrl } from './lib/git-utils'
+
+// Shared Vite config for all decks.
+// Injects commit-pinned source provenance for QR code generation.
+// Serves shared/assets/ as /shared/ in dev via sirv.
+// Emits shared/assets/ into build output via generateBundle.
+
+type SourceState = 'clean' | 'dirty' | 'unavailable'
 
 function gitMetadataPlugin(): Plugin {
   return {
     name: 'slidev-git-metadata',
-    config(_, { command: _cmd }) {
+
+    config(_, { command }) {
+      let commit = ''
+      let sourceUrl = ''
+      let sourceState: SourceState = 'unavailable'
+
       try {
-        const gitRoot = execSync('git rev-parse --show-toplevel', { encoding: 'utf8' }).trim()
-        const remote = execSync('git remote get-url origin', { encoding: 'utf8' }).trim()
+        const gitRoot = git('rev-parse', '--show-toplevel')
+        const remote = repositoryUrl(git('remote', 'get-url', 'origin'))
+        const status = git('status', '--porcelain', '--untracked-files=normal')
 
-        // Convert any git remote URL format to a GitHub browse URL
-        const repoUrl = remote
-          .replace(/\.git$/, '')
-          .replace(/^git@github\.com:/, 'https://github.com/')
+        commit = git('rev-parse', 'HEAD')
+        sourceState = status ? 'dirty' : 'clean'
 
-        // Slidev sets cwd to the deck directory before Vite starts.
-        // Compute the deck's slides.md path relative to the git root.
-        const deckDir = path.relative(gitRoot, process.cwd())
+        const deckDir = path
+          .relative(gitRoot, process.cwd())
+          .split(path.sep)
+          .join('/')
+
         const slidesPath = deckDir ? `${deckDir}/slides.md` : 'slides.md'
 
-        // Construct the full GitHub URL to the source file on main branch
-        const sourceUrl = `${repoUrl}/blob/main/${slidesPath}`
-
-        return {
-          define: {
-            __SLIDEV_SOURCE_URL__: JSON.stringify(sourceUrl),
-          },
-        }
+        // A dirty working tree has no immutable remote representation.
+        if (sourceState === 'clean')
+          sourceUrl = `${remote}/blob/${commit}/${slidesPath}`
       }
       catch {
-        // Not a git repo or git not available — QR falls back to themeConfig.qrUrl
-        return {}
+        // Builds outside Git use themeConfig.qrUrl.
+      }
+
+      if (command === 'build' && sourceState === 'dirty') {
+        console.warn(
+          '[slidev-git-metadata] Building from a dirty working tree; '
+          + 'the source QR will use themeConfig.qrUrl because no remote '
+          + 'commit represents the rendered presentation.',
+        )
+      }
+
+      return {
+        define: {
+          __SLIDEV_SOURCE_URL__: JSON.stringify(sourceUrl),
+          __SLIDEV_GIT_COMMIT__: JSON.stringify(commit),
+          __SLIDEV_GIT_STATE__: JSON.stringify(sourceState),
+          __SLIDEV_BUILD_DATE__: JSON.stringify(buildDate()),
+        },
       }
     },
   }
 }
 
+/**
+ * Serve shared/assets/ as /shared/ in dev, emit into build output.
+ *
+ * Dev: sirv middleware handles path safety, MIME types, streaming.
+ * Build: generateBundle walks the directory and emits each file.
+ */
+function sharedAssetsPlugin(): Plugin {
+  let sharedDir: string
+
+  return {
+    name: 'slidev-shared-assets',
+    configResolved() {
+      try {
+        const gitRoot = git('rev-parse', '--show-toplevel')
+        sharedDir = path.resolve(gitRoot, 'shared', 'assets')
+      }
+      catch {
+        sharedDir = ''
+      }
+    },
+    configureServer(server) {
+      if (!sharedDir || !fs.existsSync(sharedDir))
+        return
+      server.middlewares.use('/shared', sirv(sharedDir, { dev: true }))
+    },
+    generateBundle() {
+      if (!sharedDir || !fs.existsSync(sharedDir))
+        return
+      const walk = (dir: string, prefix: string) => {
+        for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+          if (entry.name === '.gitkeep')
+            continue
+          const full = path.join(dir, entry.name)
+          const rel = prefix ? `${prefix}/${entry.name}` : entry.name
+          if (entry.isDirectory()) {
+            walk(full, rel)
+          }
+          else {
+            this.emitFile({
+              type: 'asset',
+              fileName: `shared/${rel}`,
+              source: fs.readFileSync(full),
+            })
+          }
+        }
+      }
+      walk(sharedDir, '')
+    },
+  }
+}
+
 export default defineConfig({
-  plugins: [gitMetadataPlugin()],
+  plugins: [gitMetadataPlugin(), sharedAssetsPlugin()],
 })

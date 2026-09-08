@@ -2,8 +2,9 @@
 // scripts/new-layout.mjs — Scaffold a new Slidev layout
 // Usage: pnpm new-layout <layout-name>
 
-import { writeFileSync, existsSync } from 'node:fs'
+import { existsSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import process from 'node:process'
 
 const name = process.argv[2]
 

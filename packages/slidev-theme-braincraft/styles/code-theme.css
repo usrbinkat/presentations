@@ -25,7 +25,16 @@
   background: transparent !important;
 }
 
-/* Kill ALL per-token inline backgrounds from Shiki themes */
+/* Kill ALL per-token inline backgrounds from Shiki themes.
+   This resets theme-generated inline style="background-color:..."
+   on every <span> to prevent "strips of tape" visual artifacts.
+
+   TRANSFORMER CONTRACT: custom transformer backgrounds must use
+   recognized CSS classes (e.g. .highlighted, .diff.add, .diff.remove,
+   .focused) and reassert their backgrounds with !important in the
+   SHIKI TRANSFORMER ANNOTATION STYLES section below. Inline
+   background-color set by transformers is also cleared by this rule;
+   class-based backgrounds are the supported extension mechanism. */
 .shiki span {
   background-color: transparent !important;
 }
@@ -36,6 +45,43 @@
 }
 
 /* ═══════════════════════════════════════════════════
+   DARK-SCHEME SHIKI TOKEN OVERRIDE
+   Slate scheme is inherently dark regardless of html.dark.
+   Shiki renders dual-theme tokens as --shiki-light / --shiki-dark
+   CSS properties. By default, --shiki-light is used. Under
+   html.dark, Slidev switches to --shiki-dark.
+
+   This rule forces --shiki-dark tokens inside any dark scheme
+   so code blocks are always readable on dark slide backgrounds
+   without requiring the global html.dark toggle.
+
+   Covers: .aurora-slate-scheme (always dark)
+   Also covers: all schemes under html.dark (via dark-mode.css)
+   ═══════════════════════════════════════════════════ */
+
+/* Force dark Shiki tokens on inherently-dark slate scheme.
+   aurora-dark.json provides Aurora palette token colors
+   via the Shiki theme system. This CSS ensures the dark
+   tokens display on slate slides even without html.dark. */
+.aurora-slate-scheme .shiki,
+.aurora-slate-scheme .shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+.aurora-slate-scheme .slidev-code-wrapper {
+  --slidev-code-foreground: var(--aurora-cream-100);
+}
+
+html.dark .shiki,
+html.dark .shiki span {
+  color: var(--shiki-dark) !important;
+}
+
+html.dark .slidev-code-wrapper {
+  --slidev-code-foreground: var(--aurora-cream-100);
+}
+
+/* ═══════════════════════════════════════════════════
    SHIKI TRANSFORMER ANNOTATION STYLES
    These re-assert backgrounds with !important to win
    back from the global transparent rule above.
@@ -43,7 +89,10 @@
 
 .shiki {
   .line.highlighted {
-    background-color: light-dark(oklch(70% 0.08 300 / 0.15), oklch(70% 0.08 300 / 0.2)) !important;
+    background-color: light-dark(
+      oklch(70% 0.08 300 / 0.15),
+      oklch(70% 0.08 300 / 0.2)
+    ) !important;
     border-left: 3px solid var(--aurora-lavender-400);
     margin-left: -3px;
     padding-left: 0;
@@ -60,10 +109,13 @@
   }
 
   .line.diff.add {
-    background-color: light-dark(oklch(72% 0.12 145 / 0.12), oklch(72% 0.12 145 / 0.15)) !important;
+    background-color: light-dark(
+      oklch(72% 0.12 145 / 0.12),
+      oklch(72% 0.12 145 / 0.15)
+    ) !important;
 
     &::before {
-      content: '+';
+      content: "+";
       position: absolute;
       left: 0.5em;
       color: var(--aurora-success);
@@ -72,11 +124,14 @@
   }
 
   .line.diff.remove {
-    background-color: light-dark(oklch(68% 0.12 25 / 0.12), oklch(68% 0.12 25 / 0.15)) !important;
+    background-color: light-dark(
+      oklch(68% 0.12 25 / 0.12),
+      oklch(68% 0.12 25 / 0.15)
+    ) !important;
     opacity: 0.7;
 
     &::before {
-      content: '-';
+      content: "-";
       position: absolute;
       left: 0.5em;
       color: var(--aurora-danger);
@@ -102,6 +157,22 @@
       filter: blur(0);
     }
   }
+}
+
+/* ═══════════════════════════════════════════════════
+   V-MARK ON DARK SCHEMES
+   rough-notation highlight draws a colored rectangle
+   behind text. On dark slides with light text, a solid
+   highlight color washes out the text. Lower opacity
+   on dark schemes so text remains readable.
+   ═══════════════════════════════════════════════════ */
+
+.aurora-slate-scheme .rough-annotation {
+  opacity: 0.5;
+}
+
+html.dark .rough-annotation {
+  opacity: 0.5;
 }
 
 /* Consecutive code blocks share a visual group */

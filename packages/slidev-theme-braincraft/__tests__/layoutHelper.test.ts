@@ -6,7 +6,11 @@ describe('resolveAssetUrl', () => {
     expect(resolveAssetUrl('https://example.com/img.png')).toBe('https://example.com/img.png')
   })
 
-  it('returns root-relative paths unchanged', () => {
+  it('prepends BASE_URL to root-relative paths', () => {
+    // Under the default test runner, import.meta.env.BASE_URL is '/'.
+    // '/' + 'assets/img.png' = '/assets/img.png'
+    // The non-root case is tested in layoutHelper.base.test.ts
+    // via vitest define override.
     expect(resolveAssetUrl('/assets/img.png')).toBe('/assets/img.png')
   })
 })

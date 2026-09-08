@@ -59,7 +59,8 @@
   }
 
   blockquote {
-    border-inline-start: 4px solid var(--scheme-accent, var(--aurora-lavender-400));
+    border-inline-start: 4px solid
+      var(--scheme-accent, var(--aurora-lavender-400));
     padding-inline-start: var(--aurora-space-4);
     font-style: italic;
     color: var(--scheme-text-secondary, var(--aurora-slate-600));
@@ -143,13 +144,13 @@
 
 .slidev-layout div:has(> svg) svg {
   /* Sans-serif: Excalidraw "Helvetica" → theme "Inter" */
-  text[style*='Helvetica'] {
-    font-family: 'Inter', sans-serif !important;
+  text[style*="Helvetica"] {
+    font-family: "Inter", sans-serif !important;
   }
 
   /* Monospace: Excalidraw "Cascadia" → theme "Space Mono" */
-  text[style*='Cascadia'] {
-    font-family: 'Space Mono', monospace !important;
+  text[style*="Cascadia"] {
+    font-family: "Space Mono", monospace !important;
   }
 }
 
@@ -177,58 +178,211 @@
 }
 
 /* ═══════════════════════════════════════════════════
+   DENSE UTILITY — Reduced padding and tighter spacing
+   for slides with 6+ row grids or reference tables.
+   Apply via frontmatter: class: dense
+   ═══════════════════════════════════════════════════ */
+
+.dense {
+  --aurora-slide-padding-y: var(--aurora-space-6);
+  --aurora-title-margin-bottom: var(--aurora-space-2);
+  --aurora-content-gap: var(--aurora-space-3);
+
+  h1 {
+    font-size: var(--aurora-text-3xl);
+    margin-bottom: var(--aurora-space-2);
+    padding-bottom: var(--aurora-space-1);
+  }
+
+  p {
+    font-size: var(--aurora-text-sm);
+    margin-top: var(--aurora-space-1);
+    margin-bottom: var(--aurora-space-1);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   COMPACT GRID — Tight gap and small font for dense
+   reference tables. Apply to the grid container.
+   ═══════════════════════════════════════════════════ */
+
+.compact-grid {
+  gap: var(--aurora-space-1) var(--aurora-space-2);
+  font-size: var(--aurora-text-xs);
+  line-height: var(--aurora-leading-snug);
+
+  code {
+    font-size: 0.65rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   CELL BACKGROUND UTILITIES — Scheme-aware backgrounds
+   for grid cells, cards, and content blocks.
+   Correct on both cream (light) and slate (dark) schemes.
+   Authors use these classes instead of inline color-mix.
+   ═══════════════════════════════════════════════════ */
+
+.cell-bg {
+  background: color-mix(
+    in oklch,
+    var(--scheme-bg-code, var(--aurora-cream-200)) 60%,
+    transparent
+  );
+  border-radius: var(--aurora-radius-md);
+  padding: var(--aurora-space-2) var(--aurora-space-3);
+}
+
+.cell-bg-subtle {
+  background: color-mix(
+    in oklch,
+    var(--scheme-bg-code, var(--aurora-cream-200)) 40%,
+    transparent
+  );
+  border-radius: var(--aurora-radius-sm);
+  padding: var(--aurora-space-1) var(--aurora-space-2);
+}
+
+.cell-bg-accent {
+  background: color-mix(
+    in oklch,
+    var(--scheme-accent, var(--aurora-lavender-400)) 12%,
+    transparent
+  );
+  border-radius: var(--aurora-radius-md);
+  padding: var(--aurora-space-2) var(--aurora-space-3);
+}
+
+.cell-bg-ok {
+  background: color-mix(in oklch, var(--aurora-mint-400) 12%, transparent);
+  border-radius: var(--aurora-radius-sm);
+}
+
+.cell-bg-warn {
+  background: color-mix(in oklch, #e2a832 10%, transparent);
+  border-radius: var(--aurora-radius-sm);
+}
+
+.cell-bg-err {
+  background: color-mix(in oklch, #cc5a3a 10%, transparent);
+  border-radius: var(--aurora-radius-sm);
+}
+
+/* ═══════════════════════════════════════════════════
+   ABSOLUTE POSITIONING UTILITIES
+   Matches Slidev demo conventions for placing
+   supplementary content without consuming flow space.
+   ═══════════════════════════════════════════════════ */
+
+.abs-b {
+  position: absolute;
+  bottom: var(--aurora-space-4);
+  left: var(--aurora-slide-padding-x);
+  right: var(--aurora-slide-padding-x);
+}
+.abs-t {
+  position: absolute;
+  top: var(--aurora-space-4);
+  left: var(--aurora-slide-padding-x);
+  right: var(--aurora-slide-padding-x);
+}
+.abs-br {
+  position: absolute;
+  bottom: var(--aurora-space-4);
+  right: var(--aurora-slide-padding-x);
+}
+.abs-bl {
+  position: absolute;
+  bottom: var(--aurora-space-4);
+  left: var(--aurora-slide-padding-x);
+}
+.abs-tr {
+  position: absolute;
+  top: var(--aurora-space-4);
+  right: var(--aurora-slide-padding-x);
+}
+.abs-tl {
+  position: absolute;
+  top: var(--aurora-space-4);
+  left: var(--aurora-slide-padding-x);
+}
+
+/* ═══════════════════════════════════════════════════
    V-CLICK TRANSITION UPGRADE — Spring-physics reveal
    This is the single highest-impact visual change.
    Without this, every v-click is a hard opacity snap.
+
+   Stagger model: DOM-order stagger via :nth-child.
+   Items cascade visually in document order regardless
+   of click-index assignment. This is intentional —
+   grid cells sharing v-click="N" animate in reading order.
+
+   For author-controlled delay independent of DOM position,
+   set --aurora-reveal-delay on the element:
+     style="--aurora-reveal-delay: 200ms"
    ═══════════════════════════════════════════════════ */
 
 .slidev-vclick-target {
   transition:
     opacity var(--aurora-duration-normal) var(--aurora-ease-out),
     transform var(--aurora-duration-normal) var(--aurora-ease-spring);
+  transition-delay: var(--aurora-reveal-delay, 0ms);
 
   &:nth-child(2) {
-    transition-delay: 50ms;
+    --aurora-reveal-delay: 50ms;
   }
   &:nth-child(3) {
-    transition-delay: 100ms;
+    --aurora-reveal-delay: 100ms;
   }
   &:nth-child(4) {
-    transition-delay: 150ms;
+    --aurora-reveal-delay: 150ms;
   }
   &:nth-child(5) {
-    transition-delay: 200ms;
+    --aurora-reveal-delay: 200ms;
   }
   &:nth-child(6) {
-    transition-delay: 250ms;
+    --aurora-reveal-delay: 250ms;
   }
   &:nth-child(7) {
-    transition-delay: 300ms;
+    --aurora-reveal-delay: 300ms;
   }
   &:nth-child(8) {
-    transition-delay: 350ms;
+    --aurora-reveal-delay: 350ms;
   }
   &:nth-child(9) {
-    transition-delay: 400ms;
+    --aurora-reveal-delay: 400ms;
   }
   &:nth-child(10) {
-    transition-delay: 450ms;
+    --aurora-reveal-delay: 450ms;
   }
   &:nth-child(11) {
-    transition-delay: 500ms;
+    --aurora-reveal-delay: 500ms;
   }
   &:nth-child(12) {
-    transition-delay: 550ms;
+    --aurora-reveal-delay: 550ms;
   }
 }
 
 /* Promote to compositor layer only during active transitions to avoid permanent GPU memory waste */
-.slidev-vclick-target[class*='-enter-active'],
-.slidev-vclick-target[class*='-leave-active'] {
+.slidev-vclick-target[class*="-enter-active"],
+.slidev-vclick-target[class*="-leave-active"] {
   will-change: opacity, transform;
 }
 
+/* Default v-click behavior: fade to 40% opacity.
+   Content stays visible and positioned, layout doesn't shift.
+   Grids and reference tables show their skeleton before population.
+   Audience sees the full slide structure from first render. */
 .slidev-vclick-hidden {
+  opacity: 0.4;
+}
+
+/* Opt-in build behavior for vertical flow chains.
+   Content hides completely and slides up on reveal.
+   Apply via frontmatter: class: reveal-build
+   Use for: construction sequences, write paths, pipelines
+   where each step should appear when discussed. */
+.reveal-build .slidev-vclick-hidden {
   opacity: 0;
   transform: translateY(8px);
 }
@@ -261,7 +415,8 @@
 
   /* Glow effect — subtle glow on cover slide title */
   .aurora-glow {
-    text-shadow: 0 0 calc(var(--aurora-blur) + 8px) oklch(80% 0.12 300 / var(--aurora-glow-opacity));
+    text-shadow: 0 0 calc(var(--aurora-blur) + 8px)
+      oklch(80% 0.12 300 / var(--aurora-glow-opacity));
     animation: aurora-glow-pulse 3s ease-in-out infinite alternate;
   }
 

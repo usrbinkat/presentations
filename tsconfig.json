@@ -1,23 +1,25 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+    "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "strict": true,
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
     "paths": {
       "#theme/*": ["./packages/slidev-theme-braincraft/*"],
       "#addon/*": ["./packages/slidev-addon-braincraft/*"]
-    }
+    },
+    "resolveJsonModule": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
   },
   "include": [
     "env.d.ts",
+    "lib/**/*.ts",
+    "vite.config.ts",
     "packages/**/*.ts",
     "packages/**/*.vue",
     "decks/**/*.ts",

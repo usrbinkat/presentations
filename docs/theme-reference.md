@@ -187,7 +187,7 @@ imageSrc: /images/speaker.jpg
 ---
 # Jane Doe
 
-## Principal Engineer at Braincraft
+# # Principal Engineer at Braincraft
 
 Building distributed systems and developer tools for 15 years.
 ```
@@ -201,7 +201,7 @@ for caption text. Default slot available for additional content below.
 ---
 layout: figure
 figureUrl: /images/architecture.png
-figureCaption: 'Figure 1: System architecture overview'
+figureCaption: "Figure 1: System architecture overview"
 ---
 ```
 

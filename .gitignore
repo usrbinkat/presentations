@@ -6,6 +6,19 @@ dist/
 # Source material (cloned repos for study, not committed)
 sources/
 
+# Environment overrides (secrets, local config)
+.env
+.env.local
+.env.secrets
+!.env.example
+
+# Nix direnv cache
+.direnv/
+
+# Dev server state
+.slidev-dev.pid
+.slidev-dev.log
+
 # OS
 .DS_Store
 Thumbs.db

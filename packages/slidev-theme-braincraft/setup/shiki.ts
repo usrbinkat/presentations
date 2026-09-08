@@ -10,12 +10,14 @@ import {
   transformerNotationWordHighlight,
 } from '@shikijs/transformers'
 import { defineShikiSetup } from '@slidev/types'
+import auroraDark from './aurora-dark.json'
+import auroraLight from './aurora-light.json'
 
 export default defineShikiSetup(() => {
   return {
     themes: {
-      dark: 'vitesse-dark',
-      light: 'vitesse-light',
+      dark: auroraDark,
+      light: auroraLight,
     },
     transformers: [
       transformerNotationHighlight(),

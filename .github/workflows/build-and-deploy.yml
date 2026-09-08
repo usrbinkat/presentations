@@ -7,8 +7,8 @@ on:
       - "presentations/decks/**"
       - "presentations/packages/**"
       - "presentations/shared/**"
-      - "presentations/pnpm-workspace.yaml"
-      - "presentations/package.json"
+      - presentations/pnpm-workspace.yaml
+      - presentations/package.json
   workflow_dispatch:
 
 permissions:
@@ -17,7 +17,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 defaults:
@@ -25,52 +25,8 @@ defaults:
     working-directory: presentations
 
 jobs:
-  detect-changes:
-    runs-on: ubuntu-latest
-    outputs:
-      decks: ${{ steps.set-matrix.outputs.decks }}
-      has_decks: ${{ steps.set-matrix.outputs.has_decks }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Detect changed decks
-        id: set-matrix
-        run: |
-          # Get all deck directories
-          ALL_DECKS=$(ls -d decks/*/ 2>/dev/null | xargs -I{} basename {} | jq -R -s -c 'split("\n") | map(select(length > 0))')
-
-          # Check if packages/ or shared/ changed (rebuild all)
-          INFRA_CHANGED=$(git diff --name-only HEAD~1 -- packages/ shared/ pnpm-workspace.yaml package.json 2>/dev/null || true)
-
-          if [ -n "$INFRA_CHANGED" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "Infrastructure changed or manual trigger — rebuilding all decks"
-            DECKS="$ALL_DECKS"
-          else
-            # Only rebuild changed decks
-            CHANGED_DECKS=$(git diff --name-only HEAD~1 -- decks/ 2>/dev/null | cut -d'/' -f2 | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')
-            DECKS="$CHANGED_DECKS"
-          fi
-
-          echo "decks=$DECKS" >> "$GITHUB_OUTPUT"
-
-          if [ "$DECKS" = "[]" ] || [ -z "$DECKS" ]; then
-            echo "has_decks=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_decks=true" >> "$GITHUB_OUTPUT"
-          fi
-
-          echo "Decks to build: $DECKS"
-
   build:
-    needs: detect-changes
-    if: needs.detect-changes.outputs.has_decks == 'true'
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        deck: ${{ fromJson(needs.detect-changes.outputs.decks) }}
     steps:
       - uses: actions/checkout@v4
 
@@ -79,7 +35,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
-          cache: "pnpm"
+          cache: pnpm
           cache-dependency-path: presentations/pnpm-lock.yaml
 
       - name: Install dependencies
@@ -100,65 +56,48 @@ jobs:
       - name: Install emoji font
         run: sudo apt-get install -y fonts-noto-color-emoji
 
-      - name: Build SPA
+      - name: Build all decks
         run: |
-          cd decks/${{ matrix.deck }}
-          pnpm exec slidev build slides.md \
-            --base /${{ github.event.repository.name }}/${{ matrix.deck }}/ \
-            --out ../../dist/${{ matrix.deck }}
+          for deck_dir in decks/*/; do
+            deck=$(basename "$deck_dir")
+            echo "::group::Building $deck"
+            cd "decks/$deck"
+            pnpm exec slidev build slides.md \
+              --base /${{ github.event.repository.name }}/$deck/ \
+              --out ../../dist/$deck
+            cd ../..
+            echo "::endgroup::"
+          done
 
       - name: Verify build output
         run: |
-          DIST_DIR="dist/${{ matrix.deck }}"
-          if [ ! -d "$DIST_DIR" ]; then
-            echo "::error::Build output directory $DIST_DIR does not exist"
-            exit 1
-          fi
-          FILE_COUNT=$(find "$DIST_DIR" -type f | wc -l)
-          echo "Build verified: $DIST_DIR contains $FILE_COUNT files"
-          if [ "$FILE_COUNT" -lt 1 ]; then
-            echo "::error::Build output directory is empty"
-            exit 1
-          fi
+          for deck_dir in decks/*/; do
+            deck=$(basename "$deck_dir")
+            DIST_DIR="dist/$deck"
+            if [ ! -d "$DIST_DIR" ]; then
+              echo "::error::Build output directory $DIST_DIR does not exist"
+              exit 1
+            fi
+            FILE_COUNT=$(find "$DIST_DIR" -type f | wc -l)
+            echo "Build verified: $DIST_DIR contains $FILE_COUNT files"
+            if [ "$FILE_COUNT" -lt 1 ]; then
+              echo "::error::Build output directory $DIST_DIR is empty"
+              exit 1
+            fi
+          done
 
-      - name: Export PDF
+      - name: Export PDFs
         continue-on-error: true
         run: |
-          cd decks/${{ matrix.deck }}
-          pnpm exec slidev export slides.md \
-            --output ../../dist/${{ matrix.deck }}/${{ matrix.deck }}.pdf \
-            --timeout 60000
-
-      - name: Upload deck artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: deck-${{ matrix.deck }}
-          path: presentations/dist/${{ matrix.deck }}
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download all deck artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: presentations/dist
-          pattern: deck-*
-          merge-multiple: false
-
-      - name: Organize artifacts
-        run: |
-          # download-artifact creates deck-<name>/ subdirs; flatten to <name>/
-          cd dist
-          for dir in deck-*/; do
-            deck_name="${dir#deck-}"
-            deck_name="${deck_name%/}"
-            mv "$dir" "$deck_name" 2>/dev/null || true
+          for deck_dir in decks/*/; do
+            deck=$(basename "$deck_dir")
+            echo "::group::Exporting $deck PDF"
+            cd "decks/$deck"
+            pnpm exec slidev export slides.md \
+              --output ../../dist/$deck/$deck.pdf \
+              --timeout 60000 || true
+            cd ../..
+            echo "::endgroup::"
           done
 
       - name: Generate landing page
@@ -189,7 +128,6 @@ jobs:
             <script>
           HTMLEOF
 
-          # Build deck list from dist directories
           echo '    const decks = [' >> dist/index.html
           for dir in dist/*/; do
             [ -d "$dir" ] || continue
@@ -223,6 +161,13 @@ jobs:
         with:
           path: presentations/dist
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

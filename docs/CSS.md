@@ -26,17 +26,17 @@ value must be computationally independent — `3em` fails, `10px` works.
 ```css
 /* Animate oklch channels independently */
 @property --hue {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 320;
 }
 @property --chroma {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 0.2;
 }
 @property --lightness {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 0.6;
 }
@@ -69,12 +69,12 @@ space:
 
 ```css
 @property --grad-start {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: false;
   initial-value: oklch(0.7 0.15 240);
 }
 @property --grad-end {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: false;
   initial-value: oklch(0.6 0.25 330);
 }
@@ -145,7 +145,11 @@ Firefox is closer to spec. For P3-extended colors, use `@media (color-gamut: p3)
 
 ```css
 .gradient-text {
-  background: linear-gradient(90deg in oklch, oklch(0.65 0.3 330), oklch(0.7 0.25 260));
+  background: linear-gradient(
+    90deg in oklch,
+    oklch(0.65 0.3 330),
+    oklch(0.7 0.25 260)
+  );
   background-clip: text;
   -webkit-background-clip: text; /* still required Chrome/Safari */
   color: transparent;
@@ -240,10 +244,22 @@ const transition = document.startViewTransition(() => updateDOM());
 transition.ready.then(() => {
   const x = lastClick?.clientX ?? innerWidth / 2;
   const y = lastClick?.clientY ?? innerHeight / 2;
-  const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+  const r = Math.hypot(
+    Math.max(x, innerWidth - x),
+    Math.max(y, innerHeight - y),
+  );
   document.documentElement.animate(
-    { clipPath: [`circle(0 at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
-    { duration: 500, easing: 'ease-in', pseudoElement: '::view-transition-new(root)' }
+    {
+      clipPath: [
+        `circle(0 at ${x}px ${y}px)`,
+        `circle(${r}px at ${x}px ${y}px)`,
+      ],
+    },
+    {
+      duration: 500,
+      easing: "ease-in",
+      pseudoElement: "::view-transition-new(root)",
+    },
   );
 });
 ```

@@ -3,7 +3,7 @@ theme: slidev-theme-braincraft
 addons:
   - slidev-addon-braincraft
   - slidev-addon-excalidraw
-title: 'Platform Factory -- Composable Infrastructure as Code'
+title: "Platform Factory -- Composable Infrastructure as Code"
 author: Kat Morgan - aka @usrbinkat
 colorSchema: dark
 themeConfig:
@@ -119,30 +119,49 @@ The factory pipeline. Stack YAML feeds core/config.py (Pydantic validation via G
 ---
 layout: default
 color: slate
+class: dense
 ---
 
 # Config-Driven Differentiation
 
 Same component, different configs per target:
 
+<CodeComparison beforeLabel="docker-dev-storage.yaml" afterLabel="optiplex-admin-storage.yaml">
+
 ```yaml
-# Target A: docker-dev-storage.yaml    # Target B: optiplex-admin-storage.yaml
-rook_ceph_operator:                     rook_ceph_operator:
-  enabled: false                          enabled: true
-hostpath_provisioner_operator:            spec:
-  enabled: true                             ceph_version: v20.2.0
-  spec:                                     storage:
-    storage_pools:                            nodes:
-      - name: local-storage                     - name: op1
-        path: /var/mnt/local-storage              devices:
-    storage_classes:                                - nvme-Sabrent_2TB
-      - name: hostpath-csi                         - wwn-Samsung_1TB_SSD
-        is_default: true                           - wwn-WD_Red_6TB_HDD
+rook_ceph_operator:
+  enabled: false
+hostpath_provisioner_operator:
+  enabled: true
+  spec:
+    storage_pools:
+      - name: local-storage
+        path: /var/mnt/local-storage
+    storage_classes:
+      - name: hostpath-csi
+        is_default: true
 ```
 
-The storage component code exists once. The stack YAML determines whether HostPath or Ceph deploys,
-and with what disk topology, replication factor, and storage class names. This extends to any
-storage backend by adding a component to the factory and enabling it in YAML.
+<template #after>
+
+```yaml
+rook_ceph_operator:
+  enabled: true
+  spec:
+    ceph_version: v20.2.0
+    storage:
+      nodes:
+        - name: op1
+          devices:
+            - nvme-Sabrent_2TB
+            - wwn-Samsung_1TB_SSD
+            - wwn-WD_Red_6TB_HDD
+```
+
+</template>
+</CodeComparison>
+
+The storage component code exists once. The stack YAML determines whether HostPath or Ceph deploys, and with what disk topology, replication factor, and storage class names.
 
 <!--
 The audience needs to understand this: the YAML is not a template. It is a typed configuration surface validated by Pydantic models with JSON Schema generation for IDE autocomplete. Invalid config crashes at validation time, not at deploy time.

@@ -3,7 +3,7 @@ name: Release PDF
 on:
   push:
     tags:
-      - '*-v*'
+      - "*-v*"
 
 permissions:
   contents: write
@@ -31,8 +31,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
-          cache: 'pnpm'
+          node-version: "lts/*"
+          cache: pnpm
           cache-dependency-path: presentations/pnpm-lock.yaml
 
       - name: Install dependencies

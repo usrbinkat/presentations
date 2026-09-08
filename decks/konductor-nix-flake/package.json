@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@slidev/cli": "catalog:",
-    "slidev-theme-braincraft": "workspace:*",
-    "slidev-addon-braincraft": "workspace:*"
+    "slidev-addon-braincraft": "workspace:*",
+    "slidev-theme-braincraft": "workspace:*"
   }
 }

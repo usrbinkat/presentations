@@ -1,0 +1,15 @@
+{
+  "name": "deck-rekindle-transport-veilid",
+  "private": true,
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "catalog:",
+    "slidev-addon-braincraft": "workspace:*",
+    "slidev-addon-excalidraw": "^1.0.4",
+    "slidev-theme-braincraft": "workspace:*"
+  }
+}
