@@ -9,7 +9,7 @@
 //   /presentations/{deck}/slides/ → Slidev SPA (full presentation)
 
 import { execFileSync } from 'node:child_process';
-import { readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, statSync } from 'node:fs';
 import { resolve } from 'node:path';
 import process from 'node:process';
 
@@ -20,7 +20,7 @@ const BASE = '/presentations';
 
 const decks = readdirSync(DECKS_DIR).filter(name => {
   const dir = resolve(DECKS_DIR, name);
-  return statSync(dir).isDirectory() && statSync(resolve(dir, 'slides.md')).isFile();
+  return statSync(dir).isDirectory() && existsSync(resolve(dir, 'slides.md'));
 });
 
 console.log(`Building ${decks.length} decks into ${DIST_DIR}`);

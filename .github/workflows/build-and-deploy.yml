@@ -9,6 +9,7 @@ on:
       - "shared/**"
       - "www/**"
       - pnpm-workspace.yaml
+      - pnpm-lock.yaml
       - package.json
       - ".github/workflows/build-and-deploy.yml"
   workflow_dispatch:
@@ -34,7 +35,9 @@ jobs:
         with:
           node-version: "lts/*"
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            www/sites/presentations/pnpm-lock.yaml
 
       - name: Install Slidev workspace dependencies
         run: pnpm install --frozen-lockfile
@@ -42,11 +45,22 @@ jobs:
       - name: Install Astro site dependencies
         run: pnpm -C www/sites/presentations install --frozen-lockfile
 
+      - name: Lint and typecheck workspace
+        run: |
+          pnpm lint
+          pnpm typecheck
+
       - name: Install Playwright
         run: npx playwright install --with-deps chromium
 
       - name: Install emoji font
         run: sudo apt-get install -y fonts-noto-color-emoji
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck Slidev workspace
+        run: pnpm exec vue-tsc --noEmit
 
       - name: Build Astro site + all Slidev decks
         run: pnpm -C www/sites/presentations run build
@@ -72,7 +86,6 @@ jobs:
           done
 
       - name: Export PDFs
-        continue-on-error: true
         run: |
           DIST="www/sites/presentations/dist"
           for deck_dir in decks/*/; do
@@ -80,7 +93,7 @@ jobs:
             echo "::group::Exporting $deck PDF"
             pnpm -C "decks/$deck" exec slidev export slides.md \
               --output "../../$DIST/$deck/slides/$deck.pdf" \
-              --timeout 60000 || true
+              --timeout 60000
             echo "::endgroup::"
           done
 

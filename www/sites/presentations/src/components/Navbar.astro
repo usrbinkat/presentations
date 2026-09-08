@@ -13,6 +13,7 @@ import { href } from '../utils/paths';
       </span>
     </a>
 
+    <!-- Desktop Nav -->
     <nav class="hidden md:flex items-center gap-8">
       <div class="flex items-center gap-6 border-r border-border-subtle pr-6 mr-2">
         <a href="https://github.com/usrbinkat/presentations" class="text-sm font-medium text-text-secondary hover:text-brand-primary transition-colors hover:-translate-y-0.5 transform duration-200">
@@ -32,15 +33,46 @@ import { href } from '../utils/paths';
         </svg>
       </button>
     </nav>
+
+    <!-- Mobile: theme toggle + hamburger -->
+    <div class="flex md:hidden items-center gap-2">
+      <button id="theme-toggle-mobile" class="p-2 rounded-full text-text-secondary hover:text-brand-primary hover:bg-surface-subtle transition-all duration-200" aria-label="Toggle theme">
+        <svg id="icon-dark-mobile" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+        <svg id="icon-light-mobile" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      </button>
+      <button id="mobile-toggle" class="p-2 text-text-secondary hover:text-text-primary focus:outline-none focus:ring-2 focus:ring-brand-primary rounded-md" aria-label="Toggle menu">
+        <svg id="icon-menu" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-surface-paper border-b border-border-subtle shadow-xl p-6 space-y-4">
+    <a href="https://github.com/usrbinkat/presentations" class="block text-base font-medium text-text-primary hover:text-brand-primary py-2 border-b border-border-subtle/50">
+      Source
+    </a>
+    <a href="https://braincraft.io" target="_blank" rel="noopener noreferrer" class="block text-base font-medium text-text-secondary hover:text-text-primary py-2">
+      BrainCraft
+    </a>
   </div>
 </header>
 
 <script>
   const navbar = document.getElementById('navbar')!;
   const navbarInner = document.getElementById('navbar-inner')!;
-  const themeToggle = document.getElementById('theme-toggle')!;
-  const iconDark = document.getElementById('icon-dark')!;
-  const iconLight = document.getElementById('icon-light')!;
+  const mobileToggle = document.getElementById('mobile-toggle')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const iconMenu = document.getElementById('icon-menu')!;
+  const iconClose = document.getElementById('icon-close')!;
 
   function updateScroll() {
     const scrolled = window.scrollY > 20;
@@ -55,24 +87,35 @@ import { href } from '../utils/paths';
   window.addEventListener('scroll', updateScroll);
   updateScroll();
 
-  function updateThemeIcons() {
+  function updateAllThemeIcons() {
     const theme = document.documentElement.getAttribute('data-theme');
-    if (theme === 'light') {
-      iconDark.classList.remove('hidden');
-      iconLight.classList.add('hidden');
-    } else {
-      iconDark.classList.add('hidden');
-      iconLight.classList.remove('hidden');
+    const isDark = theme !== 'light';
+    for (const suffix of ['', '-mobile']) {
+      const dark = document.getElementById(`icon-dark${suffix}`);
+      const light = document.getElementById(`icon-light${suffix}`);
+      if (dark && light) {
+        dark.classList.toggle('hidden', isDark);
+        light.classList.toggle('hidden', !isDark);
+      }
     }
   }
-  updateThemeIcons();
+  updateAllThemeIcons();
 
-  themeToggle.addEventListener('click', () => {
+  function toggleTheme() {
     const current = document.documentElement.getAttribute('data-theme');
     const next = current === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', next);
     document.documentElement.style.colorScheme = next;
     document.cookie = `aurora-theme=${next};path=/;max-age=31536000;SameSite=Lax`;
-    updateThemeIcons();
+    updateAllThemeIcons();
+  }
+
+  document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+  document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
+
+  mobileToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+    iconMenu.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
   });
 </script>

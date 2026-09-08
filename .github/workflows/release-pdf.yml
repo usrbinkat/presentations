@@ -39,17 +39,27 @@ jobs:
       - name: Install emoji font
         run: sudo apt-get install -y fonts-noto-color-emoji
 
-      - name: Export PDF
+      - name: Validate deck and export PDF
+        env:
+          DECK: ${{ steps.meta.outputs.deck }}
+          TAG: ${{ steps.meta.outputs.tag }}
         run: |
-          pnpm -C "decks/${{ steps.meta.outputs.deck }}" exec slidev export slides.md \
-            --output "../../dist/${{ steps.meta.outputs.deck }}.pdf" \
+          if [ ! -d "decks/$DECK" ] || [ ! -f "decks/$DECK/slides.md" ]; then
+            echo "::error::No deck at decks/$DECK/slides.md"
+            exit 1
+          fi
+          mkdir -p dist
+          pnpm -C "decks/$DECK" exec slidev export slides.md \
+            --output "../../dist/$DECK.pdf" \
             --timeout 60000
 
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          DECK: ${{ steps.meta.outputs.deck }}
+          TAG: ${{ steps.meta.outputs.tag }}
         run: |
-          gh release create "${{ steps.meta.outputs.tag }}" \
-            --title "${{ steps.meta.outputs.deck }} ${{ steps.meta.outputs.tag }}" \
+          gh release create "$TAG" \
+            --title "$DECK $TAG" \
             --generate-notes \
-            "dist/${{ steps.meta.outputs.deck }}.pdf"
+            "dist/$DECK.pdf"

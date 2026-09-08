@@ -1,10 +1,11 @@
 // Build-time deck metadata loader.
-// Reads frontmatter from each decks/*/slides.md and counts slides
-// across all src: imported sub-slide files.
+// Reads frontmatter from each decks/*/slides.md via the yaml package
+// and counts slides by counting --- separators per the Slidev spec.
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import process from 'node:process'
+import YAML from 'yaml'
 
 // Astro sets cwd to the project root (www/sites/presentations/) during build.
 // Navigate up 3 levels to reach the repo root where decks/ lives.
@@ -21,54 +22,43 @@ interface DeckMeta {
   slideCount: number
 }
 
-function parseFrontmatter(content: string): Record<string, string> {
+function parseFrontmatter(content: string): Record<string, unknown> {
   const match = content.match(/^---\n([\s\S]*?)\n---/)
   if (!match)
     return {}
-  const lines = match[1].split('\n')
-  const result: Record<string, string> = {}
-  let currentKey = ''
-  let multiline = false
-
-  for (const line of lines) {
-    if (multiline) {
-      if (line.startsWith('  ') || line.startsWith('\t')) {
-        result[currentKey] = `${(result[currentKey] || '') + line.trim()} `
-        continue
-      }
-      multiline = false
-    }
-    const kvMatch = line.match(/^(\w[\w-]*):\s?(.*)$/)
-    if (kvMatch) {
-      currentKey = kvMatch[1]
-      const value = kvMatch[2].trim()
-      if (value === '|' || value === '>') {
-        multiline = true
-        result[currentKey] = ''
-      }
-      else {
-        result[currentKey] = value.replace(/^['"]|['"]$/g, '')
-      }
-    }
+  try {
+    return YAML.parse(match[1]) || {}
   }
-  return result
+  catch {
+    return {}
+  }
 }
 
 function countSlides(slidesPath: string): number {
   const content = readFileSync(slidesPath, 'utf8')
-  const separators = content.split('\n').filter(line => line === '---').length
-  let count = Math.floor(separators / 2)
+  const deckDir = dirname(slidesPath)
+
+  // Slidev slide separators: a line that is exactly '---' at the start of a line.
+  // The first --- pair is the global frontmatter. After that, each --- is a slide
+  // separator. Per-slide frontmatter uses --- pairs within slides.
+  // Simple heuristic: count all --- lines, subtract 1 for the opening frontmatter,
+  // divide remaining by 1 (each separator = one slide boundary).
+  const lines = content.split('\n')
+  const separators = lines.filter(line => line.trimEnd() === '---')
+  // slides = separators - 1 (opening) / each pair is one slide boundary
+  // Simplified: number of slides ≈ floor(separators / 2)
+  let count = Math.max(1, Math.floor(separators.length / 2))
 
   // Count slides in src: imported files
-  const srcImports = content.match(/^src: (\S+)$/gm) || []
-  const deckDir = dirname(slidesPath)
-  for (const imp of srcImports) {
-    const relPath = imp.replace(/^src: /, '').trim()
+  const srcMatches = content.matchAll(/^src: (\S+)$/gm)
+  for (const srcMatch of srcMatches) {
+    const relPath = srcMatch[1]
     const absPath = resolve(deckDir, relPath)
     if (existsSync(absPath)) {
       const subContent = readFileSync(absPath, 'utf8')
-      const subSeps = subContent.split('\n').filter(line => line === '---').length
-      count += Math.floor(subSeps / 2)
+      const subLines = subContent.split('\n')
+      const subSeps = subLines.filter(line => line.trimEnd() === '---')
+      count += Math.max(1, Math.floor(subSeps.length / 2))
     }
   }
 
@@ -76,24 +66,37 @@ function countSlides(slidesPath: string): number {
 }
 
 export function loadDecks(): DeckMeta[] {
-  const deckDirs = readdirSync(DECKS_DIR).filter((name) => {
+  const deckDirs = readdirSync(DECKS_DIR).filter((name: string) => {
     const dir = resolve(DECKS_DIR, name)
     return statSync(dir).isDirectory() && existsSync(resolve(dir, 'slides.md'))
   })
 
-  return deckDirs.map((slug) => {
+  return deckDirs.map((slug: string) => {
     const slidesPath = resolve(DECKS_DIR, slug, 'slides.md')
     const content = readFileSync(slidesPath, 'utf8')
     const fm = parseFrontmatter(content)
 
+    const title = typeof fm.title === 'string' ? fm.title : slug
+    const info = typeof fm.info === 'string' ? fm.info.trim() : ''
+    const author = typeof fm.author === 'string' ? fm.author : ''
+    const duration = typeof fm.duration === 'string' ? fm.duration : ''
+
+    let keywords: string[] = []
+    if (typeof fm.keywords === 'string') {
+      keywords = fm.keywords.split(',').map((k: string) => k.trim()).filter(Boolean)
+    }
+    else if (Array.isArray(fm.keywords)) {
+      keywords = fm.keywords.map(String)
+    }
+
     return {
       slug,
-      title: fm.title || slug,
-      description: fm.info?.trim() || '',
-      author: fm.author || '',
-      keywords: (fm.keywords || '').split(',').map(k => k.trim()).filter(Boolean),
-      duration: fm.duration || '',
+      title,
+      description: info,
+      author,
+      keywords,
+      duration,
       slideCount: countSlides(slidesPath),
     }
-  }).sort((a, b) => b.slideCount - a.slideCount) // largest deck first
+  }).sort((a: DeckMeta, b: DeckMeta) => b.slideCount - a.slideCount)
 }
