@@ -10,7 +10,14 @@
 <script setup lang="ts">
 import { handleBackground, useSchemeClass } from '../layoutHelper'
 
-const { color, background, class: className, layoutClass, leftColor, rightColor } = defineProps<{
+const {
+  color,
+  background,
+  class: className,
+  layoutClass,
+  leftColor,
+  rightColor,
+} = defineProps<{
   /** Aurora color scheme applied to the slide. Accepts: cream, slate, lavender, mint, peach, sky. Consumed by useSchemeClass(). */
   color?: string
   /** Background image URL, CSS color, or CSS gradient string. Processed by handleBackground() to detect type and apply correctly. */
@@ -32,7 +39,11 @@ const rightSchemeClass = rightColor ? useSchemeClass(rightColor) : undefined
 </script>
 
 <template>
-  <div class="slidev-layout two-cols" :class="[schemeClass, className]" :style="bgStyle">
+  <div
+    class="slidev-layout two-cols"
+    :class="[schemeClass, className]"
+    :style="bgStyle"
+  >
     <div class="col-left" :class="[layoutClass, leftSchemeClass]">
       <slot />
       <slot name="left" />
@@ -74,8 +85,8 @@ const rightSchemeClass = rightColor ? useSchemeClass(rightColor) : undefined
 }
 
 /* When columns receive a per-column color scheme, elevate them into cards */
-.col-left[class*="-scheme"],
-.col-right[class*="-scheme"] {
+.col-left[class*='-scheme'],
+.col-right[class*='-scheme'] {
   padding: var(--aurora-space-6);
   border-radius: var(--aurora-radius-xl);
   border: var(--aurora-border-medium) solid var(--scheme-border, var(--aurora-cream-400));

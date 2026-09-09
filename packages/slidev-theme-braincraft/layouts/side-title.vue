@@ -9,7 +9,12 @@
 <script setup lang="ts">
 import { handleBackground, useSchemeClass } from '../layoutHelper'
 
-const { color, background, class: className, titleWidth } = defineProps<{
+const {
+  color,
+  background,
+  class: className,
+  titleWidth,
+} = defineProps<{
   /** Aurora color scheme applied to the slide. Accepts: cream, slate, lavender, mint, peach, sky. Consumed by useSchemeClass(). */
   color?: string
   /** Background image URL, CSS color, or CSS gradient string. Processed by handleBackground() to detect type and apply correctly. */
@@ -26,7 +31,11 @@ const gridCols = `${titleWidth || '1fr'} 2fr`
 </script>
 
 <template>
-  <div class="slidev-layout side-title" :class="[schemeClass, className]" :style="[bgStyle, { gridTemplateColumns: gridCols }]">
+  <div
+    class="slidev-layout side-title"
+    :class="[schemeClass, className]"
+    :style="[bgStyle, { gridTemplateColumns: gridCols }]"
+  >
     <div class="title-side">
       <slot name="title" />
     </div>

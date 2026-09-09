@@ -21,7 +21,13 @@
 import { computed } from 'vue'
 import { handleBackground, useSchemeClass } from '../layoutHelper'
 
-const { color, background, class: className, sectionNumber, align } = defineProps<{
+const {
+  color,
+  background,
+  class: className,
+  sectionNumber,
+  align,
+} = defineProps<{
   color?: string
   background?: string
   class?: string
@@ -36,13 +42,28 @@ const textAlign = computed(() => align || 'center')
 </script>
 
 <template>
-  <div class="slidev-layout section" :class="[schemeClass, className]" :style="bgStyle">
+  <div
+    class="slidev-layout section"
+    :class="[schemeClass, className]"
+    :style="bgStyle"
+  >
     <div class="section-content" :style="{ textAlign }">
       <div v-if="sectionNumber" class="section-number" aria-hidden="true">
         {{ sectionNumber }}
       </div>
       <slot />
-      <div class="section-bar" aria-hidden="true" :style="{ marginInline: textAlign === 'center' ? 'auto' : textAlign === 'right' ? '0 0' : '0 auto' }" />
+      <div
+        class="section-bar"
+        aria-hidden="true"
+        :style="{
+          marginInline:
+            textAlign === 'center'
+              ? 'auto'
+              : textAlign === 'right'
+                ? '0 0'
+                : '0 auto',
+        }"
+      />
     </div>
   </div>
 </template>
@@ -54,12 +75,11 @@ const textAlign = computed(() => align || 'center')
   justify-content: center;
   padding: var(--aurora-space-12);
   height: 100%;
-  background:
-    linear-gradient(
-      135deg,
-      var(--scheme-bg) 0%,
-      color-mix(in oklch, var(--scheme-accent, var(--aurora-mint-400)) 8%, var(--scheme-bg, var(--aurora-cream-100))) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    var(--scheme-bg) 0%,
+    color-mix(in oklch, var(--scheme-accent, var(--aurora-mint-400)) 8%, var(--scheme-bg, var(--aurora-cream-100))) 100%
+  );
 }
 
 .section-content {

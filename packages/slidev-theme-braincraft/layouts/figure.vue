@@ -10,9 +10,19 @@
   below the figure.
 -->
 <script setup lang="ts">
-import { handleBackground, resolveAssetUrl, useSchemeClass } from '../layoutHelper'
+import {
+  handleBackground,
+  resolveAssetUrl,
+  useSchemeClass,
+} from '../layoutHelper'
 
-const { color, background, class: className, figureUrl, figureCaption } = defineProps<{
+const {
+  color,
+  background,
+  class: className,
+  figureUrl,
+  figureCaption,
+} = defineProps<{
   /** Aurora color scheme applied to the slide. Accepts: cream, slate, lavender, mint, peach, sky. Consumed by useSchemeClass(). */
   color?: string
   /** Background image URL, CSS color, or CSS gradient string. Processed by handleBackground() to detect type and apply correctly. */
@@ -31,7 +41,11 @@ const imageUrl = figureUrl ? resolveAssetUrl(figureUrl) : undefined
 </script>
 
 <template>
-  <div class="slidev-layout figure" :class="[schemeClass, className]" :style="bgStyle">
+  <div
+    class="slidev-layout figure"
+    :class="[schemeClass, className]"
+    :style="bgStyle"
+  >
     <figure>
       <slot name="media">
         <img v-if="imageUrl" :src="imageUrl" :alt="figureCaption || 'Figure'">

@@ -15,6 +15,10 @@ color: slate
 </div>
 
 <style>
+.slidev-layout {
+  padding: var(--aurora-space-4) var(--aurora-space-6) !important;
+}
+
 .riddle {
   display: flex;
   flex-direction: column;
@@ -23,13 +27,13 @@ color: slate
   height: 100%;
   font-size: var(--aurora-text-5xl);
   font-weight: var(--aurora-font-bold);
-  line-height: var(--aurora-leading-snug);
+  line-height: 1.2;
   color: var(--scheme-heading, white);
   text-align: left;
 }
 
 .riddle-above {
-  padding-bottom: var(--aurora-space-4);
+  padding-bottom: var(--aurora-space-3);
 }
 
 .riddle-line {

@@ -1,7 +1,7 @@
 ---
 layout: default
 color: slate
-class: reveal-build
+class: dense reveal-build
 ---
 
 # Healthy habitats produce healthy habits
@@ -34,8 +34,8 @@ class: reveal-build
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--aurora-space-1);
-  margin-top: var(--aurora-space-6);
+  gap: 0;
+  margin-top: var(--aurora-space-2);
 }
 
 .hab-step {
@@ -43,7 +43,7 @@ class: reveal-build
   flex-direction: column;
   align-items: center;
   gap: var(--aurora-space-1);
-  padding: var(--aurora-space-3) var(--aurora-space-8);
+  padding: var(--aurora-space-2) var(--aurora-space-6);
   border-radius: var(--aurora-radius-md);
   background: color-mix(in oklch, var(--scheme-bg-code, var(--aurora-cream-200)) 60%, transparent);
   border: 1px solid color-mix(in oklch, var(--scheme-accent) 20%, transparent);
@@ -57,7 +57,7 @@ class: reveal-build
 }
 
 .hab-label {
-  font-size: var(--aurora-text-2xl);
+  font-size: var(--aurora-text-xl);
   font-weight: var(--aurora-font-bold);
   color: var(--scheme-heading);
 }

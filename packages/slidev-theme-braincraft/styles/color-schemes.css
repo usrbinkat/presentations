@@ -16,17 +16,8 @@
   --scheme-highlight: var(--aurora-lavender-300);
   --scheme-shadow: var(--aurora-shadow-sm);
   background:
-    radial-gradient(
-      ellipse at 30% 40%,
-      oklch(35% 0.02 300 / 0.05) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at 70% 70%,
-      oklch(35% 0.02 160 / 0.04) 0%,
-      transparent 50%
-    ),
-    var(--scheme-bg);
+    radial-gradient(ellipse at 30% 40%, oklch(35% 0.02 300 / 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 70%, oklch(35% 0.02 160 / 0.04) 0%, transparent 50%), var(--scheme-bg);
   color: var(--scheme-text);
 }
 
@@ -48,17 +39,8 @@
   color-scheme: dark;
 
   background:
-    radial-gradient(
-      ellipse at 20% 30%,
-      oklch(90% 0.03 85 / 0.05) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at 80% 80%,
-      oklch(90% 0.02 300 / 0.04) 0%,
-      transparent 50%
-    ),
-    var(--scheme-bg);
+    radial-gradient(ellipse at 20% 30%, oklch(90% 0.03 85 / 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, oklch(90% 0.02 300 / 0.04) 0%, transparent 50%), var(--scheme-bg);
   color: var(--scheme-text);
 }
 
@@ -74,17 +56,8 @@
   --scheme-highlight: var(--aurora-lavender-300);
   --scheme-shadow: var(--aurora-shadow-lavender);
   background:
-    radial-gradient(
-      ellipse at 20% 50%,
-      oklch(40% 0.04 300 / 0.05) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse at 80% 80%,
-      oklch(40% 0.03 160 / 0.03) 0%,
-      transparent 50%
-    ),
-    var(--scheme-bg);
+    radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 300 / 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 160 / 0.03) 0%, transparent 50%), var(--scheme-bg);
   color: var(--scheme-text);
 }
 
@@ -100,17 +73,8 @@
   --scheme-highlight: var(--aurora-mint-300);
   --scheme-shadow: var(--aurora-shadow-mint);
   background:
-    radial-gradient(
-      ellipse at 20% 50%,
-      oklch(40% 0.04 160 / 0.05) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse at 80% 80%,
-      oklch(40% 0.03 300 / 0.03) 0%,
-      transparent 50%
-    ),
-    var(--scheme-bg);
+    radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 160 / 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 300 / 0.03) 0%, transparent 50%), var(--scheme-bg);
   color: var(--scheme-text);
 }
 
@@ -126,17 +90,8 @@
   --scheme-highlight: var(--aurora-peach-300);
   --scheme-shadow: var(--aurora-shadow-peach);
   background:
-    radial-gradient(
-      ellipse at 20% 50%,
-      oklch(40% 0.04 60 / 0.05) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse at 80% 80%,
-      oklch(40% 0.03 300 / 0.03) 0%,
-      transparent 50%
-    ),
-    var(--scheme-bg);
+    radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 60 / 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 300 / 0.03) 0%, transparent 50%), var(--scheme-bg);
   color: var(--scheme-text);
 }
 
@@ -152,44 +107,25 @@
   --scheme-highlight: var(--aurora-sky-300);
   --scheme-shadow: var(--aurora-shadow-sky);
   background:
-    radial-gradient(
-      ellipse at 20% 50%,
-      oklch(40% 0.04 220 / 0.05) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse at 80% 80%,
-      oklch(40% 0.03 160 / 0.03) 0%,
-      transparent 50%
-    ),
-    var(--scheme-bg);
+    radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 220 / 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 160 / 0.03) 0%, transparent 50%), var(--scheme-bg);
   color: var(--scheme-text);
 }
 
 /* Scheme typography integration */
-[class*="aurora-"][class*="-scheme"] {
+[class*='aurora-'][class*='-scheme'] {
   h1,
   h2,
   h3 {
     color: var(--scheme-heading);
     letter-spacing: -0.01em;
-    text-shadow: 0 1px 12px
-      color-mix(
-        in oklch,
-        var(--scheme-accent, var(--aurora-lavender-400)) 20%,
-        transparent
-      );
+    text-shadow: 0 1px 12px color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 20%, transparent);
   }
 
   h1 {
     letter-spacing: -0.02em;
     padding-bottom: var(--aurora-space-2);
-    border-bottom: 2px solid
-      color-mix(
-        in oklch,
-        var(--scheme-accent, var(--aurora-lavender-400)) 30%,
-        transparent
-      );
+    border-bottom: 2px solid color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 30%, transparent);
   }
 
   p {

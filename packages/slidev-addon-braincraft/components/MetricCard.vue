@@ -10,7 +10,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const { value, label, icon = '', color = 'lavender' } = defineProps<{
+const {
+  value,
+  label,
+  icon = '',
+  color = 'lavender',
+} = defineProps<{
   value: string | number
   label: string
   /** UnoCSS icon class, e.g. "i-carbon-chemistry" */
@@ -30,7 +35,12 @@ const accentColor = computed(() => {
 </script>
 
 <template>
-  <figure class="metric-card" :style="{ borderTopColor: accentColor }" role="group" :aria-label="`${value} ${label}`">
+  <figure
+    class="metric-card"
+    :style="{ borderTopColor: accentColor }"
+    role="group"
+    :aria-label="`${value} ${label}`"
+  >
     <div v-if="icon" :class="icon" class="metric-icon" aria-hidden="true" />
     <div class="metric-value" :style="{ color: accentColor }">
       {{ value }}

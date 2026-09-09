@@ -1,6 +1,7 @@
 ---
 layout: default
 color: slate
+class: dense
 ---
 
 # Thought to Action
@@ -52,7 +53,12 @@ color: slate
 </div>
 
 <style>
-h1 { text-align: center; }
+h1 {
+  text-align: center;
+  font-size: var(--aurora-text-4xl) !important;
+  margin-bottom: var(--aurora-space-1) !important;
+  padding-bottom: var(--aurora-space-1) !important;
+}
 
 .tta {
   position: relative;
@@ -122,4 +128,6 @@ h1 { text-align: center; }
 
 </style>
 
-<!-- The thought-to-action model. Eight layers between an idea and production — each orbiting at a different speed. The vertical spine is the through-line. Most engineering effort optimizes the bottom (faster builds, better CI). Click reveals: most organizational latency lives in the middle — procurement, financial, policy, consensus. The platform layer is the hinge point. ~20 seconds. -->
+<!--
+The thought-to-action model. Eight layers between an idea and production — each orbiting at a different speed. The vertical spine is the through-line. Most engineering effort optimizes the bottom (faster builds, better CI). Click reveals: most organizational latency lives in the middle — procurement, financial, policy, consensus. The platform layer is the hinge point. ~20 seconds.
+-->

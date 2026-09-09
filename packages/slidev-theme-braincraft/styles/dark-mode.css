@@ -103,17 +103,8 @@ html.dark {
       --scheme-accent: var(--aurora-lavender-400);
       --scheme-highlight: var(--aurora-lavender-300);
       background:
-        radial-gradient(
-          ellipse at 30% 40%,
-          oklch(35% 0.02 300 / 0.05) 0%,
-          transparent 50%
-        ),
-        radial-gradient(
-          ellipse at 70% 70%,
-          oklch(35% 0.02 160 / 0.04) 0%,
-          transparent 50%
-        ),
-        var(--scheme-bg);
+        radial-gradient(ellipse at 30% 40%, oklch(35% 0.02 300 / 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 70%, oklch(35% 0.02 160 / 0.04) 0%, transparent 50%), var(--scheme-bg);
       color: var(--scheme-text);
     }
 
@@ -128,17 +119,8 @@ html.dark {
       --scheme-accent: var(--aurora-lavender-400);
       --scheme-highlight: var(--aurora-lavender-300);
       background:
-        radial-gradient(
-          ellipse at 20% 50%,
-          oklch(40% 0.04 300 / 0.05) 0%,
-          transparent 60%
-        ),
-        radial-gradient(
-          ellipse at 80% 80%,
-          oklch(40% 0.03 160 / 0.03) 0%,
-          transparent 50%
-        ),
-        var(--scheme-bg);
+        radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 300 / 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 160 / 0.03) 0%, transparent 50%), var(--scheme-bg);
       color: var(--scheme-text);
     }
 
@@ -153,17 +135,8 @@ html.dark {
       --scheme-accent: var(--aurora-mint-400);
       --scheme-highlight: var(--aurora-mint-300);
       background:
-        radial-gradient(
-          ellipse at 20% 50%,
-          oklch(40% 0.04 160 / 0.05) 0%,
-          transparent 60%
-        ),
-        radial-gradient(
-          ellipse at 80% 80%,
-          oklch(40% 0.03 300 / 0.03) 0%,
-          transparent 50%
-        ),
-        var(--scheme-bg);
+        radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 160 / 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 300 / 0.03) 0%, transparent 50%), var(--scheme-bg);
       color: var(--scheme-text);
     }
 
@@ -178,17 +151,8 @@ html.dark {
       --scheme-accent: var(--aurora-peach-400);
       --scheme-highlight: var(--aurora-peach-300);
       background:
-        radial-gradient(
-          ellipse at 20% 50%,
-          oklch(40% 0.04 60 / 0.05) 0%,
-          transparent 60%
-        ),
-        radial-gradient(
-          ellipse at 80% 80%,
-          oklch(40% 0.03 300 / 0.03) 0%,
-          transparent 50%
-        ),
-        var(--scheme-bg);
+        radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 60 / 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 300 / 0.03) 0%, transparent 50%), var(--scheme-bg);
       color: var(--scheme-text);
     }
 
@@ -203,17 +167,8 @@ html.dark {
       --scheme-accent: var(--aurora-sky-400);
       --scheme-highlight: var(--aurora-sky-300);
       background:
-        radial-gradient(
-          ellipse at 20% 50%,
-          oklch(40% 0.04 220 / 0.05) 0%,
-          transparent 60%
-        ),
-        radial-gradient(
-          ellipse at 80% 80%,
-          oklch(40% 0.03 160 / 0.03) 0%,
-          transparent 50%
-        ),
-        var(--scheme-bg);
+        radial-gradient(ellipse at 20% 50%, oklch(40% 0.04 220 / 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, oklch(40% 0.03 160 / 0.03) 0%, transparent 50%), var(--scheme-bg);
       color: var(--scheme-text);
     }
 

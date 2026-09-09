@@ -3,7 +3,7 @@ theme: slidev-theme-braincraft
 addons:
   - slidev-addon-braincraft
   - slidev-addon-excalidraw
-title: "Platform Factory -- Composable Infrastructure as Code"
+title: 'Platform Factory -- Composable Infrastructure as Code'
 author: Kat Morgan - aka @usrbinkat
 colorSchema: dark
 themeConfig:

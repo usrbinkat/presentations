@@ -68,4 +68,6 @@ h1 { text-align: center; }
 }
 </style>
 
-<!-- Scale inflection points. The thing that breaks is never the code — it's the coordination. At each inflection, the temptation is to add another tool, another team, another vendor. The platform absorbs that complexity instead of externalizing it. One more output, not one more stack. Click reveals what the platform absorbs at each scale. ~20 seconds. -->
+<!--
+Scale inflection points. The thing that breaks is never the code — it's the coordination. At each inflection, the temptation is to add another tool, another team, another vendor. The platform absorbs that complexity instead of externalizing it. One more output, not one more stack. Click reveals what the platform absorbs at each scale. ~20 seconds.
+-->

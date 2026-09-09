@@ -2,7 +2,7 @@
 theme: slidev-theme-braincraft
 addons:
   - slidev-addon-braincraft
-title: "Braincraft Theme Showcase"
+title: 'Braincraft Theme Showcase'
 info: |
   A comprehensive demonstration of every layout, component, color scheme,
   transition, and feature in the Braincraft Slidev factory. Living documentation
@@ -226,7 +226,7 @@ columns: 1fr 1fr
 ```ts
 // Old approach
 function getData() {
-  return fetch("/api").then((r) => r.json());
+  return fetch('/api').then(r => r.json())
 }
 ```
 
@@ -237,8 +237,8 @@ function getData() {
 ```ts
 // Modern approach
 async function getData() {
-  const r = await fetch("/api");
-  return r.json();
+  const r = await fetch('/api')
+  return r.json()
 }
 ```
 
@@ -304,7 +304,7 @@ Full layout removes all padding and constraints. The break from the spatial gram
 ---
 layout: figure
 figureUrl: https://github.com/usrbinkat.png
-figureCaption: "Semantic figure layout — image with figure/figcaption HTML elements"
+figureCaption: 'Semantic figure layout — image with figure/figcaption HTML elements'
 color: cream
 ---
 
@@ -419,7 +419,7 @@ color: cream
 
 ```ts
 function add(a, b) {
-  return a + b;
+  return a + b
 }
 ```
 
@@ -427,7 +427,7 @@ function add(a, b) {
 
 ```ts
 function add(a: number, b: number): number {
-  return a + b; // [!code highlight]
+  return a + b // [!code highlight]
 }
 ```
 
@@ -659,13 +659,13 @@ color: cream
 ```ts {1|3-5|7-9|all}
 // Line highlighting with Shiki
 interface Config {
-  theme: string; // Aurora scheme name
-  transition: string; // aurora-fade | aurora-slide-up | aurora-zoom
-  fonts: FontConfig; // Inter + Space Mono
+  theme: string // Aurora scheme name
+  transition: string // aurora-fade | aurora-slide-up | aurora-zoom
+  fonts: FontConfig // Inter + Space Mono
 }
 
 function createPresentation(config: Config) {
-  return new SlidevDeck(config);
+  return new SlidevDeck(config)
 }
 ```
 
@@ -684,23 +684,23 @@ color: cream
 
 ```ts
 const config = {
-  theme: "braincraft", // [!code highlight]
-  transition: "aurora-fade", // [!code highlight]
-  fonts: { sans: "Inter" },
-};
+  theme: 'braincraft', // [!code highlight]
+  transition: 'aurora-fade', // [!code highlight]
+  fonts: { sans: 'Inter' },
+}
 
 function deprecated() {
   // [!code --]
-  return "old way"; // [!code --]
+  return 'old way' // [!code --]
 } // [!code --]
 
 function modern() {
   // [!code ++]
-  return "new way"; // [!code ++]
+  return 'new way' // [!code ++]
 } // [!code ++]
 
-const risky = eval(input); // eslint-disable-line no-eval -- [!code error]
-const beta = experimental(); // [!code warning]
+const risky = eval(input) // eslint-disable-line no-eval -- [!code error]
+const beta = experimental() // [!code warning]
 ```
 
 <!--
@@ -718,24 +718,24 @@ color: cream
 ```ts
 // Step 1: Simple function
 function greet(name: string) {
-  return `Hello, ${name}`;
+  return `Hello, ${name}`
 }
 ```
 
 ```ts
 // Step 2: Add validation
 function greet(name: string) {
-  if (!name) throw new Error("Name required");
-  return `Hello, ${name}`;
+  if (!name) throw new Error('Name required')
+  return `Hello, ${name}`
 }
 ```
 
 ```ts
 // Step 3: Add formatting options
 function greet(name: string, formal = false) {
-  if (!name) throw new Error("Name required");
-  const greeting = formal ? "Good day" : "Hello";
-  return `${greeting}, ${name}`;
+  if (!name) throw new Error('Name required')
+  const greeting = formal ? 'Good day' : 'Hello'
+  return `${greeting}, ${name}`
 }
 ```
 ````

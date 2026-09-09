@@ -3,7 +3,7 @@ theme: slidev-theme-braincraft
 addons:
   - slidev-addon-braincraft
   - slidev-addon-excalidraw
-title: "Veilid Transport — Peer-to-Peer Application Infrastructure"
+title: 'Veilid Transport — Peer-to-Peer Application Infrastructure'
 info: |
   A 120-minute practitioner-level walkthrough of the Veilid P2P overlay
   network as application infrastructure. Covers the veilid-core substrate,
@@ -14,7 +14,7 @@ info: |
 author: Kat Morgan - aka @usrbinkat
 keywords: veilid,p2p,transport,rust,lock-free,dht,gossip,encryption,reconciliation,kappa,rekindle
 colorSchema: auto
-duration: "120min"
+duration: '120min'
 wakeLock: true
 drawings:
   persist: true

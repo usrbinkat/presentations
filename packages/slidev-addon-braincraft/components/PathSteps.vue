@@ -22,7 +22,11 @@
     gap     — gap between steps, any CSS value (default uses aurora-space-3)
 -->
 <script setup lang="ts">
-const { indent = 48, gap, steps = 4 } = defineProps<{
+const {
+  indent = 48,
+  gap,
+  steps = 4,
+} = defineProps<{
   /** Pixels of additional inline-start padding per step */
   indent?: number
   /** CSS gap value between steps */
@@ -35,7 +39,11 @@ const { indent = 48, gap, steps = 4 } = defineProps<{
 <template>
   <div
     class="path-steps"
-    :style="{ '--ps-indent': `${indent}px`, '--ps-steps': steps, 'gap': gap || undefined }"
+    :style="{
+      '--ps-indent': `${indent}px`,
+      '--ps-steps': steps,
+      'gap': gap || undefined,
+    }"
     role="list"
     aria-label="Progressive breakdown"
   >
@@ -59,8 +67,7 @@ const { indent = 48, gap, steps = 4 } = defineProps<{
   padding-inline-start: calc(var(--aurora-space-10));
   background: color-mix(in oklch, var(--scheme-bg-code, var(--aurora-cream-200)) 60%, transparent);
   border-radius: var(--aurora-radius-md);
-  border-inline-start: 3px solid
-    color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 40%, transparent);
+  border-inline-start: 3px solid color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 40%, transparent);
   transition: border-color var(--aurora-duration-fast) var(--aurora-ease-out);
   position: relative;
 }
@@ -71,12 +78,30 @@ const { indent = 48, gap, steps = 4 } = defineProps<{
 
 /* Staircase indentation via nth-child — CSS counters cannot be used in calc() */
 /* Start side staggers in, end side staggers out — both sides form a diagonal */
-.path-steps :deep(> *:nth-child(1)) { margin-inline-start: 0;                            margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 1)); }
-.path-steps :deep(> *:nth-child(2)) { margin-inline-start: calc(var(--ps-indent) * 1);   margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 2)); }
-.path-steps :deep(> *:nth-child(3)) { margin-inline-start: calc(var(--ps-indent) * 2);   margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 3)); }
-.path-steps :deep(> *:nth-child(4)) { margin-inline-start: calc(var(--ps-indent) * 3);   margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 4)); }
-.path-steps :deep(> *:nth-child(5)) { margin-inline-start: calc(var(--ps-indent) * 4);   margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 5)); }
-.path-steps :deep(> *:nth-child(6)) { margin-inline-start: calc(var(--ps-indent) * 5);   margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 6)); }
+.path-steps :deep(> *:nth-child(1)) {
+  margin-inline-start: 0;
+  margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 1));
+}
+.path-steps :deep(> *:nth-child(2)) {
+  margin-inline-start: calc(var(--ps-indent) * 1);
+  margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 2));
+}
+.path-steps :deep(> *:nth-child(3)) {
+  margin-inline-start: calc(var(--ps-indent) * 2);
+  margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 3));
+}
+.path-steps :deep(> *:nth-child(4)) {
+  margin-inline-start: calc(var(--ps-indent) * 3);
+  margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 4));
+}
+.path-steps :deep(> *:nth-child(5)) {
+  margin-inline-start: calc(var(--ps-indent) * 4);
+  margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 5));
+}
+.path-steps :deep(> *:nth-child(6)) {
+  margin-inline-start: calc(var(--ps-indent) * 5);
+  margin-inline-end: calc(var(--ps-indent) * (var(--ps-steps) - 6));
+}
 
 /* Step number badge via counter — counter() works in content */
 .path-steps :deep(> *::before) {
@@ -111,12 +136,24 @@ const { indent = 48, gap, steps = 4 } = defineProps<{
     animation: ps-enter var(--aurora-duration-normal) var(--aurora-ease-out) both;
   }
 
-  .path-steps :deep(> *:nth-child(1)) { animation-delay: 0ms; }
-  .path-steps :deep(> *:nth-child(2)) { animation-delay: 120ms; }
-  .path-steps :deep(> *:nth-child(3)) { animation-delay: 240ms; }
-  .path-steps :deep(> *:nth-child(4)) { animation-delay: 360ms; }
-  .path-steps :deep(> *:nth-child(5)) { animation-delay: 480ms; }
-  .path-steps :deep(> *:nth-child(6)) { animation-delay: 600ms; }
+  .path-steps :deep(> *:nth-child(1)) {
+    animation-delay: 0ms;
+  }
+  .path-steps :deep(> *:nth-child(2)) {
+    animation-delay: 120ms;
+  }
+  .path-steps :deep(> *:nth-child(3)) {
+    animation-delay: 240ms;
+  }
+  .path-steps :deep(> *:nth-child(4)) {
+    animation-delay: 360ms;
+  }
+  .path-steps :deep(> *:nth-child(5)) {
+    animation-delay: 480ms;
+  }
+  .path-steps :deep(> *:nth-child(6)) {
+    animation-delay: 600ms;
+  }
 
   @keyframes ps-enter {
     from {

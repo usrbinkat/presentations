@@ -9,7 +9,11 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 
-const { url, size = 200, label = '' } = defineProps<{
+const {
+  url,
+  size = 200,
+  label = '',
+} = defineProps<{
   url: string
   size?: number
   label?: string
@@ -49,18 +53,19 @@ watch(() => url, generateQR)
       :height="size"
       class="qr-image"
     >
-    <div v-else class="qr-placeholder" :style="{ width: `${size}px`, height: `${size}px` }">
+    <div
+      v-else
+      class="qr-placeholder"
+      :style="{ width: `${size}px`, height: `${size}px` }"
+    >
       {{ url }}
     </div>
     <div v-if="label" class="qr-label">
       {{ label }}
     </div>
-    <a
-      :href="url"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="qr-link"
-    >{{ url }}</a>
+    <a :href="url" target="_blank" rel="noopener noreferrer" class="qr-link">{{
+      url
+    }}</a>
   </div>
 </template>
 

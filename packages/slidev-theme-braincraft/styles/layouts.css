@@ -59,8 +59,7 @@
   }
 
   blockquote {
-    border-inline-start: 4px solid
-      var(--scheme-accent, var(--aurora-lavender-400));
+    border-inline-start: 4px solid var(--scheme-accent, var(--aurora-lavender-400));
     padding-inline-start: var(--aurora-space-4);
     font-style: italic;
     color: var(--scheme-text-secondary, var(--aurora-slate-600));
@@ -144,13 +143,13 @@
 
 .slidev-layout div:has(> svg) svg {
   /* Sans-serif: Excalidraw "Helvetica" → theme "Inter" */
-  text[style*="Helvetica"] {
-    font-family: "Inter", sans-serif !important;
+  text[style*='Helvetica'] {
+    font-family: 'Inter', sans-serif !important;
   }
 
   /* Monospace: Excalidraw "Cascadia" → theme "Space Mono" */
-  text[style*="Cascadia"] {
-    font-family: "Space Mono", monospace !important;
+  text[style*='Cascadia'] {
+    font-family: 'Space Mono', monospace !important;
   }
 }
 
@@ -224,31 +223,19 @@
    ═══════════════════════════════════════════════════ */
 
 .cell-bg {
-  background: color-mix(
-    in oklch,
-    var(--scheme-bg-code, var(--aurora-cream-200)) 60%,
-    transparent
-  );
+  background: color-mix(in oklch, var(--scheme-bg-code, var(--aurora-cream-200)) 60%, transparent);
   border-radius: var(--aurora-radius-md);
   padding: var(--aurora-space-2) var(--aurora-space-3);
 }
 
 .cell-bg-subtle {
-  background: color-mix(
-    in oklch,
-    var(--scheme-bg-code, var(--aurora-cream-200)) 40%,
-    transparent
-  );
+  background: color-mix(in oklch, var(--scheme-bg-code, var(--aurora-cream-200)) 40%, transparent);
   border-radius: var(--aurora-radius-sm);
   padding: var(--aurora-space-1) var(--aurora-space-2);
 }
 
 .cell-bg-accent {
-  background: color-mix(
-    in oklch,
-    var(--scheme-accent, var(--aurora-lavender-400)) 12%,
-    transparent
-  );
+  background: color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 12%, transparent);
   border-radius: var(--aurora-radius-md);
   padding: var(--aurora-space-2) var(--aurora-space-3);
 }
@@ -364,8 +351,8 @@
 }
 
 /* Promote to compositor layer only during active transitions to avoid permanent GPU memory waste */
-.slidev-vclick-target[class*="-enter-active"],
-.slidev-vclick-target[class*="-leave-active"] {
+.slidev-vclick-target[class*='-enter-active'],
+.slidev-vclick-target[class*='-leave-active'] {
   will-change: opacity, transform;
 }
 
@@ -415,8 +402,7 @@
 
   /* Glow effect — subtle glow on cover slide title */
   .aurora-glow {
-    text-shadow: 0 0 calc(var(--aurora-blur) + 8px)
-      oklch(80% 0.12 300 / var(--aurora-glow-opacity));
+    text-shadow: 0 0 calc(var(--aurora-blur) + 8px) oklch(80% 0.12 300 / var(--aurora-glow-opacity));
     animation: aurora-glow-pulse 3s ease-in-out infinite alternate;
   }
 

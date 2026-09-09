@@ -89,10 +89,7 @@ html.dark .slidev-code-wrapper {
 
 .shiki {
   .line.highlighted {
-    background-color: light-dark(
-      oklch(70% 0.08 300 / 0.15),
-      oklch(70% 0.08 300 / 0.2)
-    ) !important;
+    background-color: light-dark(oklch(70% 0.08 300 / 0.15), oklch(70% 0.08 300 / 0.2)) !important;
     border-left: 3px solid var(--aurora-lavender-400);
     margin-left: -3px;
     padding-left: 0;
@@ -109,13 +106,10 @@ html.dark .slidev-code-wrapper {
   }
 
   .line.diff.add {
-    background-color: light-dark(
-      oklch(72% 0.12 145 / 0.12),
-      oklch(72% 0.12 145 / 0.15)
-    ) !important;
+    background-color: light-dark(oklch(72% 0.12 145 / 0.12), oklch(72% 0.12 145 / 0.15)) !important;
 
     &::before {
-      content: "+";
+      content: '+';
       position: absolute;
       left: 0.5em;
       color: var(--aurora-success);
@@ -124,14 +118,11 @@ html.dark .slidev-code-wrapper {
   }
 
   .line.diff.remove {
-    background-color: light-dark(
-      oklch(68% 0.12 25 / 0.12),
-      oklch(68% 0.12 25 / 0.15)
-    ) !important;
+    background-color: light-dark(oklch(68% 0.12 25 / 0.12), oklch(68% 0.12 25 / 0.15)) !important;
     opacity: 0.7;
 
     &::before {
-      content: "-";
+      content: '-';
       position: absolute;
       left: 0.5em;
       color: var(--aurora-danger);

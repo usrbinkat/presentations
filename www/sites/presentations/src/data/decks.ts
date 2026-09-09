@@ -71,32 +71,37 @@ export function loadDecks(): DeckMeta[] {
     return statSync(dir).isDirectory() && existsSync(resolve(dir, 'slides.md'))
   })
 
-  return deckDirs.map((slug: string) => {
-    const slidesPath = resolve(DECKS_DIR, slug, 'slides.md')
-    const content = readFileSync(slidesPath, 'utf8')
-    const fm = parseFrontmatter(content)
+  return deckDirs
+    .map((slug: string) => {
+      const slidesPath = resolve(DECKS_DIR, slug, 'slides.md')
+      const content = readFileSync(slidesPath, 'utf8')
+      const fm = parseFrontmatter(content)
 
-    const title = typeof fm.title === 'string' ? fm.title : slug
-    const info = typeof fm.info === 'string' ? fm.info.trim() : ''
-    const author = typeof fm.author === 'string' ? fm.author : ''
-    const duration = typeof fm.duration === 'string' ? fm.duration : ''
+      const title = typeof fm.title === 'string' ? fm.title : slug
+      const info = typeof fm.info === 'string' ? fm.info.trim() : ''
+      const author = typeof fm.author === 'string' ? fm.author : ''
+      const duration = typeof fm.duration === 'string' ? fm.duration : ''
 
-    let keywords: string[] = []
-    if (typeof fm.keywords === 'string') {
-      keywords = fm.keywords.split(',').map((k: string) => k.trim()).filter(Boolean)
-    }
-    else if (Array.isArray(fm.keywords)) {
-      keywords = fm.keywords.map(String)
-    }
+      let keywords: string[] = []
+      if (typeof fm.keywords === 'string') {
+        keywords = fm.keywords
+          .split(',')
+          .map((k: string) => k.trim())
+          .filter(Boolean)
+      }
+      else if (Array.isArray(fm.keywords)) {
+        keywords = fm.keywords.map(String)
+      }
 
-    return {
-      slug,
-      title,
-      description: info,
-      author,
-      keywords,
-      duration,
-      slideCount: countSlides(slidesPath),
-    }
-  }).sort((a: DeckMeta, b: DeckMeta) => b.slideCount - a.slideCount)
+      return {
+        slug,
+        title,
+        description: info,
+        author,
+        keywords,
+        duration,
+        slideCount: countSlides(slidesPath),
+      }
+    })
+    .sort((a: DeckMeta, b: DeckMeta) => b.slideCount - a.slideCount)
 }

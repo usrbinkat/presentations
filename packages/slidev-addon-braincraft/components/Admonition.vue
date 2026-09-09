@@ -14,7 +14,10 @@ const { type = 'info', title = '' } = defineProps<{
 const id = useId()
 
 const typeConfig = computed(() => {
-  const map: Record<string, { bg: string, darkBg: string, border: string, icon: string }> = {
+  const map: Record<
+    string,
+    { bg: string, darkBg: string, border: string, icon: string }
+  > = {
     info: {
       bg: 'var(--aurora-info-light)',
       darkBg: 'oklch(25% 0.03 240)',
@@ -68,8 +71,14 @@ const displayTitle = computed(() => {
     }"
   >
     <div class="admonition-header">
-      <div :class="typeConfig.icon" class="admonition-icon" aria-hidden="true" />
-      <span :id="`${id}-title`" class="admonition-title">{{ displayTitle }}</span>
+      <div
+        :class="typeConfig.icon"
+        class="admonition-icon"
+        aria-hidden="true"
+      />
+      <span :id="`${id}-title`" class="admonition-title">{{
+        displayTitle
+      }}</span>
     </div>
     <div class="admonition-content">
       <slot />

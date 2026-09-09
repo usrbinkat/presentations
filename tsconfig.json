@@ -19,10 +19,12 @@
   "include": [
     "env.d.ts",
     "lib/**/*.ts",
-    "vite.config.ts",
+    "vite.config.mts",
     "packages/**/*.ts",
+    "packages/**/*.mts",
     "packages/**/*.vue",
     "decks/**/*.ts",
+    "decks/**/*.mts",
     "decks/**/*.vue"
   ],
   "exclude": ["node_modules", "dist", ".slidev"]

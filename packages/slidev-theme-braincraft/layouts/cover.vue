@@ -9,7 +9,11 @@
 <script setup lang="ts">
 import { handleBackground, useSchemeClass } from '../layoutHelper'
 
-const { color, background, class: className } = defineProps<{
+const {
+  color,
+  background,
+  class: className,
+} = defineProps<{
   /** Aurora color scheme applied to the slide. Accepts: cream, slate, lavender, mint, peach, sky. Consumed by useSchemeClass(). */
   color?: string
   /** Background image URL, CSS color, or CSS gradient string. Processed by handleBackground() with dimming enabled by default. */
@@ -23,7 +27,11 @@ const schemeClass = useSchemeClass(color, 'lavender')
 </script>
 
 <template>
-  <div class="slidev-layout cover" :style="style" :class="[schemeClass, className]">
+  <div
+    class="slidev-layout cover"
+    :style="style"
+    :class="[schemeClass, className]"
+  >
     <div class="cover-content">
       <slot />
     </div>

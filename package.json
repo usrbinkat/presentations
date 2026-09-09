@@ -7,7 +7,7 @@
     "dev": "slidev-workspace dev",
     "build": "slidev-workspace build",
     "lint": "eslint .",
-    "format": "prettier --write '**/*.{md,vue,ts,css,json,yaml}' --plugin prettier-plugin-slidev",
+    "format": "eslint --fix .",
     "typecheck": "vue-tsc --noEmit",
     "test": "vitest run && vitest run --config packages/slidev-theme-braincraft/__tests__/vitest.config.base.ts --root .",
     "test:watch": "vitest",
@@ -16,7 +16,7 @@
     "new-layout": "node scripts/new-layout.mjs"
   },
   "dependencies": {
-    "slidev-addon-excalidraw": "^1.0.4"
+    "slidev-addon-excalidraw": "catalog:"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
@@ -27,13 +27,14 @@
     "@slidev/types": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "eslint": "catalog:",
+    "eslint-plugin-format": "catalog:",
     "lint-staged": "catalog:",
-    "playwright": "^1.52.0",
+    "playwright": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-slidev": "catalog:",
     "simple-git-hooks": "catalog:",
-    "sirv": "^3.0.0",
-    "slidev-workspace": "^0.9.3",
+    "sirv": "catalog:",
+    "slidev-workspace": "catalog:",
     "typescript": "catalog:",
     "unocss": "catalog:",
     "vitest": "catalog:",
@@ -44,7 +45,6 @@
     "pre-commit": "pnpm exec lint-staged"
   },
   "lint-staged": {
-    "*.{vue,ts,js}": "eslint --fix",
-    "*.{md,css,json,yaml,yml}": "prettier --write --plugin prettier-plugin-slidev"
+    "*": "eslint --fix"
   }
 }

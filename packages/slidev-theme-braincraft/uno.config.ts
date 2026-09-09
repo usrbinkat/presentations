@@ -7,7 +7,12 @@
 // - Glass morphism and gradient shortcuts
 
 import base from '@slidev/client/uno.config'
-import { defineConfig, presetIcons, transformerDirectives, transformerVariantGroup } from 'unocss'
+import {
+  defineConfig,
+  presetIcons,
+  transformerDirectives,
+  transformerVariantGroup,
+} from 'unocss'
 
 export default defineConfig({
   ...base,
@@ -36,19 +41,27 @@ export default defineConfig({
     'aurora-center': 'flex items-center justify-center',
     'aurora-stack': 'flex flex-col gap-4',
     // Glass morphism
-    'aurora-glass': 'backdrop-blur-md bg-white/10 border border-white/20 rounded-xl',
-    'aurora-glass-dark': 'backdrop-blur-md bg-black/20 border border-white/10 rounded-xl',
+    'aurora-glass':
+      'backdrop-blur-md bg-white/10 border border-white/20 rounded-xl',
+    'aurora-glass-dark':
+      'backdrop-blur-md bg-black/20 border border-white/10 rounded-xl',
     // Text gradient
-    'aurora-text-gradient': 'bg-gradient-to-r from-[var(--aurora-lavender-400)] to-[var(--aurora-mint-400)] bg-clip-text text-transparent',
+    'aurora-text-gradient':
+      'bg-gradient-to-r from-[var(--aurora-lavender-400)] to-[var(--aurora-mint-400)] bg-clip-text text-transparent',
   },
   theme: {
     animation: {
       keyframes: {
-        'fade-in-up': '{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}',
-        'fade-in-down': '{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}',
-        'scale-in': '{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}',
-        'slide-in-left': '{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}',
-        'slide-in-right': '{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}',
+        'fade-in-up':
+          '{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}',
+        'fade-in-down':
+          '{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}',
+        'scale-in':
+          '{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}',
+        'slide-in-left':
+          '{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}',
+        'slide-in-right':
+          '{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}',
       },
       durations: {
         'fade-in-up': '0.5s',

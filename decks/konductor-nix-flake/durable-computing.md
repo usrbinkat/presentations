@@ -1,6 +1,7 @@
 ---
 layout: default
 color: slate
+class: dense
 ---
 
 # Durable systems

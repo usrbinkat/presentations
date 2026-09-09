@@ -16,33 +16,49 @@ import { computed } from 'vue'
 const configs = computed(() => $slidev?.configs || {})
 const nav = computed(() => $nav)
 
-const showFooter = computed(() => configs.value?.themeConfig?.showFooter ?? true)
-const showProgress = computed(() => configs.value?.themeConfig?.showProgress ?? true)
+const showFooter = computed(
+  () => configs.value?.themeConfig?.showFooter ?? true,
+)
+const showProgress = computed(
+  () => configs.value?.themeConfig?.showProgress ?? true,
+)
 
 // Commit-pinned provenance injected by gitMetadataPlugin in vite.config.ts.
 // clean: sourceUrl is /blob/<sha>/..., commit-pinned, immutable.
 // dirty: sourceUrl is empty, commit is the base HEAD, tree has local changes.
 // unavailable: no Git context, all values empty.
-const sourceUrl: string = typeof __SLIDEV_SOURCE_URL__ === 'string' ? __SLIDEV_SOURCE_URL__ : ''
-const sourceCommit: string = typeof __SLIDEV_GIT_COMMIT__ === 'string' ? __SLIDEV_GIT_COMMIT__ : ''
-const sourceState: string = typeof __SLIDEV_GIT_STATE__ === 'string' ? __SLIDEV_GIT_STATE__ : 'unavailable'
-const buildDateStr: string = typeof __SLIDEV_BUILD_DATE__ === 'string' ? __SLIDEV_BUILD_DATE__ : ''
+const sourceUrl: string
+  = typeof __SLIDEV_SOURCE_URL__ === 'string' ? __SLIDEV_SOURCE_URL__ : ''
+const sourceCommit: string
+  = typeof __SLIDEV_GIT_COMMIT__ === 'string' ? __SLIDEV_GIT_COMMIT__ : ''
+const sourceState: string
+  = typeof __SLIDEV_GIT_STATE__ === 'string'
+    ? __SLIDEV_GIT_STATE__
+    : 'unavailable'
+const buildDateStr: string
+  = typeof __SLIDEV_BUILD_DATE__ === 'string' ? __SLIDEV_BUILD_DATE__ : ''
 
-const qrUrl = computed(() => sourceUrl || configs.value?.themeConfig?.qrUrl || '')
+const qrUrl = computed(
+  () => sourceUrl || configs.value?.themeConfig?.qrUrl || '',
+)
 const author = computed(() => configs.value?.author || '')
 const title = computed(() => configs.value?.title || '')
 const currentLayout = computed(() => nav.value?.currentLayout || '')
 const hideQrLayouts = ['cover', 'end']
 const currentPage = computed(() => nav.value?.currentPage || 1)
 const total = computed(() => nav.value?.total || 0)
-const progress = computed(() => total.value ? (currentPage.value / total.value) * 100 : 0)
+const progress = computed(() =>
+  total.value ? (currentPage.value / total.value) * 100 : 0,
+)
 
 const provenance = computed(() => {
   if (sourceState === 'dirty')
     return `local changes · base commit ${sourceCommit.slice(0, 12)}`
   if (sourceState === 'clean')
     return `commit ${sourceCommit.slice(0, 12)} · built ${buildDateStr}`
-  return buildDateStr ? `source unavailable · built ${buildDateStr}` : 'source unavailable'
+  return buildDateStr
+    ? `source unavailable · built ${buildDateStr}`
+    : 'source unavailable'
 })
 
 const showDirtyMarker = import.meta.env.DEV && sourceState === 'dirty'
@@ -60,10 +76,7 @@ const showDirtyMarker = import.meta.env.DEV && sourceState === 'dirty'
     :aria-valuemin="1"
     :aria-valuemax="total"
   >
-    <div
-      class="progress-fill"
-      :style="{ width: `${progress}%` }"
-    />
+    <div class="progress-fill" :style="{ width: `${progress}%` }" />
   </div>
 
   <div
@@ -90,10 +103,7 @@ const showDirtyMarker = import.meta.env.DEV && sourceState === 'dirty'
     </div>
   </div>
 
-  <footer
-    v-if="showFooter"
-    class="global-footer"
-  >
+  <footer v-if="showFooter" class="global-footer">
     <span>{{ author }}</span>
     <span>{{ title }}</span>
     <span v-if="total">{{ currentPage }} / {{ total }}</span>

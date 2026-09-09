@@ -187,4 +187,6 @@ class: hc-slide
 
 </style>
 
-<!-- Health check transformation. Starts all red — the current reality. Each click heals one line: red X + frustrated condition → green check + aspirational condition. Four-column CSS grid locks all columns in place — no reflow on swap. Requirement column in mono/lavender is the cognitive anchor. Middle dot separator at 20% opacity creates subtle visual channel between keys and values. Title crosses start red, turn white when all checks go green. Last flip: "Worth it for a one-line fix" — the Pringles moment. ~45 seconds. -->
+<!--
+Health check transformation. Starts all red — the current reality. Each click heals one line: red X + frustrated condition → green check + aspirational condition. Four-column CSS grid locks all columns in place — no reflow on swap. Requirement column in mono/lavender is the cognitive anchor. Middle dot separator at 20% opacity creates subtle visual channel between keys and values. Title crosses start red, turn white when all checks go green. Last flip: "Worth it for a one-line fix" — the Pringles moment. ~45 seconds.
+-->

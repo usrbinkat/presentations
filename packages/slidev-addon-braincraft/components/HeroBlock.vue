@@ -22,7 +22,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const { align = 'center', size = 'md', mono = true } = defineProps<{
+const {
+  align = 'center',
+  size = 'md',
+  mono = true,
+} = defineProps<{
   /** Text alignment within the block */
   align?: 'left' | 'center' | 'right'
   /** Text size preset */
@@ -60,8 +64,7 @@ const style = computed(() => ({
   margin-block: var(--aurora-space-3);
   background: color-mix(in oklch, var(--scheme-bg-code, var(--aurora-cream-200)) 80%, transparent);
   border-radius: var(--aurora-radius-lg);
-  border: 1px solid
-    color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 25%, transparent);
+  border: 1px solid color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 25%, transparent);
   box-shadow: var(--aurora-shadow-sm);
 }
 

@@ -15,7 +15,12 @@
     </SpeakerBio>
 -->
 <script setup lang="ts">
-const { name, title = '', avatarUrl = '', links = [] } = defineProps<{
+const {
+  name,
+  title = '',
+  avatarUrl = '',
+  links = [],
+} = defineProps<{
   name: string
   title?: string
   avatarUrl?: string
@@ -32,7 +37,11 @@ const { name, title = '', avatarUrl = '', links = [] } = defineProps<{
         :alt="name"
         class="speaker-avatar"
       >
-      <div v-else class="speaker-avatar speaker-avatar-placeholder" aria-hidden="true">
+      <div
+        v-else
+        class="speaker-avatar speaker-avatar-placeholder"
+        aria-hidden="true"
+      >
         {{ name.charAt(0).toUpperCase() }}
       </div>
     </div>

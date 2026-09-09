@@ -17,7 +17,7 @@ LOGFILE := $(ROOT).slidev-dev.log
 install:
 	pnpm install -C $(ROOT)
 
-dev: install
+dev: install stop
 	cd $(ROOT)decks/$(DECK) && $(SLIDEV) --port $(PORT) 2>&1 | tee $(LOGFILE) &
 	@echo $$! > $(PIDFILE)
 	@echo "waiting for http://localhost:$(PORT) ..."

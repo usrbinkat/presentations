@@ -10,7 +10,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const { src, fallbackImage = '', height = '400px' } = defineProps<{
+const {
+  src,
+  fallbackImage = '',
+  height = '400px',
+} = defineProps<{
   src: string
   fallbackImage?: string
   height?: string
@@ -29,7 +33,11 @@ const isPrint = computed(() => {
 <template>
   <div class="terminal-embed" :style="{ height }">
     <template v-if="isPrint && fallbackImage">
-      <img :src="fallbackImage" alt="Terminal screenshot" class="terminal-fallback-img">
+      <img
+        :src="fallbackImage"
+        alt="Terminal screenshot"
+        class="terminal-fallback-img"
+      >
     </template>
     <template v-else-if="isPrint">
       <div class="terminal-fallback">

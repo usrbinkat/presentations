@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -64,8 +64,8 @@
   --shadow-peach: var(--sh-peach);
 
   /* Fonts — Astro font provider registers --font-sans and --font-mono */
-  --font-sans: var(--font-sans, "Inter", system-ui, sans-serif);
-  --font-mono: var(--font-mono, "Space Mono", monospace);
+  --font-sans: var(--font-sans, 'Inter', system-ui, sans-serif);
+  --font-mono: var(--font-mono, 'Space Mono', monospace);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -108,15 +108,9 @@
   --sky-400: oklch(82% 0.12 220);
   --sky-500: oklch(75% 0.16 220);
 
-  --sh-lavender:
-    0 4px 16px -2px oklch(70% 0.16 300 / 0.15),
-    0 8px 32px -4px oklch(70% 0.16 300 / 0.1);
-  --sh-mint:
-    0 4px 16px -2px oklch(72% 0.16 160 / 0.15),
-    0 8px 32px -4px oklch(72% 0.16 160 / 0.1);
-  --sh-peach:
-    0 4px 16px -2px oklch(75% 0.16 60 / 0.15),
-    0 8px 32px -4px oklch(75% 0.16 60 / 0.1);
+  --sh-lavender: 0 4px 16px -2px oklch(70% 0.16 300 / 0.15), 0 8px 32px -4px oklch(70% 0.16 300 / 0.1);
+  --sh-mint: 0 4px 16px -2px oklch(72% 0.16 160 / 0.15), 0 8px 32px -4px oklch(72% 0.16 160 / 0.1);
+  --sh-peach: 0 4px 16px -2px oklch(75% 0.16 60 / 0.15), 0 8px 32px -4px oklch(75% 0.16 60 / 0.1);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -155,27 +149,11 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    DARK THEME
    ═══════════════════════════════════════════════════════════════════════════ */
-:root[data-theme="dark"] {
-  --surface-base: color-mix(
-    in oklch,
-    var(--slate-900) 95%,
-    var(--lavender-500) 5%
-  );
-  --surface-paper: color-mix(
-    in oklch,
-    var(--slate-800) 90%,
-    var(--lavender-400) 10%
-  );
-  --surface-raised: color-mix(
-    in oklch,
-    var(--slate-800) 92%,
-    var(--lavender-400) 8%
-  );
-  --surface-subtle: color-mix(
-    in oklch,
-    var(--slate-700) 88%,
-    var(--lavender-400) 12%
-  );
+:root[data-theme='dark'] {
+  --surface-base: color-mix(in oklch, var(--slate-900) 95%, var(--lavender-500) 5%);
+  --surface-paper: color-mix(in oklch, var(--slate-800) 90%, var(--lavender-400) 10%);
+  --surface-raised: color-mix(in oklch, var(--slate-800) 92%, var(--lavender-400) 8%);
+  --surface-subtle: color-mix(in oklch, var(--slate-700) 88%, var(--lavender-400) 12%);
 
   --text-primary: var(--cream-100);
   --text-secondary: var(--cream-300);
@@ -200,15 +178,9 @@
   --code-text: var(--cream-100);
   --inline-code-text: var(--lavender-300);
 
-  --sh-lavender:
-    0 4px 16px -2px oklch(70% 0.16 300 / 0.08),
-    0 8px 32px -4px oklch(70% 0.16 300 / 0.05);
-  --sh-mint:
-    0 4px 16px -2px oklch(72% 0.16 160 / 0.08),
-    0 8px 32px -4px oklch(72% 0.16 160 / 0.05);
-  --sh-peach:
-    0 4px 16px -2px oklch(75% 0.16 60 / 0.08),
-    0 8px 32px -4px oklch(75% 0.16 60 / 0.05);
+  --sh-lavender: 0 4px 16px -2px oklch(70% 0.16 300 / 0.08), 0 8px 32px -4px oklch(70% 0.16 300 / 0.05);
+  --sh-mint: 0 4px 16px -2px oklch(72% 0.16 160 / 0.08), 0 8px 32px -4px oklch(72% 0.16 160 / 0.05);
+  --sh-peach: 0 4px 16px -2px oklch(75% 0.16 60 / 0.08), 0 8px 32px -4px oklch(75% 0.16 60 / 0.05);
 }
 
 @media (prefers-contrast: high) {
@@ -244,7 +216,7 @@ h6 {
 :not(pre) > code {
   background-color: var(--surface-subtle);
   color: var(--inline-code-text);
-  font-family: var(--font-mono, "Space Mono", monospace);
+  font-family: var(--font-mono, 'Space Mono', monospace);
   padding: 0.2rem 0.4rem;
   border-radius: 0.25rem;
   border: 1px solid var(--border-subtle);
@@ -291,12 +263,10 @@ h6 {
   background: linear-gradient(
     135deg,
     var(--brand-primary) 0%,
-    color-mix(in oklch, var(--brand-primary) 85%, var(--brand-primary-hover))
-      100%
+    color-mix(in oklch, var(--brand-primary) 85%, var(--brand-primary-hover)) 100%
   );
   color: var(--text-inverse);
-  border: 1px solid
-    color-mix(in oklch, var(--brand-primary-hover) 50%, transparent);
+  border: 1px solid color-mix(in oklch, var(--brand-primary-hover) 50%, transparent);
   box-shadow:
     0 0 0 1px oklch(0% 0 0 / 0.03),
     0 1px 2px oklch(0% 0 0 / 0.04),
@@ -336,31 +306,19 @@ h6 {
    ═══════════════════════════════════════════════════════════════════════════ */
 .tone-cool {
   --section-accent: var(--brand-primary);
-  --section-accent-border: color-mix(
-    in oklch,
-    var(--brand-primary) 30%,
-    transparent
-  );
+  --section-accent-border: color-mix(in oklch, var(--brand-primary) 30%, transparent);
   --section-shadow: var(--sh-lavender);
 }
 
 .tone-mint {
   --section-accent: var(--brand-secondary);
-  --section-accent-border: color-mix(
-    in oklch,
-    var(--brand-secondary) 30%,
-    transparent
-  );
+  --section-accent-border: color-mix(in oklch, var(--brand-secondary) 30%, transparent);
   --section-shadow: var(--sh-mint);
 }
 
 .tone-warm {
   --section-accent: var(--brand-accent);
-  --section-accent-border: color-mix(
-    in oklch,
-    var(--brand-accent) 30%,
-    transparent
-  );
+  --section-accent-border: color-mix(in oklch, var(--brand-accent) 30%, transparent);
   --section-shadow: var(--sh-peach);
 }
 

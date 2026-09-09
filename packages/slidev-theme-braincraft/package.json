@@ -24,10 +24,12 @@
   },
   "dependencies": {
     "@shikijs/transformers": "catalog:",
+    "sirv": "catalog:",
     "vue": "catalog:"
   },
   "devDependencies": {
     "@slidev/client": "catalog:",
-    "@slidev/types": "catalog:"
+    "@slidev/types": "catalog:",
+    "vite": "catalog:"
   }
 }

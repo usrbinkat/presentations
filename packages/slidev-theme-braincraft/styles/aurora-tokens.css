@@ -13,37 +13,37 @@
    ═══════════════════════════════════════════════════ */
 
 @property --aurora-hue {
-  syntax: "<number>";
+  syntax: '<number>';
   inherits: false;
   initial-value: 300;
 }
 
 @property --aurora-gradient-stop {
-  syntax: "<percentage>";
+  syntax: '<percentage>';
   inherits: false;
   initial-value: 50%;
 }
 
 @property --aurora-blur {
-  syntax: "<length>";
+  syntax: '<length>';
   inherits: false;
   initial-value: 0px;
 }
 
 @property --aurora-glow-opacity {
-  syntax: "<number>";
+  syntax: '<number>';
   inherits: false;
   initial-value: 0;
 }
 
 @property --scheme-bg {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: oklch(97% 0.015 85);
 }
 
 @property --scheme-accent {
-  syntax: "<color>";
+  syntax: '<color>';
   inherits: true;
   initial-value: oklch(70% 0.16 300);
 }
@@ -152,10 +152,8 @@
      TYPOGRAPHY TOKENS
      ═══════════════════════════════════════════════════ */
 
-  --aurora-font-sans:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
-    sans-serif;
-  --aurora-font-mono: "Space Mono", "SF Mono", Consolas, monospace;
+  --aurora-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --aurora-font-mono: 'Space Mono', 'SF Mono', Consolas, monospace;
 
   /* Fluid type scale (from style-system) */
   --aurora-text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
@@ -216,33 +214,23 @@
      SHADOW TOKENS — Paper-like elevation
      ═══════════════════════════════════════════════════ */
 
-  --aurora-shadow-sm:
-    0 0 0 1px oklch(0% 0 0 / 0.03), 0 1px 2px oklch(0% 0 0 / 0.04),
-    0 2px 4px oklch(0% 0 0 / 0.02);
+  --aurora-shadow-sm: 0 0 0 1px oklch(0% 0 0 / 0.03), 0 1px 2px oklch(0% 0 0 / 0.04), 0 2px 4px oklch(0% 0 0 / 0.02);
 
   --aurora-shadow-md:
-    0 0 0 1px oklch(0% 0 0 / 0.03), 0 2px 4px -1px oklch(0% 0 0 / 0.06),
-    0 4px 8px -2px oklch(0% 0 0 / 0.04), 0 8px 16px -4px oklch(0% 0 0 / 0.02);
+    0 0 0 1px oklch(0% 0 0 / 0.03), 0 2px 4px -1px oklch(0% 0 0 / 0.06), 0 4px 8px -2px oklch(0% 0 0 / 0.04),
+    0 8px 16px -4px oklch(0% 0 0 / 0.02);
 
   --aurora-shadow-lg:
-    0 0 0 1px oklch(0% 0 0 / 0.03), 0 4px 8px -2px oklch(0% 0 0 / 0.08),
-    0 8px 16px -4px oklch(0% 0 0 / 0.06), 0 16px 32px -8px oklch(0% 0 0 / 0.04);
+    0 0 0 1px oklch(0% 0 0 / 0.03), 0 4px 8px -2px oklch(0% 0 0 / 0.08), 0 8px 16px -4px oklch(0% 0 0 / 0.06),
+    0 16px 32px -8px oklch(0% 0 0 / 0.04);
 
-  --aurora-shadow-lavender:
-    0 4px 16px -2px oklch(70% 0.16 300 / 0.15),
-    0 8px 32px -4px oklch(70% 0.16 300 / 0.1);
+  --aurora-shadow-lavender: 0 4px 16px -2px oklch(70% 0.16 300 / 0.15), 0 8px 32px -4px oklch(70% 0.16 300 / 0.1);
 
-  --aurora-shadow-mint:
-    0 4px 16px -2px oklch(72% 0.16 160 / 0.15),
-    0 8px 32px -4px oklch(72% 0.16 160 / 0.1);
+  --aurora-shadow-mint: 0 4px 16px -2px oklch(72% 0.16 160 / 0.15), 0 8px 32px -4px oklch(72% 0.16 160 / 0.1);
 
-  --aurora-shadow-peach:
-    0 4px 16px -2px oklch(75% 0.16 60 / 0.15),
-    0 8px 32px -4px oklch(75% 0.16 60 / 0.1);
+  --aurora-shadow-peach: 0 4px 16px -2px oklch(75% 0.16 60 / 0.15), 0 8px 32px -4px oklch(75% 0.16 60 / 0.1);
 
-  --aurora-shadow-sky:
-    0 4px 16px -2px oklch(75% 0.16 220 / 0.15),
-    0 8px 32px -4px oklch(75% 0.16 220 / 0.1);
+  --aurora-shadow-sky: 0 4px 16px -2px oklch(75% 0.16 220 / 0.15), 0 8px 32px -4px oklch(75% 0.16 220 / 0.1);
 
   /* ═══════════════════════════════════════════════════
      MOTION TOKENS

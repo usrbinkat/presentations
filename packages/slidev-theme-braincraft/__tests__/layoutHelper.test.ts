@@ -1,9 +1,15 @@
 import { describe, expect, it } from 'vitest'
-import { handleBackground, resolveAssetUrl, useSchemeClass } from '../layoutHelper'
+import {
+  handleBackground,
+  resolveAssetUrl,
+  useSchemeClass,
+} from '../layoutHelper'
 
 describe('resolveAssetUrl', () => {
   it('returns absolute URLs unchanged', () => {
-    expect(resolveAssetUrl('https://example.com/img.png')).toBe('https://example.com/img.png')
+    expect(resolveAssetUrl('https://example.com/img.png')).toBe(
+      'https://example.com/img.png',
+    )
   })
 
   it('prepends BASE_URL to root-relative paths', () => {
@@ -29,19 +35,27 @@ describe('handleBackground', () => {
   })
 
   it('detects rgb colors', () => {
-    expect(handleBackground('rgb(255, 0, 0)')).toEqual({ background: 'rgb(255, 0, 0)' })
+    expect(handleBackground('rgb(255, 0, 0)')).toEqual({
+      background: 'rgb(255, 0, 0)',
+    })
   })
 
   it('detects oklch colors', () => {
-    expect(handleBackground('oklch(0.5 0.2 240)')).toEqual({ background: 'oklch(0.5 0.2 240)' })
+    expect(handleBackground('oklch(0.5 0.2 240)')).toEqual({
+      background: 'oklch(0.5 0.2 240)',
+    })
   })
 
   it('detects hsl colors', () => {
-    expect(handleBackground('hsl(0, 100%, 50%)')).toEqual({ background: 'hsl(0, 100%, 50%)' })
+    expect(handleBackground('hsl(0, 100%, 50%)')).toEqual({
+      background: 'hsl(0, 100%, 50%)',
+    })
   })
 
   it('detects CSS variables', () => {
-    expect(handleBackground('var(--my-color)')).toEqual({ background: 'var(--my-color)' })
+    expect(handleBackground('var(--my-color)')).toEqual({
+      background: 'var(--my-color)',
+    })
   })
 
   it('detects linear gradients', () => {

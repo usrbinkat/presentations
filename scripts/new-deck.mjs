@@ -84,13 +84,9 @@ src: ../../shared/fragments/thanks.md
 
 writeFileSync(resolve(deckDir, 'slides.md'), slides)
 
-// vite.config.ts — re-export shared config so plugins load from deck cwd
-writeFileSync(resolve(deckDir, 'vite.config.ts'), `export { default } from '../../vite.config'\n`)
-
 console.log(`Created decks/${slug}/`)
 console.log(`  - package.json`)
 console.log(`  - slides.md (with cover + intro + thanks)`)
-console.log(`  - vite.config.ts (re-exports shared config)`)
 console.log(`  - public/.gitkeep`)
 console.log(``)
 console.log(`Next: cd decks/${slug} && pnpm exec slidev dev`)

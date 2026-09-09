@@ -46,15 +46,17 @@ export function handleBackground(
   if (!background)
     return undefined
 
-  const isColor = background.startsWith('#')
-    || background.startsWith('rgb')
-    || background.startsWith('oklch')
-    || background.startsWith('hsl')
-    || background.startsWith('var(')
+  const isColor
+    = background.startsWith('#')
+      || background.startsWith('rgb')
+      || background.startsWith('oklch')
+      || background.startsWith('hsl')
+      || background.startsWith('var(')
 
-  const isGradient = background.startsWith('linear-gradient')
-    || background.startsWith('radial-gradient')
-    || background.startsWith('conic-gradient')
+  const isGradient
+    = background.startsWith('linear-gradient')
+      || background.startsWith('radial-gradient')
+      || background.startsWith('conic-gradient')
 
   if (isColor || isGradient) {
     return { background }
@@ -92,7 +94,9 @@ export function useLayoutProps(
   options: { defaultScheme?: string } = {},
 ) {
   const schemeClass = useSchemeClass(props.color, options.defaultScheme)
-  const backgroundStyle = props.background ? handleBackground(props.background) : undefined
+  const backgroundStyle = props.background
+    ? handleBackground(props.background)
+    : undefined
 
   return {
     schemeClass,

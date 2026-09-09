@@ -113,4 +113,6 @@ class: cover-full
 }
 </style>
 
-<!-- Population scale. No clicks — fly past this one. China, USA, GitHub, Russia. The lavender bar between USA and Russia makes 180M tangible. Speaker doesn't need to say much — the chart says it all. ~5 seconds. -->
+<!--
+Population scale. No clicks — fly past this one. China, USA, GitHub, Russia. The lavender bar between USA and Russia makes 180M tangible. Speaker doesn't need to say much — the chart says it all. ~5 seconds.
+-->

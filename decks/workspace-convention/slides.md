@@ -2,7 +2,7 @@
 theme: slidev-theme-braincraft
 addons:
   - slidev-addon-braincraft
-title: "The Multi-Root Workspace Convention: Collision-Free Multi-Project Development"
+title: 'The Multi-Root Workspace Convention: Collision-Free Multi-Project Development'
 info: |
   A filesystem convention that eliminates path collisions across users,
   git servers, and namespaces — enabling multi-project, multi-player
@@ -797,5 +797,5 @@ Final thesis. Before you choose a monorepo tool, before you debate submodules, b
 ---
 
 ---
-
 src: ../../shared/fragments/thanks.md
+---

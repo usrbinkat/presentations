@@ -8,9 +8,19 @@
   via the photo, increasing perceived trustworthiness and engagement.
 -->
 <script setup lang="ts">
-import { handleBackground, resolveAssetUrl, useSchemeClass } from '../layoutHelper'
+import {
+  handleBackground,
+  resolveAssetUrl,
+  useSchemeClass,
+} from '../layoutHelper'
 
-const { color, background, class: className, image, imageSrc } = defineProps<{
+const {
+  color,
+  background,
+  class: className,
+  image,
+  imageSrc,
+} = defineProps<{
   /** Aurora color scheme applied to the slide. Accepts: cream, slate, lavender, mint, peach, sky. Consumed by useSchemeClass(). */
   color?: string
   /** Background image URL, CSS color, or CSS gradient string. Processed by handleBackground() to detect type and apply correctly. */
@@ -30,7 +40,11 @@ const imageUrl = resolvedImage ? resolveAssetUrl(resolvedImage) : undefined
 </script>
 
 <template>
-  <div class="slidev-layout presenter" :class="[schemeClass, className, { 'has-image': imageUrl }]" :style="bgStyle">
+  <div
+    class="slidev-layout presenter"
+    :class="[schemeClass, className, { 'has-image': imageUrl }]"
+    :style="bgStyle"
+  >
     <div v-if="imageUrl" class="presenter-image">
       <img :src="imageUrl" alt="Speaker">
     </div>

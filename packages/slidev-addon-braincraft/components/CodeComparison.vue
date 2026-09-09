@@ -69,12 +69,20 @@ const { beforeLabel = 'Before', afterLabel = 'After' } = defineProps<{
 }
 
 .code-header-before {
-  background: color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 15%, var(--scheme-bg, var(--aurora-cream-100)));
+  background: color-mix(
+    in oklch,
+    var(--scheme-accent, var(--aurora-lavender-400)) 15%,
+    var(--scheme-bg, var(--aurora-cream-100))
+  );
   color: var(--scheme-heading, var(--aurora-slate-700));
 }
 
 .code-header-after {
-  background: color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 25%, var(--scheme-bg, var(--aurora-cream-100)));
+  background: color-mix(
+    in oklch,
+    var(--scheme-accent, var(--aurora-lavender-400)) 25%,
+    var(--scheme-bg, var(--aurora-cream-100))
+  );
   color: var(--scheme-heading, var(--aurora-slate-700));
 }
 

@@ -18,7 +18,7 @@ imageSrc: /shared/speakers/speaker-kat-morgan.jpg
 
   <div class="intro-section">
     <div class="intro-label">Projects</div>
-    <div class="intro-detail">ContainerCraft · BrainCraft · OpenSovreign · ScopeCreap</div>
+    <div class="intro-detail">ContainerCraft · BrainCraft · OpenSovreign · ScopeCreep</div>
   </div>
 
   <div class="intro-links">

@@ -24,7 +24,11 @@ const posClass = [
 </script>
 
 <template>
-  <div class="pagination absolute p-2 text-xs" :class="posClass" aria-label="Slide progress">
+  <div
+    class="pagination absolute p-2 text-xs"
+    :class="posClass"
+    aria-label="Slide progress"
+  >
     <SlideCurrentNo /> / <SlidesTotal />
   </div>
 </template>

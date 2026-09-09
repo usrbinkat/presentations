@@ -14,11 +14,15 @@ Callout box with icon, title, and styled content.
 ### Usage
 
 ```html
-<Admonition type="tip" title="Pro Tip"> Content supports **markdown** rendering. </Admonition>
+<Admonition type="tip" title="Pro Tip">
+  Content supports **markdown** rendering.
+</Admonition>
 
 <Admonition type="warning"> This will auto-title as "Warning". </Admonition>
 
-<Admonition type="danger" title="Breaking Change"> API v1 is removed in this release. </Admonition>
+<Admonition type="danger" title="Breaking Change">
+  API v1 is removed in this release.
+</Admonition>
 ```
 
 ### Types

@@ -5,14 +5,16 @@
 # - Content overflow (vertical and horizontal) at every v-click state
 # - Title wrapping (independent exit condition)
 # - Minimum readable font size below 10px (independent exit condition)
+# - Unmeasurable slides (selector miss — no aurora scheme container found)
+# - Raw frontmatter rendering (broken --- separators)
 #
 # Uses terminal-browser action CLI to drive the already-open browser.
 # Accepts DECK and PORT from environment (passed by Makefile).
 #
 # Usage:
 #   make dev                    # start the deck
-#   make lint                   # run this script
-#   DECK=hello-world PORT=3031 make lint
+#   make lint-slides            # run this script
+#   DECK=hello-world PORT=3031 make lint-slides
 
 set -euo pipefail
 
@@ -45,6 +47,11 @@ tb() {
   echo "${raw%\"}" | sed 's/^"//'
 }
 
+# Silent variant for commands whose stdout we discard (key presses)
+tb_silent() {
+  tb "$@" > /dev/null
+}
+
 TOTAL=$(tb eval '
   (() => {
     for (const el of document.querySelectorAll("nav span, nav div")) {
@@ -70,6 +77,8 @@ sleep 3
 OVERFLOWS=0
 FONTWARNS=0
 TITLEWRAPS=0
+SKIPPED=0
+FRONTMATTER_BREAKS=0
 CURRENT=""
 VISITED_LAST=false
 STATES_MEASURED=0
@@ -90,17 +99,62 @@ for _ in $(seq 1 $((TOTAL * 20))); do
     sleep 0.3
   fi
 
-  # Measure overflow, title wrap, and font sizes at this click state
+  # Measure overflow, title wrap, font sizes, and detect raw frontmatter
   RESULT=$(tb eval '
     (() => {
-      const active = document.querySelector(".slidev-page-current [class*=\"aurora-\"][class*=\"-scheme\"]")
+      // Find the visible slide page — Slidev uses .slidev-page-N, not .slidev-page-current
+      let activePage = document.querySelector(".slidev-page-current");
+      if (!activePage || activePage.getBoundingClientRect().width === 0) {
+        for (const p of document.querySelectorAll("[class*=\"slidev-page-\"]")) {
+          const r = p.getBoundingClientRect();
+          if (r.width > 100 && r.height > 100) { activePage = p; break; }
+        }
+      }
+      const active = activePage?.querySelector("[class*=\"aurora-\"][class*=\"-scheme\"]")
         || document.querySelector("[class*=\"aurora-\"][class*=\"-scheme\"]");
       if (!active || active.scrollHeight <= 0 || active.clientHeight <= 0)
-        return "0|0|0|none|0|0|";
+        return "SKIP|||||||||";
 
       const s = active.scrollHeight;
       const c = active.clientHeight;
-      const hOverflow = active.scrollWidth > active.clientWidth ? active.scrollWidth - active.clientWidth : 0;
+
+      // Method 1: scrollHeight vs clientHeight (works when overflow is visible/auto/scroll)
+      const scrollVOverflow = Math.max(0, s - c);
+      const scrollHOverflow = Math.max(0, active.scrollWidth - active.clientWidth);
+
+      // Method 2: child bounding rects vs container rect (works under overflow:hidden)
+      const containerRect = active.getBoundingClientRect();
+      let childVOverflow = 0;
+      let childHOverflow = 0;
+      let childNearBottom = 0;
+      const MARGIN_PX = 4;
+      for (const child of active.querySelectorAll("*")) {
+        if (!child.textContent?.trim() && !child.querySelector("img,svg,canvas")) continue;
+        // Skip v-click hidden elements
+        let vhidden = false;
+        let n = child;
+        while (n && n !== active) {
+          if (n.classList?.contains("slidev-vclick-hidden")) {
+            if (parseFloat(getComputedStyle(n).opacity) === 0) { vhidden = true; break; }
+          }
+          n = n.parentElement;
+        }
+        if (vhidden) continue;
+        const cr = child.getBoundingClientRect();
+        if (cr.width === 0 && cr.height === 0) continue;
+        const vExceed = Math.round(cr.bottom - containerRect.bottom);
+        const hExceed = Math.round(cr.right - containerRect.right);
+        const nearBottom = Math.round(containerRect.bottom - cr.bottom);
+        if (vExceed > childVOverflow) childVOverflow = vExceed;
+        if (hExceed > childHOverflow) childHOverflow = hExceed;
+        if (nearBottom >= 0 && nearBottom < MARGIN_PX && cr.height > 0) {
+          childNearBottom = Math.max(childNearBottom, MARGIN_PX - nearBottom);
+        }
+      }
+
+      // Use the larger of the two methods for each axis
+      const vOverflow = Math.max(scrollVOverflow, childVOverflow);
+      const hOverflow = Math.max(scrollHOverflow, childHOverflow);
 
       const h1 = active.querySelector("h1");
       let titleWrap = "none";
@@ -113,16 +167,13 @@ for _ in $(seq 1 $((TOTAL * 20))); do
       }
 
       let minFont = 999;
-      const all = active.querySelectorAll("*");
-      for (const el of all) {
+      for (const el of active.querySelectorAll("*")) {
         if (el.children.length > 0 || !el.textContent.trim()) continue;
-        // Check effective visibility: walk ancestors for hidden v-click
         let hidden = false;
         let node = el;
         while (node && node !== active) {
-          if (node.classList && node.classList.contains("slidev-vclick-hidden")) {
-            const op = parseFloat(getComputedStyle(node).opacity);
-            if (op === 0) { hidden = true; break; }
+          if (node.classList?.contains("slidev-vclick-hidden")) {
+            if (parseFloat(getComputedStyle(node).opacity) === 0) { hidden = true; break; }
           }
           node = node.parentElement;
         }
@@ -131,35 +182,49 @@ for _ in $(seq 1 $((TOTAL * 20))); do
         if (fs > 0 && fs < minFont) minFont = fs;
       }
 
-      const h = h1 || active.querySelector("h2") || active.querySelector("h3");
-      const t = h?.textContent?.trim() || active.textContent?.trim().substring(0, 40) || "";
+      // Detect raw frontmatter: visible text starting with layout: or color: or class:
+      const text = active.textContent || "";
+      const rawFm = /^(layout|color|class|transition|routeAlias|src)\s*:/.test(text.trim()) ? "FRONTMATTER" : "ok";
 
-      return s + "|" + c + "|" + hOverflow + "|" + titleWrap + "|" + titleH + "|" + (minFont === 999 ? 0 : Math.round(minFont)) + "|" + t;
+      const h = h1 || active.querySelector("h2") || active.querySelector("h3");
+      const t = h?.textContent?.trim() || active.textContent?.trim().substring(0, 60) || "";
+
+      return s + "|" + c + "|" + vOverflow + "|" + hOverflow + "|" + titleWrap + "|" + titleH + "|" + (minFont === 999 ? 0 : Math.round(minFont)) + "|" + rawFm + "|" + childNearBottom + "|" + t;
     })()
   ')
 
   SCROLL=$(echo "$RESULT" | cut -d'|' -f1)
   CLIENT=$(echo "$RESULT" | cut -d'|' -f2)
-  HOVERFLOW=$(echo "$RESULT" | cut -d'|' -f3)
-  TITLEWRAP=$(echo "$RESULT" | cut -d'|' -f4)
-  TITLEH=$(echo "$RESULT" | cut -d'|' -f5)
-  MINFONT=$(echo "$RESULT" | cut -d'|' -f6)
-  TITLE=$(echo "$RESULT" | cut -d'|' -f7-)
+  VOVERFLOW=$(echo "$RESULT" | cut -d'|' -f3)
+  HOVERFLOW=$(echo "$RESULT" | cut -d'|' -f4)
+  TITLEWRAP=$(echo "$RESULT" | cut -d'|' -f5)
+  TITLEH=$(echo "$RESULT" | cut -d'|' -f6)
+  MINFONT=$(echo "$RESULT" | cut -d'|' -f7)
+  RAWFM=$(echo "$RESULT" | cut -d'|' -f8)
+  NEARBOTTOM=$(echo "$RESULT" | cut -d'|' -f9)
+  TITLE=$(echo "$RESULT" | cut -d'|' -f10-)
 
   STATES_MEASURED=$((STATES_MEASURED + 1))
 
-  if [ "$SCROLL" -gt 0 ] && [ "$CLIENT" -gt 0 ]; then
-    VDIFF=$((SCROLL - CLIENT))
+  # Unmeasurable slide — selector missed
+  if [ "$SCROLL" = "SKIP" ]; then
+    echo "  ⚠ slide $SLIDE: SKIPPED (no aurora scheme container found)"
+    SKIPPED=$((SKIPPED + 1))
+  elif [ "$SCROLL" -gt 0 ] && [ "$CLIENT" -gt 0 ]; then
     FINDINGS=""
 
-    if [ "$VDIFF" -gt 4 ]; then
-      FINDINGS="$FINDINGS overflow:+${VDIFF}px"
+    if [ "$VOVERFLOW" -gt 0 ]; then
+      FINDINGS="$FINDINGS v-overflow:+${VOVERFLOW}px"
       OVERFLOWS=$((OVERFLOWS + 1))
     fi
 
     if [ "$HOVERFLOW" -gt 0 ]; then
       FINDINGS="$FINDINGS h-overflow:+${HOVERFLOW}px"
       OVERFLOWS=$((OVERFLOWS + 1))
+    fi
+
+    if [ "$NEARBOTTOM" -gt 0 ]; then
+      FINDINGS="$FINDINGS near-edge:${NEARBOTTOM}px"
     fi
 
     if [ "$TITLEWRAP" = "WRAP" ]; then
@@ -172,14 +237,24 @@ for _ in $(seq 1 $((TOTAL * 20))); do
       FONTWARNS=$((FONTWARNS + 1))
     fi
 
-    if [ -n "$FINDINGS" ]; then
-      echo "  ✗ slide $SLIDE: \"$TITLE\" [$FINDINGS ]"
+    if [ "$RAWFM" = "FRONTMATTER" ]; then
+      FINDINGS="$FINDINGS raw-frontmatter"
+      FRONTMATTER_BREAKS=$((FRONTMATTER_BREAKS + 1))
     fi
+
+    if [ -n "$FINDINGS" ]; then
+      echo "  ✗ slide $SLIDE: \"$TITLE\" [${SCROLL}x${CLIENT} $FINDINGS ]"
+    else
+      echo "  ✓ slide $SLIDE: \"$TITLE\" [${SCROLL}x${CLIENT} font:${MINFONT}px]"
+    fi
+  else
+    echo "  ⚠ slide $SLIDE: SKIPPED (zero scroll/client: ${SCROLL}/${CLIENT})"
+    SKIPPED=$((SKIPPED + 1))
   fi
 
-  # Advance — continue through last slide's click states
+  # Advance
   PREV_SLIDE="$SLIDE"
-  tb key ArrowRight
+  tb_silent key ArrowRight
   sleep 0.15
 
   # Check if we moved past the last slide
@@ -193,11 +268,8 @@ for _ in $(seq 1 $((TOTAL * 20))); do
     })()
   ')
 
-  # If we were on the last slide and ArrowRight didn't change the slide number,
-  # we've exhausted all click states on the last slide
   if [ "$PREV_SLIDE" = "$TOTAL" ] && [ "$NEXT_SLIDE" = "$TOTAL" ] && [ "$PREV_SLIDE" = "$NEXT_SLIDE" ]; then
-    # One more press to confirm we're truly at the end
-    tb key ArrowRight
+    tb_silent key ArrowRight
     sleep 0.15
     CONFIRM=$(tb eval '
       (() => {
@@ -217,19 +289,17 @@ done
 
 echo ""
 
-# Postcondition: verify we reached the last slide
 if [ "$VISITED_LAST" != "true" ]; then
   echo "ERROR: navigation budget exhausted before reaching slide $TOTAL"
   echo "  measured $STATES_MEASURED states, last slide seen: $CURRENT"
   exit 1
 fi
 
-# Report all defects found — no slide-level dedup, every state counts
 echo "measured $STATES_MEASURED click states across $TOTAL slides"
 
-ISSUES=$((OVERFLOWS + FONTWARNS + TITLEWRAPS))
+ISSUES=$((OVERFLOWS + FONTWARNS + TITLEWRAPS + SKIPPED + FRONTMATTER_BREAKS))
 if [ "$ISSUES" -gt 0 ]; then
-  echo "$OVERFLOWS overflow(s), $TITLEWRAPS title wrap(s), $FONTWARNS font warning(s)"
+  echo "$OVERFLOWS overflow(s), $TITLEWRAPS title wrap(s), $FONTWARNS font warning(s), $SKIPPED skipped, $FRONTMATTER_BREAKS frontmatter break(s)"
   exit 1
 else
   echo "all slides pass"

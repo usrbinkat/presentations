@@ -3,7 +3,7 @@ theme: slidev-theme-braincraft
 addons:
   - slidev-addon-braincraft
   - slidev-addon-excalidraw
-title: "Cloud Taming — A Human Friendly DevOps Experience"
+title: 'Cloud Taming — A Human Friendly DevOps Experience'
 info: |
   How a single source of truth eliminates the invisible tax of environment
   drift, surface fragmentation, and tooling misalignment — across developers,
@@ -83,11 +83,14 @@ Title card. Audience orients: who, where, when. ~10 seconds while people settle.
 src: ../../shared/fragments/riddle.md
 ---
 
+---
 src: ../../shared/fragments/intro.md
+---
 
 ---
 layout: default
 color: cream
+class: dense
 ---
 
 <div class="jeopardy-title">
@@ -130,7 +133,7 @@ color: cream
 .jeopardy-divider {
   border: none;
   border-top: var(--aurora-border-thin) solid var(--scheme-border);
-  margin: var(--aurora-space-3) 0;
+  margin: var(--aurora-space-1) 0;
 }
 
 .jeopardy-blank {
@@ -165,11 +168,11 @@ color: cream
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: var(--aurora-text-lg);
+  font-size: var(--aurora-text-base);
   font-weight: var(--aurora-font-medium);
-  padding: var(--aurora-space-4) var(--aurora-space-3);
+  padding: var(--aurora-space-2) var(--aurora-space-2);
   border-radius: var(--aurora-radius-lg);
-  min-height: 4.5rem;
+  min-height: 3rem;
   line-height: var(--aurora-leading-snug);
 }
 
@@ -314,13 +317,13 @@ Triple entendre. "Conventional" as in the established norm. "un" in curly braces
 ---
 layout: default
 color: cream
-class: reveal-build
+class: dense reveal-build
 ---
 
 <div class="flex flex-col h-full">
-<div class="flex-none" style="flex-basis: 35%">
+<div class="flex-none" style="flex-basis: 25%">
 
-<HeroBlock size="lg">
+<HeroBlock size="md">
   <span style="color: var(--scheme-text-secondary); opacity: 0.5">/</span>workspace<span style="color: var(--scheme-text-secondary); opacity: 0.5">/</span><span style="color: var(--scheme-accent); font-style: italic">{user}</span><span style="color: var(--scheme-text-secondary); opacity: 0.5">/</span><span style="color: var(--scheme-accent); font-style: italic">{server}</span><span style="color: var(--scheme-text-secondary); opacity: 0.5">/</span><span style="color: var(--scheme-accent); font-style: italic">{namespace}</span><span style="color: var(--scheme-text-secondary); opacity: 0.5">/</span>
 </HeroBlock>
 </div>
@@ -343,9 +346,10 @@ Walk through one segment per click. Each "step" in the staircase is a step on Th
 ---
 layout: default
 color: cream
+class: dense
 ---
 
-# `workspace.git` — one repo to rule them all
+# `workspace.git` one repo to rule them all
 
 <v-click>
 
@@ -502,7 +506,7 @@ class: cover-full
   align-items: center;
   justify-content: center;
   height: 100%;
-  gap: var(--aurora-space-5);
+  gap: var(--aurora-space-3);
 }
 
 .pivot-label {
@@ -710,6 +714,7 @@ ICONIC. "1 source" dominates. Below the fold: the dizzying list. The anxiety of 
 ---
 layout: default
 color: slate
+class: dense
 ---
 
 # Adding a surface is adding a line
@@ -743,7 +748,7 @@ p {
 .surface-wrap {
   display: flex;
   justify-content: center;
-  margin: var(--aurora-space-6) auto;
+  margin: var(--aurora-space-4) auto;
 }
 
 .surface-wrap :deep(.shiki),
@@ -752,8 +757,8 @@ p {
 .surface-wrap :deep(.shiki .line),
 .surface-wrap :deep(pre),
 .surface-wrap :deep(code) {
-  font-size: 1.6rem !important;
-  line-height: 2 !important;
+  font-size: 1.3rem !important;
+  line-height: 1.8 !important;
 }
 </style>
 
@@ -810,8 +815,9 @@ h1 { text-align: center; }
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--aurora-space-5);
-  margin-top: var(--aurora-space-4);
+  flex: 1;
 }
 
 .fpd-spine {
@@ -852,8 +858,12 @@ h1 { text-align: center; }
 .fpd-code :deep(.shiki .line),
 .fpd-code :deep(pre),
 .fpd-code :deep(code) {
-  font-size: 1.5rem !important;
-  line-height: 1.8 !important;
+  font-size: 1.1rem !important;
+  line-height: 1.6 !important;
+}
+
+.fpd-code :deep(pre) {
+  overflow-x: hidden !important;
 }
 
 .fpd-fan {
@@ -928,6 +938,7 @@ The triad. Each word becomes a slide. ~5 seconds.
 ---
 layout: full
 color: cream
+class: dense
 ---
 
 # Intent: `flake.nix` declares what you will build. `flake.lock` pins it.
@@ -969,6 +980,20 @@ always current.
 
 </CodeComparison>
 
+<style>
+h1 {
+  font-size: var(--aurora-text-xl) !important;
+  padding-bottom: var(--aurora-space-1) !important;
+  margin-bottom: var(--aurora-space-2) !important;
+  text-align: center;
+  text-wrap: pretty !important;
+}
+
+:deep(pre) {
+  overflow-x: hidden !important;
+}
+</style>
+
 <!--
 Side by side: declaration → pin. flake.nix says "I want nixpkgs from the 25.11 branch." flake.lock says "specifically commit 2b0b0e4, last modified Jan 2025, with this exact content hash." The lock file IS your software bill of materials. ~20 seconds.
 -->
@@ -976,6 +1001,7 @@ Side by side: declaration → pin. flake.nix says "I want nixpkgs from the 25.11
 ---
 layout: full
 color: cream
+class: dense
 ---
 
 # Guarantee: `versions.nix` starts simple and grows with your ambition
@@ -1034,8 +1060,8 @@ color: cream
 :deep(.shiki-magic-move pre),
 :deep(.shiki-magic-move code),
 :deep(.shiki-magic-move span) {
-  font-size: 1.1rem !important;
-  line-height: 1.7 !important;
+  font-size: 1.0rem !important;
+  line-height: 1.5 !important;
 }
 </style>
 
@@ -1046,11 +1072,18 @@ One diff here propagates to every devshell, container, VM, and CI pipeline. No s
 ---
 layout: default
 color: slate
+class: dense
 ---
 
-# Outcome: the system fingerprints itself on every build
+<div class="outcome-split">
+<div class="outcome-left">
 
-<div class="outcome-wrap">
+### Outcome: the system fingerprints itself on every build
+
+The moment your shell loads, you know the environment, the provenance, and the source. Certainty is the default behavior.
+
+</div>
+<div class="outcome-right">
 
 ```bash
 $ cat /.konductor
@@ -1076,33 +1109,38 @@ oci_tags = ["latest-qcow2", "qcow2-dirty",
 ```
 
 </div>
-
-The moment your shell loads, you know the environment, the provenance, and the source. Certainty is
-the default behavior.
+</div>
 
 <style>
-h1 { text-align: center; }
-p { text-align: center; }
-
-.outcome-wrap {
-  display: flex;
-  justify-content: center;
+.outcome-split {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--aurora-space-4);
+  height: 100%;
+  align-items: center;
 }
 
-.outcome-wrap :deep(.shiki),
-.outcome-wrap :deep(.shiki code),
-.outcome-wrap :deep(.shiki span),
-.outcome-wrap :deep(.shiki .line),
-.outcome-wrap :deep(pre),
-.outcome-wrap :deep(code),
-:deep(.shiki),
-:deep(.shiki code),
-:deep(.shiki span),
-:deep(.shiki .line),
-:deep(pre),
-:deep(code) {
-  font-size: 1.0rem !important;
-  line-height: 1.5 !important;
+.outcome-left h3 {
+  font-size: var(--aurora-text-2xl) !important;
+  border-bottom: 2px solid color-mix(in oklch, var(--scheme-accent) 30%, transparent);
+  padding-bottom: var(--aurora-space-2);
+  margin-bottom: var(--aurora-space-4) !important;
+}
+
+.outcome-left p {
+  font-size: var(--aurora-text-base);
+  color: var(--scheme-text-secondary);
+  line-height: var(--aurora-leading-relaxed);
+}
+
+.outcome-right :deep(.shiki),
+.outcome-right :deep(.shiki code),
+.outcome-right :deep(.shiki span),
+.outcome-right :deep(.shiki .line),
+.outcome-right :deep(pre),
+.outcome-right :deep(code) {
+  font-size: 0.82rem !important;
+  line-height: 1.45 !important;
 }
 </style>
 
@@ -1113,6 +1151,7 @@ Real output from a live Konductor VM. SSH in and the MOTD shows the Nix derivati
 ---
 layout: default
 color: slate
+class: dense
 ---
 
 # The same provenance, inside the certificate
@@ -1141,12 +1180,13 @@ Same provenance from `/.konductor`, enriched and embedded in the cryptographic m
 certificate carries its own proof of lineage.
 
 <style>
-h1 { text-align: center; }
+h1 { text-align: center; font-size: var(--aurora-text-2xl) !important; }
 p { text-align: center; }
 
 .outcome-wrap {
   display: flex;
   justify-content: center;
+  margin-top: var(--aurora-space-3);
 }
 
 .outcome-wrap :deep(.shiki),
@@ -1161,8 +1201,8 @@ p { text-align: center; }
 :deep(.shiki .line),
 :deep(pre),
 :deep(code) {
-  font-size: 1.2rem !important;
-  line-height: 1.6 !important;
+  font-size: 1.0rem !important;
+  line-height: 1.5 !important;
 }
 </style>
 
@@ -1233,24 +1273,28 @@ color: slate
 </div>
 
 <style>
-h1 { text-align: center; }
+h1 {
+  text-align: center;
+  font-size: var(--aurora-text-2xl) !important;
+  margin-bottom: var(--aurora-space-1) !important;
+  padding-bottom: var(--aurora-space-1) !important;
+}
 
 .browser-sandwich {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--aurora-space-4);
-  margin-top: var(--aurora-space-4);
+  gap: var(--aurora-space-2);
+  margin-top: var(--aurora-space-1);
   flex: 1;
   min-height: 0;
 }
 
 .browser-screenshot {
-  max-height: 75%;
-  max-width: 90%;
+  max-height: 85%;
+  max-width: 95%;
   object-fit: contain;
   border-radius: var(--aurora-radius-md);
-  border: 1px solid oklch(100% 0 0 / 0.15);
 }
 
 .browser-rule {
@@ -1261,11 +1305,10 @@ h1 { text-align: center; }
 }
 
 .browser-access {
-  font-size: var(--aurora-text-2xl);
+  font-size: var(--aurora-text-xl);
   font-weight: var(--aurora-font-bold);
   color: var(--scheme-heading, white);
   text-align: center;
-  white-space: nowrap;
 }
 </style>
 
@@ -1287,6 +1330,7 @@ The KubeVirt VM is a pod. Services built inside it are live on the cluster — K
 ---
 layout: default
 color: cream
+class: dense
 ---
 
 <div class="hub-header">
@@ -1296,7 +1340,6 @@ color: cream
     <div class="hub-above" :class="{ 'hub-hidden': $clicks < 2 }">Human <span class="hub-sep">+</span> CI <span class="hub-sep">+</span> AI</div>
   </div>
   <hr class="hub-line" />
-  <div class="hub-below">Hub</div>
 </div>
 
 <div class="hub-body">
@@ -1420,15 +1463,16 @@ color: cream
 
 .hub-body {
   display: flex;
-  gap: var(--aurora-space-6);
+  gap: var(--aurora-space-4);
   flex: 1;
   min-height: 0;
   align-items: flex-start;
+  flex-direction: row-reverse;
 }
 
 .hub-tree-stack {
   display: grid;
-  flex: 1;
+  flex: 2;
   min-width: 0;
   align-self: center;
 }
@@ -1443,10 +1487,10 @@ color: cream
 }
 
 .hub-cards {
-  flex: 0 0 38%;
+  flex: 0 0 34%;
   display: flex;
   flex-direction: column;
-  gap: var(--aurora-space-3);
+  gap: var(--aurora-space-2);
   align-self: center;
   min-width: 0;
 }
@@ -1455,7 +1499,7 @@ color: cream
   display: flex;
   flex-direction: column;
   gap: var(--aurora-space-1);
-  padding: var(--aurora-space-3) var(--aurora-space-4);
+  padding: var(--aurora-space-2) var(--aurora-space-3);
   background: color-mix(in oklch, var(--scheme-accent, var(--aurora-lavender-400)) 8%, transparent);
   border-inline-start: 3px solid var(--scheme-accent, var(--aurora-lavender-400));
   border-radius: var(--aurora-radius-md);
@@ -1471,16 +1515,16 @@ color: cream
 }
 
 .hub-card-body {
-  font-size: var(--aurora-text-xl);
+  font-size: var(--aurora-text-base);
   font-weight: var(--aurora-font-bold);
   color: var(--scheme-heading);
   line-height: var(--aurora-leading-snug);
 }
 
 .hub-card-detail {
-  font-size: var(--aurora-text-base);
+  font-size: var(--aurora-text-sm);
   color: var(--scheme-text-secondary);
-  line-height: var(--aurora-leading-relaxed);
+  line-height: var(--aurora-leading-snug);
 }
 
 .hub-card-detail code {
@@ -1492,6 +1536,13 @@ color: cream
 .hub-hidden {
   opacity: 0;
   visibility: hidden;
+}
+
+.hub-tree :deep(pre) {
+  font-size: 0.75rem !important;
+  line-height: 1.35 !important;
+  width: fit-content !important;
+  padding: var(--aurora-space-2) var(--aurora-space-3) !important;
 }
 </style>
 
@@ -1556,6 +1607,7 @@ color: cream
 columns: 1fr 1fr
 leftColor: lavender
 rightColor: sky
+class: dense
 ---
 
 # Shared experience. Structural alignment.
@@ -1679,6 +1731,7 @@ color: cream
 columns: 1fr 1fr
 leftColor: sky
 rightColor: lavender
+class: dense
 ---
 
 # Before and after
@@ -1702,6 +1755,19 @@ rightColor: lavender
 - Onboarding: clone workspace.git, done
 - PKI: generated at build, provenance embedded
 - `cat /.konductor` (the system tells you)
+
+<style>
+li {
+  font-size: var(--aurora-text-base) !important;
+  margin-bottom: var(--aurora-space-1) !important;
+}
+
+:deep(.col-left), :deep(.col-right) {
+  padding: var(--aurora-space-3) !important;
+  max-height: 380px;
+  overflow: hidden;
+}
+</style>
 
 <!--
 Before/after callbacks. Left column: phrases every engineer has said or heard. Right column: the specific mechanism from the talk that eliminates it. Each pair maps to an arc they walked through. ~15 seconds.
@@ -1824,5 +1890,5 @@ CTA. Open source. Fork it. Clone into your workspace path. nix develop. QR codes
 ---
 
 ---
-
 src: ../../shared/fragments/thanks.md
+---

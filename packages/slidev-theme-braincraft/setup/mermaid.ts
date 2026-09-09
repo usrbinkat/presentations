@@ -7,8 +7,9 @@
 import { defineMermaidSetup } from '@slidev/types'
 
 export default defineMermaidSetup(() => {
-  const isDark = typeof document !== 'undefined'
-    && document.documentElement.classList.contains('dark')
+  const isDark
+    = typeof document !== 'undefined'
+      && document.documentElement.classList.contains('dark')
 
   if (isDark) {
     return {
