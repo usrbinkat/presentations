@@ -12,6 +12,7 @@ overrides:
 
 allowBuilds:
   esbuild: true
+  playwright-chromium: true
   simple-git-hooks: true
   vue-demi: true
 
@@ -35,6 +36,7 @@ catalog:
   eslint-plugin-format: ^2.0.1
   lint-staged: ^17.5.0
   playwright: ^1.52.0
+  playwright-chromium: ^1.52.0
   prettier: ^3.9.6
   prettier-plugin-slidev: ^1.0.5
   qrcode: ^1.5.4

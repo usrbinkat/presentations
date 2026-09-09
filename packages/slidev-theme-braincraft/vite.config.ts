@@ -5,7 +5,7 @@ import path from 'node:path'
 import process from 'node:process'
 import sirv from 'sirv'
 import { defineConfig } from 'vite'
-import { buildDate, git, repositoryUrl } from '../../lib/git-utils'
+import { buildDate, git, repositoryUrl } from '../../lib/git-utils.ts'
 
 // Theme-level Vite config loaded automatically by Slidev's resolveViteConfigs
 // because theme roots are included in options.roots.

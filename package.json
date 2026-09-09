@@ -30,6 +30,7 @@
     "eslint-plugin-format": "catalog:",
     "lint-staged": "catalog:",
     "playwright": "catalog:",
+    "playwright-chromium": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-slidev": "catalog:",
     "simple-git-hooks": "catalog:",
