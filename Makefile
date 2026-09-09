@@ -12,7 +12,7 @@ DECK ?= rekindle-transport-veilid
 PIDFILE := $(ROOT).slidev-dev.pid
 LOGFILE := $(ROOT).slidev-dev.log
 
-.PHONY: install dev stop status log build export clean routes lint lint-fix lint-slides test typecheck
+.PHONY: install dev stop status log build export clean routes lint lint-fix lint-slides test typecheck excalidraw-render
 
 install:
 	pnpm install -C $(ROOT)
@@ -81,3 +81,10 @@ routes:
 	@grep -h 'routeAlias:' $(ROOT)decks/$(DECK)/slides.md | sed 's/.*routeAlias: *//' | while read alias; do \
 		echo "  http://localhost:$(PORT)/$$alias"; \
 	done
+
+excalidraw-render:
+	@if [ -z "$(FILE)" ]; then \
+		echo "Usage: make excalidraw-render FILE=decks/rekindle-transport-veilid/public/diagram.excalidraw.json"; \
+		exit 1; \
+	fi
+	python3 $(ROOT)scripts/excalidraw/render_excalidraw.py $(ROOT)$(FILE)

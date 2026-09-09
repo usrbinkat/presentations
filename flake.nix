@@ -4,7 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     konductor = {
-      url = "github:braincraftio/konductor";
+      # TODO: revert to github:braincraftio/konductor after push
+      url = "git+file:///workspace/usrbinkat/git.braincraft.io/braincraft/k9";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -32,7 +33,12 @@
           # Linux: #frontend provides Playwright browser deps + Node.js + pnpm.
           # Darwin: #full provides Node.js + pnpm (Playwright not packaged for macOS in nixpkgs).
           #         Playwright browsers are installed via npx on Darwin.
-          baseShell = konductor.devShells.${system}.${if pkgs.stdenv.isLinux then "frontend" else "full"};
+          konductorShell =
+            konductor.devShells.${system}.${if pkgs.stdenv.isLinux then "frontend" else "full"};
+          # Extend konductor's Python environment with presentation tooling.
+          # passthru.withExtraPython rebuilds the entire shell chain with
+          # additional packages in pythonEnv — idiomatic nixpkgs passthru pattern.
+          baseShell = konductorShell.passthru.withExtraPython (ps: [ ps.playwright ]);
         in
         {
           default = baseShell.overrideAttrs (old: {

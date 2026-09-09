@@ -169,6 +169,46 @@ Data availability, consistency, and provenance start with four engineering const
 src: ./problem-framing.md
 ---
 
+---
+src: ../../shared/fragments/veilid/veilid-core/api-surface.md
+---
+
+---
+src: ../../shared/fragments/veilid/veilid-core/attachment-lifecycle.md
+---
+
+---
+src: ../../shared/fragments/veilid/veilid-core/private-routing.md
+---
+
+---
+src: ../../shared/fragments/veilid/veilid-core/messaging-primitives.md
+---
+
+---
+src: ../../shared/fragments/veilid/veilid-core/dht-data-model.md
+---
+
+---
+src: ../../shared/fragments/veilid/veilid-core/reactivity-watches.md
+---
+
+---
+src: ../../shared/fragments/veilid/veilid-core/dht-transactions.md
+---
+
+---
+src: ../../shared/fragments/veilid/veilid-core/trust-failure.md
+---
+
+---
+src: ../../shared/fragments/veilid/veilid-core/configuration.md
+---
+
+---
+src: ../../shared/fragments/veilid/veilid-core/component-architecture.md
+---
+
 layout: section
 color: slate
 transition: aurora-zoom

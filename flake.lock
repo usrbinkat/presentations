@@ -390,17 +390,17 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1788729764,
-        "narHash": "sha256-Qi/WlpcGPDigT3HBpyRAlb28kRVjaf6DtkPeB5A5wnY=",
-        "owner": "braincraftio",
-        "repo": "konductor",
-        "rev": "be57b448d009a5f55a6d7f28ca200e8f9056de01",
-        "type": "github"
+        "lastModified": 1788931167,
+        "narHash": "sha256-nGcwBPrr9xd84lg8tNHyCRbHp2uCXoaUXuv4cLxeEPg=",
+        "ref": "refs/heads/main",
+        "rev": "f29da760a88a1c789b70733d4a89e36b8e3a4eb3",
+        "revCount": 699,
+        "type": "git",
+        "url": "file:///workspace/usrbinkat/git.braincraft.io/braincraft/k9"
       },
       "original": {
-        "owner": "braincraftio",
-        "repo": "konductor",
-        "type": "github"
+        "type": "git",
+        "url": "file:///workspace/usrbinkat/git.braincraft.io/braincraft/k9"
       }
     },
     "konductor_2": {
