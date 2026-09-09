@@ -9,8 +9,7 @@
   Or via global-bottom.vue for all slides.
 -->
 <script setup lang="ts">
-import SlideCurrentNo from '@slidev/client/builtin/SlideCurrentNo.vue'
-import SlidesTotal from '@slidev/client/builtin/SlidesTotal.vue'
+// SlideCurrentNo and SlidesTotal are Slidev builtins registered globally at runtime.
 
 const { x = 'r', y = 't' } = defineProps<{
   x?: 'l' | 'r'

@@ -9,6 +9,8 @@
       "#addon/*": ["./packages/slidev-addon-braincraft/*"]
     },
     "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "ignoreDeprecations": "6.0",
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -27,5 +29,5 @@
     "decks/**/*.mts",
     "decks/**/*.vue"
   ],
-  "exclude": ["node_modules", "dist", ".slidev"]
+  "exclude": ["**/node_modules/**", "**/dist/**", "**/.slidev/**"]
 }

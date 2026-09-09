@@ -37,6 +37,7 @@
     "slidev-workspace": "catalog:",
     "typescript": "catalog:",
     "unocss": "catalog:",
+    "vite": "catalog:",
     "vitest": "catalog:",
     "vue": "catalog:",
     "vue-tsc": "catalog:"

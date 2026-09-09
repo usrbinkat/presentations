@@ -21,7 +21,7 @@ catalog:
   '@iconify-json/logos': ^1.2.13
 
   # Shiki transformers — code block annotations
-  '@shikijs/transformers': ^3.0.0
+  '@shikijs/transformers': ^4.0.0
 
   # Slidev ecosystem — pin to same major
   '@slidev/cli': ^52.19.1
